@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewData["Title"] = "Inicio de sesión";
+}
+
+@model Usuario
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+    <div class="row">
+        <h1>
+            Iniciar Sesión
+        </h1>
+        <div class="form-floating">
+            @* Formulario para la ingresión de datos *@
+            <form id="formInicioSesion" method="post" asp-controller="Login" asp-action="ValidarDataAnnotations"> @* Falta editar el asp-action de esta etiqueta, tambien agregar las DataAnnotations en el modelo usuario*@
+                @* Sección para ingresar el usuario *@
+                <div class="mt-5">
+                    <label asp-for="Username">Usuario:</label>
+                    <input type="text" asp-for="Username" id="entUsuario" class="form-control" placeholder="Escriba el usuario aquí">
+                    <span asp-validation-for="Username" id="spanUsuario" class="text-danger"></span>
+                </div>
+
+                @* Sección para ingresar la contraseña *@
+                <div class="mt-3">
+                    <label asp-for="Password">Contraseña:</label>
+                    <input type="text" asp-for="Password" id="entPass" class="form-control" placeholder="Escriba la contraseña aquí">
+                    <span asp-validation-for="Password" id="spanPass" class="text-danger"></span>
+                </div>
+
+            </form>
+            @* Sección para los botones *@
+            <div class="mt-3" id="div-botones">
+                <button type="submit" id="btnSubmit" class="btn btn-primary" form="formInicioSesion">Iniciar sesión</button>
+                @* <button id="btnBack" class="btn btn-primary" onclick="location.href='@Url.Action("Listar", "Empleado")'">Regresar</button> *@
+            </div>
+        </div>
+    </div>
+</body>
+</html>

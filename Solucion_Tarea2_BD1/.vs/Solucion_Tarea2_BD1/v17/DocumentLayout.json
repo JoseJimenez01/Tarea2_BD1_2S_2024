@@ -1,10 +1,26 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\",
+  "WorkspaceRootPath": "C:\\Users\\Usuario II 2024\\Desktop\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|c:\\users\\usuario\\onedrive\\escritorio\\material_y_evaluaciones_de_cursos\\2 s 2024\\bases de datos 1\\tarea 2\\tarea2_bd1_2s_2024\\solucion_tarea2_bd1\\tarea2_bd1\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|solutionrelative:tarea2_bd1\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|c:\\users\\usuario ii 2024\\desktop\\tarea2_bd1_2s_2024\\solucion_tarea2_bd1\\tarea2_bd1\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|solutionrelative:tarea2_bd1\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|c:\\users\\usuario ii 2024\\desktop\\tarea2_bd1_2s_2024\\solucion_tarea2_bd1\\tarea2_bd1\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|solutionrelative:tarea2_bd1\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|c:\\users\\usuario ii 2024\\desktop\\tarea2_bd1_2s_2024\\solucion_tarea2_bd1\\tarea2_bd1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|solutionrelative:tarea2_bd1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|c:\\users\\usuario ii 2024\\desktop\\tarea2_bd1_2s_2024\\solucion_tarea2_bd1\\tarea2_bd1\\views\\login\\signin.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|solutionrelative:tarea2_bd1\\views\\login\\signin.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|c:\\users\\usuario ii 2024\\desktop\\tarea2_bd1_2s_2024\\solucion_tarea2_bd1\\tarea2_bd1\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|solutionrelative:tarea2_bd1\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,14 +35,66 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "Tarea2_BD1\\Controllers\\HomeController.cs",
-              "ToolTip": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "Tarea2_BD1\\Controllers\\HomeController.cs",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Usuario II 2024\\Desktop\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "Tarea2_BD1\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Usuario II 2024\\Desktop\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "Tarea2_BD1\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-09-15T03:02:07.627Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario II 2024\\Desktop\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Program.cs",
+              "RelativeDocumentMoniker": "Tarea2_BD1\\Program.cs",
+              "ToolTip": "C:\\Users\\Usuario II 2024\\Desktop\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Program.cs",
+              "RelativeToolTip": "Tarea2_BD1\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-15T03:00:48.514Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LoginController.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario II 2024\\Desktop\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Controllers\\LoginController.cs",
+              "RelativeDocumentMoniker": "Tarea2_BD1\\Controllers\\LoginController.cs",
+              "ToolTip": "C:\\Users\\Usuario II 2024\\Desktop\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Controllers\\LoginController.cs",
+              "RelativeToolTip": "Tarea2_BD1\\Controllers\\LoginController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-15T02:41:58.791Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Usuario.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario II 2024\\Desktop\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Models\\Usuario.cs",
+              "RelativeDocumentMoniker": "Tarea2_BD1\\Models\\Usuario.cs",
+              "ToolTip": "C:\\Users\\Usuario II 2024\\Desktop\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Models\\Usuario.cs",
+              "RelativeToolTip": "Tarea2_BD1\\Models\\Usuario.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-05T02:39:31.451Z",
+              "WhenOpened": "2024-09-15T02:32:29.906Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SignIn.cshtml",
+              "DocumentMoniker": "C:\\Users\\Usuario II 2024\\Desktop\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Views\\Login\\SignIn.cshtml",
+              "RelativeDocumentMoniker": "Tarea2_BD1\\Views\\Login\\SignIn.cshtml",
+              "ToolTip": "C:\\Users\\Usuario II 2024\\Desktop\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Views\\Login\\SignIn.cshtml",
+              "RelativeToolTip": "Tarea2_BD1\\Views\\Login\\SignIn.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-09-15T02:12:59.812Z",
               "EditorCaption": ""
             }
           ]
