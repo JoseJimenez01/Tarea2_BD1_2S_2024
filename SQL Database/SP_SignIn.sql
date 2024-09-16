@@ -11,7 +11,6 @@ CREATE OR ALTER PROCEDURE dbo.SP_SignIn
 	@inUsername VARCHAR(64)
 	, @inPassword VARCHAR(64)
 	, @inPostInIP VARCHAR(32)
-	, @outMessage VARCHAR(128) OUTPUT
 	, @outResult INT OUTPUT
 )
 AS
@@ -25,7 +24,7 @@ BEGIN
 			RETURN;
 		END;
 
-		--En caso de no haberlo, se agrega el empleado
+		--En caso de existir el usuario
 		INSERT INTO dbo.Empleado(
 			Nombre
 			, Salario)
@@ -36,7 +35,6 @@ BEGIN
     
 		--Se guardan los valores de salida del SP
 		SET @outResult = 0
-		SET @outMessage = 'Empleados agregados exitosamente.'
 
 		SET NOCOUNT OFF;
 	END TRY
@@ -65,8 +63,7 @@ BEGIN
 		);
 
 		--Se guardan los valores de salida del SP
-		SET @outResult = 50005
-		SET @outMessage = ERROR_MESSAGE()
+		SET @outResult = 50008
 		SET NOCOUNT OFF;
 	END CATCH
 END

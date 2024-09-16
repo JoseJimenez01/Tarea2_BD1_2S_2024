@@ -26,6 +26,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Usuario II 2024\Desktop\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/Usuario II 2024/Desktop/Tarea2_BD1_2S_2024/Solucion_Tarea2_BD1/Tarea2_BD1/Views/Empleado/ListarFiltrar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbGVhZG9cTGlzdGFyRmlsdHJhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Usuario II 2024/Desktop/Tarea2_BD1_2S_2024/Solucion_Tarea2_BD1/Tarea2_BD1/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

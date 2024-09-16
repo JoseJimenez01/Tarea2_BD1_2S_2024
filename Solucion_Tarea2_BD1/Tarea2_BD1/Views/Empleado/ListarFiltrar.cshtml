@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Tarea1_BD1.Models.Empleado>
+
+@{
+    ViewData["Title"] = "Empleados";
+}
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body onload="ObtenerColorDeFondo()">
+    <h1>Lista de Empleados</h1>
+
+    <div>
+        <div id="div-filtrar">
+            <input type="text" id="entFiltro" class="form-control" placeholder="Busqueda por nombre o valor de documento de identidad">
+            <button id="btnFiltro" class="btn btn-primary" onclick="location.href='@Url.Action("Listar", "Empleado")'">Buscar</button>
+        </div>
+        <div id="div-botonesCRUD">
+            @* Deshabilitar estos botones hasta que se seleccione un empleado en la tabla listada *@
+            <button id="btnConsulta" class="btn btn-primary" onclick="location.href='@Url.Action("", "")'">Consulta</button>
+            <button id="btnActualizar" class="btn btn-primary" onclick="location.href='@Url.Action("", "")'">Actualizar</button>
+            <button id="btnBorrar" class="btn btn-primary" onclick="location.href='@Url.Action("Listar", "Empleado")'">Borrar</button>
+        </div>
+        <div id="div-lista">
+            <table class="table table-hover">
+                <tr>
+                    <th id="encId">
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th id="encNom">
+                        @Html.DisplayNameFor(model => model.Nombre)
+                    </th>
+                    <th id="encSal">
+                        @Html.DisplayNameFor(model => model.Salario)
+                    </th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Salario)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+        @* @Html.ActionLink("Agregar", "Agregar", "Empleado") *@
+        <form>
+            <input type="submit" id="btnAgregar" class="btn btn-primary" value="Agregar" asp-controller="Empleado" asp-action="Agregar">
+        </form>
+    </div>
+</body>
+</html>
+
