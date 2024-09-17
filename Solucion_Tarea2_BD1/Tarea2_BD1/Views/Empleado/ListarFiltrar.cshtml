@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Tarea1_BD1.Models.Empleado>
+﻿@model IEnumerable<Tarea2_BD1.Models.Empleado>
 
 @{
     ViewData["Title"] = "Empleados";
@@ -26,7 +26,7 @@
             <button id="btnFiltro" class="btn btn-primary" onclick="location.href='@Url.Action("Listar", "Empleado")'">Buscar</button>
         </div>
         <div id="div-botonesCRUD">
-            @* Deshabilitar estos botones hasta que se seleccione un empleado en la tabla listada *@
+            @* Deshabilitar estos botones hasta que se seleccione un empleado en la lista de empleados *@
             <button id="btnConsulta" class="btn btn-primary" onclick="location.href='@Url.Action("", "")'">Consulta</button>
             <button id="btnActualizar" class="btn btn-primary" onclick="location.href='@Url.Action("", "")'">Actualizar</button>
             <button id="btnBorrar" class="btn btn-primary" onclick="location.href='@Url.Action("Listar", "Empleado")'">Borrar</button>
@@ -34,33 +34,33 @@
         <div id="div-lista">
             <table class="table table-hover">
                 <tr>
-                    <th id="encId">
-                        @Html.DisplayNameFor(model => model.Id)
+                    <th id="encCheck">
+                        Seleccion
                     </th>
-                    <th id="encNom">
+                    <th id="encId">
                         @Html.DisplayNameFor(model => model.Nombre)
                     </th>
-                    <th id="encSal">
-                        @Html.DisplayNameFor(model => model.Salario)
+                    <th id="encNom">
+                        @* @Html.DisplayNameFor(model => model.ValorDocumentoIdentidad) *@
+                        Identidad
                     </th>
                 </tr>
                 @foreach (var item in Model)
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Id)
+                            <input type="checkbox" id="seleccionEmpleado"/>
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Nombre)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Salario)
+                            @Html.DisplayFor(modelItem => item.ValorDocumentoIdentidad)
                         </td>
                     </tr>
                 }
             </table>
         </div>
-        @* @Html.ActionLink("Agregar", "Agregar", "Empleado") *@
         <form>
             <input type="submit" id="btnAgregar" class="btn btn-primary" value="Agregar" asp-controller="Empleado" asp-action="Agregar">
         </form>

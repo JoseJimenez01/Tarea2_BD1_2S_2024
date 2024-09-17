@@ -14,7 +14,7 @@ public partial class Usuario
 
     [Required(ErrorMessage = "El espacio no puede quedar en blanco")]
     [MinLength(8, ErrorMessage = "La contraseña debe tener un mínimo de 8 caracteres")]
-    [MaxLength(16, ErrorMessage = "La contraseña debe tener un máximo de 16 caracteres")]
+    [MaxLength(64, ErrorMessage = "La contraseña debe tener un máximo de 64 caracteres")]
     public string Password { get; set; } = null!;
 
     public virtual ICollection<BitacoraEvento> BitacoraEventos { get; set; } = new List<BitacoraEvento>();

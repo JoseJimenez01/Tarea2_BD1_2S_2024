@@ -26,7 +26,7 @@ CREATE TABLE dbo.Empleado
 	, FehaContratacion DATE NOT NULL
 	, SaldoVacaciones MONEY NOT NULL
 	, EsActivo BIT NOT NULL
-	CONSTRAINT FK_Empleado_Puesto FOREIGN KEY (idPuesto) REFERENCES dbo.Puesto(id)
+	, FOREIGN KEY (idPuesto) REFERENCES dbo.Puesto(id)
 );
 
 CREATE TABLE dbo.TipoMovimiento
@@ -73,9 +73,7 @@ CREATE TABLE dbo.BitacoraEvento
 	, Descripcion VARCHAR(128) NOT NULL
 	, PostInIP VARCHAR(32) NOT NULL
 	, PostTime DATETIME NOT NULL
-	--CONSTRAINT FK_BitacoraEvento_TipoEvento FOREIGN KEY (idTipoEvento) REFERENCES dbo.TipoEvento(id)
 	, FOREIGN KEY (idTipoEvento) REFERENCES dbo.TipoEvento(id)
-	--CONSTRAINT FK_BitacoraEvento_Usuario FOREIGN KEY (idPostByUser) REFERENCES dbo.Usuario(id)
 	, FOREIGN KEY (idPostByUser) REFERENCES dbo.Usuario(id)
 );
 

@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
+using System.Data;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
@@ -22,10 +25,97 @@ namespace Tarea2_BD1.Controllers
             return View();
         }
 
-        public ActionResult HacerAviso(string nombreVista, string aviso, Empleado modelo)
+        [HttpPost]
+        public string ConsultaCodError(string codigo)
+        {
+            
+        }
+
+        [HttpPost]
+        public string InicioDeSesion(string usernameForm, string passwordForm)
+        {
+            try
+            {
+                //Sacamos la ip desde donde se ejecuta
+                IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
+                var ippaddress = host.AddressList.FirstOrDefault(ip => ip.AddressFamily == AddressFamily.InterNetwork);
+
+                //Se crea a conexión se abre
+                SqlConnection connection = (SqlConnection)_dbContext.Database.GetDbConnection();
+                connection.Open();
+
+                //Se crea el SP
+                SqlCommand comando = connection.CreateCommand();
+                comando.CommandType = System.Data.CommandType.StoredProcedure;
+                comando.CommandText = "SP_SignIn";
+
+                //Código para crear parámetros al Store Procedure
+                SqlParameter paramUsername = new SqlParameter
+                {
+                    ParameterName = "@inUsername",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 64,
+                    Value = usernameForm,
+                    Direction = ParameterDirection.Input
+                };
+
+                SqlParameter paramPassword = new SqlParameter
+                {
+                    ParameterName = "@inPassword",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 64,
+                    Value = passwordForm,
+                    Direction = ParameterDirection.Input
+                };
+
+                SqlParameter paramPostInIP = new SqlParameter
+                {
+                    ParameterName = "@inPostInIP",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 32,
+                    Value = ippaddress,
+                    Direction = ParameterDirection.Input
+                };
+
+                SqlParameter paramCod = new SqlParameter
+                {
+                    ParameterName = "@outResult",
+                    SqlDbType = SqlDbType.Int,
+                    Value = -345678,
+                    Direction = ParameterDirection.InputOutput
+                };
+
+                //Se agrega cada parámetro al SP
+                comando.Parameters.Add(paramUsername);
+                comando.Parameters.Add(paramPassword);
+                comando.Parameters.Add(paramPostInIP);
+                comando.Parameters.Add(paramCod);
+
+                //Se leen los parámetros de salida
+                comando.ExecuteNonQuery();
+                string SPresult = comando.Parameters["@outResult"].Value.ToString()!;
+                Console.WriteLine("\n------------------- SE HA EJECUTADO EL SP_SignIn -------------------");
+                Console.WriteLine(" El codigo de salida del sp es: " + SPresult);
+                Console.WriteLine("-----------------------------------------------------------------------------\n");
+
+                connection.Close();
+
+                if (SPresult == "0")
+                {
+                    return String.Format("exito");
+                }
+            }
+            catch (Exception ex)
+            {
+                return String.Format("El error es: {0}", ex.ToString());
+            }
+            return "Hubo algun error inesperado";
+        }
+
+        public ActionResult HacerAviso(string nombreVista, string aviso, Usuario modelo)
         {
             TempData["Message"] = aviso;
-            if (nombreVista == "Listar")
+            if (nombreVista == "ListarFiltrar")
             {
                 return RedirectToAction(nombreVista);
             }
@@ -33,27 +123,29 @@ namespace Tarea2_BD1.Controllers
         }
 
         [HttpPost]
-        public IActionResult ValidarDataAnnotations(Empleado empleado)
+        public IActionResult ValidarDataAnnotations(Usuario usuario)
         {
             if (ModelState.IsValid)
             {
-                //Código para capturar la ip del usuario
-                IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
-                var ippaddress = host.AddressList.FirstOrDefault(ip => ip.AddressFamily == AddressFamily.InterNetwork);
-                //TempData["Message"] = String.Format("La ip es: {0}", ippaddress);
-                RedirectToAction("SignIn");
-                //string json = IngresarEmpleadoEnBD(empleado.Nombre, empleado.Salario);
-                //dynamic mensaje = JsonConvert.DeserializeObject(json);
-                //if (mensaje["mensaje"].ToString() == "El empleado ya existe en la base de datos")
-                //{
-                //    return HacerAviso("Agregar", "Nombre de empleado ya existe", empleado);
-                //}
-                //else if (mensaje["mensaje"].ToString() == "Empleado agregado exitosamente")
-                //{
-                //    return HacerAviso("Listar", "Inserción exitosa", empleado);
-                //}
+                //Resultado del inicio de sesion
+                string resultado = InicioDeSesion(usuario.Username, usuario.Password);
+
+                if (resultado == "0")
+                {
+                    return HacerAviso("ListarFiltrar", "Inicio de sesión exitoso", usuario);
+                }
+                else if (resultado == "50001")
+                {
+                    //return HacerAviso("SignIn", resultado, usuario);
+                }
+                else if (resultado == "50008")
+                { 
+                }
+                else
+                {
+                    return HacerAviso("SignIn", resultado, usuario);
+                }
             }
-            //return HacerAviso("Listar", String.Format("La ip es: {0}", ippaddress), empleado);
              return Ok();
         }
 
