@@ -26,9 +26,71 @@ namespace Tarea2_BD1.Controllers
         }
 
         [HttpPost]
-        public string ConsultaCodError(string codigo)
+        public string ConsultaCodError(string codigo, string usuario)
         {
-            
+            try
+            {
+                //Se crea a conexión se abre
+                SqlConnection connection = (SqlConnection)_dbContext.Database.GetDbConnection();
+                connection.Open();
+
+                //Se crea el SP
+                SqlCommand comando = connection.CreateCommand();
+                comando.CommandType = System.Data.CommandType.StoredProcedure;
+                comando.CommandText = "SP_ConsultaError";
+
+                //Código para crear parámetros al Store Procedure
+                SqlParameter paramUsername = new SqlParameter
+                {
+                    ParameterName = "@inUsername",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 64,
+                    Value = usuario,
+                    Direction = ParameterDirection.Input
+                };
+
+                SqlParameter paramCodigo = new SqlParameter
+                {
+                    ParameterName = "@inCodigo",
+                    SqlDbType = SqlDbType.Int,
+                    Value = int.Parse(codigo), //lo cambiamos a int, porque asi esta guardado en la base de datos
+                    Direction = ParameterDirection.Input
+                };
+
+                SqlParameter paramCod = new SqlParameter
+                {
+                    ParameterName = "@outResult",
+                    SqlDbType = SqlDbType.Int,
+                    Value = -345678,
+                    Direction = ParameterDirection.InputOutput
+                };
+
+                //Se agrega cada parámetro al SP
+                comando.Parameters.Add(paramUsername);
+                comando.Parameters.Add(paramCodigo);
+                comando.Parameters.Add(paramCod);
+
+                //Se leen los datos devueltos por el SP(dataset)
+                SqlDataReader reader = comando.ExecuteReader();
+                string descripcionError = Convert.ToString(reader["E.Descripcion"])!;
+                reader.Close();
+
+                comando.ExecuteNonQuery();
+
+                //Se leen los parámetros de salida
+                string SPresult = comando.Parameters["@outResult"].Value.ToString()!;
+                Console.WriteLine("\n------------------- SE HA EJECUTADO EL SP_ConsultaError -------------------");
+                Console.WriteLine(" El codigo de salida del sp es: " + SPresult);
+                Console.WriteLine("-----------------------------------------------------------------------------\n");
+
+                connection.Close();
+
+                return descripcionError;
+            }
+            catch (Exception ex)
+            {
+                return String.Format("El error es: {0}", ex.ToString());
+            }
         }
 
         [HttpPost]
@@ -91,8 +153,9 @@ namespace Tarea2_BD1.Controllers
                 comando.Parameters.Add(paramPostInIP);
                 comando.Parameters.Add(paramCod);
 
-                //Se leen los parámetros de salida
                 comando.ExecuteNonQuery();
+
+                //Se leen los parámetros de salida
                 string SPresult = comando.Parameters["@outResult"].Value.ToString()!;
                 Console.WriteLine("\n------------------- SE HA EJECUTADO EL SP_SignIn -------------------");
                 Console.WriteLine(" El codigo de salida del sp es: " + SPresult);
@@ -100,26 +163,33 @@ namespace Tarea2_BD1.Controllers
 
                 connection.Close();
 
-                if (SPresult == "0")
-                {
-                    return String.Format("exito");
-                }
+                return SPresult;
             }
             catch (Exception ex)
             {
                 return String.Format("El error es: {0}", ex.ToString());
             }
-            return "Hubo algun error inesperado";
         }
 
-        public ActionResult HacerAviso(string nombreVista, string aviso, Usuario modelo)
+        public ActionResult HacerAviso(string nombreVista, Usuario modeloUsuario, string codigo)
         {
-            TempData["Message"] = aviso;
             if (nombreVista == "ListarFiltrar")
             {
-                return RedirectToAction(nombreVista);
+                TempData["Message"] = "Inicio de sesión exitoso";
+                return RedirectToAction(nombreVista, modeloUsuario);
             }
-            return RedirectToAction(nombreVista, modelo);
+            else if (nombreVista == "SignIn")
+            {
+                //Consulta el error y lo guarda comno aviso cuando redireccione a la pagina de inicio de sesion
+                TempData["Message"] = ConsultaCodError(codigo, modeloUsuario.Username);
+                return RedirectToAction(nombreVista, modeloUsuario);
+            }
+            //Error generado en el try and catch del metodo que hace el inicio de sesion en la BD
+            else if (codigo != "0"  && codigo != "50001" && codigo != "50008")
+            {
+                return RedirectToAction(nombreVista, modeloUsuario);
+            }
+            return Ok();
         }
 
         [HttpPost]
@@ -132,21 +202,18 @@ namespace Tarea2_BD1.Controllers
 
                 if (resultado == "0")
                 {
-                    return HacerAviso("ListarFiltrar", "Inicio de sesión exitoso", usuario);
+                    return HacerAviso("ListarFiltrar", usuario, resultado);
                 }
-                else if (resultado == "50001")
+                else if (resultado == "50001" || resultado == "50008")
                 {
-                    //return HacerAviso("SignIn", resultado, usuario);
-                }
-                else if (resultado == "50008")
-                { 
+                    return HacerAviso("SignIn", usuario, resultado);
                 }
                 else
                 {
-                    return HacerAviso("SignIn", resultado, usuario);
+                    return HacerAviso("SignIn", usuario, resultado);
                 }
             }
-             return Ok();
+            return Ok();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
