@@ -20,3 +20,12 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+#div-filtrar {
+    display: flex;
+    align-items: center;
+}
+
+#btnFiltro {
+    margin-left: 10px;
+}

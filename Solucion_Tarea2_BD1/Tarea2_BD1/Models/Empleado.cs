@@ -13,7 +13,7 @@ public partial class Empleado
 
     public string Nombre { get; set; } = null!;
 
-    public DateOnly FehaContratacion { get; set; }
+    public DateOnly FechaContratacion { get; set; }
 
     public decimal SaldoVacaciones { get; set; }
 
@@ -22,4 +22,5 @@ public partial class Empleado
     public virtual Puesto IdPuestoNavigation { get; set; } = null!;
 
     public virtual ICollection<Movimiento> Movimientos { get; set; } = new List<Movimiento>();
+
 }

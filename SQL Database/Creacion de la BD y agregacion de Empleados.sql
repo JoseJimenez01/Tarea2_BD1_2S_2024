@@ -23,7 +23,7 @@ CREATE TABLE dbo.Empleado
 	, idPuesto INT NOT NULL
 	, ValorDocumentoIdentidad INT NOT NULL
 	, Nombre VARCHAR(128) NOT NULL
-	, FehaContratacion DATE NOT NULL
+	, FechaContratacion DATE NOT NULL
 	, SaldoVacaciones MONEY NOT NULL
 	, EsActivo BIT NOT NULL
 	, FOREIGN KEY (idPuesto) REFERENCES dbo.Puesto(id)

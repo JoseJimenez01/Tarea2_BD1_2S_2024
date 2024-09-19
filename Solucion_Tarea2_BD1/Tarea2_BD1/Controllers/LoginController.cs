@@ -26,6 +26,92 @@ namespace Tarea2_BD1.Controllers
         }
 
         [HttpPost]
+        public int ConsultaInicioSesionFallidos(int tiempo, string usuario)
+        {
+            try
+            {
+                //Sacamos la ip desde donde se ejecuta
+                IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
+                var ippaddress = host.AddressList.FirstOrDefault(ip => ip.AddressFamily == AddressFamily.InterNetwork);
+
+                //Se crea a conexión se abre
+                SqlConnection connection = (SqlConnection)_dbContext.Database.GetDbConnection();
+                connection.Open();
+
+                //Se crea el SP
+                SqlCommand comando = connection.CreateCommand();
+                comando.CommandType = System.Data.CommandType.StoredProcedure;
+                comando.CommandText = "SP_ConsultaInicioDeSesionFallidos";
+
+                //Código para crear parámetros al Store Procedure
+                SqlParameter paramUsername = new SqlParameter
+                {
+                    ParameterName = "@inUsername",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 64,
+                    Value = usuario,
+                    Direction = ParameterDirection.Input
+                };
+                SqlParameter paramTiempo = new SqlParameter
+                {
+                    ParameterName = "@in20minOr30min",
+                    SqlDbType = SqlDbType.Int,
+                    Value = tiempo,
+                    Direction = ParameterDirection.Input
+                };
+                SqlParameter paramPostInIP = new SqlParameter
+                {
+                    ParameterName = "@inPostInIP",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 32,
+                    Value = ippaddress.ToString(),
+                    Direction = ParameterDirection.Input
+                };
+                SqlParameter paramResultado = new SqlParameter
+                {
+                    ParameterName = "@outResult",
+                    SqlDbType = SqlDbType.Int,
+                    Value = -345678,
+                    Direction = ParameterDirection.InputOutput
+                };
+
+                //Se agrega cada parámetro al SP
+                comando.Parameters.Add(paramUsername);
+                comando.Parameters.Add(paramTiempo);
+                comando.Parameters.Add(paramPostInIP);
+                comando.Parameters.Add(paramResultado);
+
+                //Se leen los datos devueltos por el SP(dataset)
+                SqlDataReader reader = comando.ExecuteReader();
+                int cantidad = -88888;
+                if (reader.Read())
+                {
+                    //reader.NextResult();
+                    //la cantidad de intentos de inicio de sesion fallidos dependiendo de la cantidad de tiempo especificado
+                    cantidad = reader.GetInt32(0);
+                }
+                reader.Close();
+
+                comando.ExecuteNonQuery();
+
+                //Se leen los parámetros de salida
+                string SPresult = comando.Parameters["@outResult"].Value.ToString()!;
+                Console.WriteLine("\n------------------- SE HA EJECUTADO EL SP_ConsultaInicioDeSesionFallidos -------------------");
+                Console.WriteLine(" El codigo de salida del sp es: " + SPresult);
+                Console.WriteLine("-----------------------------------------------------------------------------\n");
+
+                connection.Close();
+                
+                return cantidad;
+            }
+            catch (Exception ex)
+            {
+                //Algun error pero no sabemos cual
+                return -1000;
+            }
+        }
+
+        [HttpPost]
         public string ConsultaCodError(string codigo, string usuario)
         {
             try
@@ -57,7 +143,7 @@ namespace Tarea2_BD1.Controllers
                     Direction = ParameterDirection.Input
                 };
 
-                SqlParameter paramCod = new SqlParameter
+                SqlParameter paramResultado = new SqlParameter
                 {
                     ParameterName = "@outResult",
                     SqlDbType = SqlDbType.Int,
@@ -68,11 +154,12 @@ namespace Tarea2_BD1.Controllers
                 //Se agrega cada parámetro al SP
                 comando.Parameters.Add(paramUsername);
                 comando.Parameters.Add(paramCodigo);
-                comando.Parameters.Add(paramCod);
+                comando.Parameters.Add(paramResultado);
 
                 //Se leen los datos devueltos por el SP(dataset)
                 SqlDataReader reader = comando.ExecuteReader();
-                string descripcionError = Convert.ToString(reader["E.Descripcion"])!;
+                reader.Read();
+                string descripcionError = reader.GetString(0);
                 reader.Close();
 
                 comando.ExecuteNonQuery();
@@ -94,7 +181,7 @@ namespace Tarea2_BD1.Controllers
         }
 
         [HttpPost]
-        public string InicioDeSesion(string usernameForm, string passwordForm)
+        public string InicioDeSesion(string usernameForm, string passwordForm, int cantSesionesFallidas)
         {
             try
             {
@@ -120,7 +207,6 @@ namespace Tarea2_BD1.Controllers
                     Value = usernameForm,
                     Direction = ParameterDirection.Input
                 };
-
                 SqlParameter paramPassword = new SqlParameter
                 {
                     ParameterName = "@inPassword",
@@ -129,17 +215,22 @@ namespace Tarea2_BD1.Controllers
                     Value = passwordForm,
                     Direction = ParameterDirection.Input
                 };
-
+                SqlParameter paramSesionesFallidas = new SqlParameter
+                {
+                    ParameterName = "@inCantIntentosSesionFallidos",
+                    SqlDbType = SqlDbType.Int,
+                    Value = cantSesionesFallidas,
+                    Direction = ParameterDirection.Input
+                };
                 SqlParameter paramPostInIP = new SqlParameter
                 {
                     ParameterName = "@inPostInIP",
                     SqlDbType = SqlDbType.VarChar,
                     Size = 32,
-                    Value = ippaddress,
+                    Value = ippaddress.ToString(),
                     Direction = ParameterDirection.Input
                 };
-
-                SqlParameter paramCod = new SqlParameter
+                SqlParameter paramResultado = new SqlParameter
                 {
                     ParameterName = "@outResult",
                     SqlDbType = SqlDbType.Int,
@@ -150,8 +241,9 @@ namespace Tarea2_BD1.Controllers
                 //Se agrega cada parámetro al SP
                 comando.Parameters.Add(paramUsername);
                 comando.Parameters.Add(paramPassword);
+                comando.Parameters.Add(paramSesionesFallidas);
                 comando.Parameters.Add(paramPostInIP);
-                comando.Parameters.Add(paramCod);
+                comando.Parameters.Add(paramResultado);
 
                 comando.ExecuteNonQuery();
 
@@ -176,6 +268,13 @@ namespace Tarea2_BD1.Controllers
             if (nombreVista == "ListarFiltrar")
             {
                 TempData["Message"] = "Inicio de sesión exitoso";
+                return RedirectToAction(nombreVista, "Empleado");
+            }
+            //Error generado en el try and catch del metodo que hace el inicio de sesion en la BD
+            //O tambien, que tuvo demasiados intentos fallidos en 30 mins
+            else if (codigo != "0" && codigo != "50001" && codigo != "50002" && codigo != "50008")
+            {
+                TempData["Message"] = codigo;
                 return RedirectToAction(nombreVista, modeloUsuario);
             }
             else if (nombreVista == "SignIn")
@@ -184,34 +283,43 @@ namespace Tarea2_BD1.Controllers
                 TempData["Message"] = ConsultaCodError(codigo, modeloUsuario.Username);
                 return RedirectToAction(nombreVista, modeloUsuario);
             }
-            //Error generado en el try and catch del metodo que hace el inicio de sesion en la BD
-            else if (codigo != "0"  && codigo != "50001" && codigo != "50008")
-            {
-                return RedirectToAction(nombreVista, modeloUsuario);
-            }
             return Ok();
         }
 
         [HttpPost]
         public IActionResult ValidarDataAnnotations(Usuario usuario)
         {
+            //Valida la cantidad de inicios de sesion fallidos en 30 mins
+            //si es mayor que 5 deshabilita el boton
+            int cantidadFallos = ConsultaInicioSesionFallidos(30, usuario.Username);
+            if (cantidadFallos > 5)
+            {
+                return HacerAviso("SignIn", usuario, "Demasiados intentos de login, intente de nuevo dentro de 10 minutos");
+            }
+            
             if (ModelState.IsValid)
             {
+                //Para la descripcion se ocupa lo mismo pero en 20 minutos
+                cantidadFallos = ConsultaInicioSesionFallidos(20, usuario.Username);
                 //Resultado del inicio de sesion
-                string resultado = InicioDeSesion(usuario.Username, usuario.Password);
+                string resultado = InicioDeSesion(usuario.Username, usuario.Password, cantidadFallos);
 
                 if (resultado == "0")
                 {
                     return HacerAviso("ListarFiltrar", usuario, resultado);
                 }
-                else if (resultado == "50001" || resultado == "50008")
-                {
-                    return HacerAviso("SignIn", usuario, resultado);
-                }
                 else
                 {
                     return HacerAviso("SignIn", usuario, resultado);
                 }
+                //else if (resultado == "50001" || resultado == "50002" || resultado == "50008")
+                //{
+                //    return HacerAviso("SignIn", usuario, resultado);
+                //}
+                //else
+                //{
+                //    return HacerAviso("SignIn", usuario, resultado);
+                //}
             }
             return Ok();
         }
@@ -221,5 +329,5 @@ namespace Tarea2_BD1.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-    }
-}
+    }//end class
+}//end namespace

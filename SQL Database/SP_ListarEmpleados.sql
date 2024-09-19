@@ -6,10 +6,9 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE OR ALTER PROCEDURE dbo.SP_ConsultaError
+CREATE OR ALTER PROCEDURE dbo.SP_ListarEmpleados
 (
 	@inUsername VARCHAR(64)
-	, @inCodigo VARCHAR(128)
 	, @outResult INT OUTPUT
 )
 AS
@@ -17,9 +16,10 @@ BEGIN
 	BEGIN TRY
 		SET NOCOUNT ON;
 		
-		SELECT E.Descripcion
-		FROM dbo.Error AS E
-		WHERE @inCodigo = E.Codigo;
+		--Se listan los empleados activos
+		SELECT E.Nombre, E.ValorDocumentoIdentidad
+		FROM dbo.Empleado AS E
+		WHERE E.EsActivo = 1
 
 		-- Codigo de salida
 		SET @outResult = 0

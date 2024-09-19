@@ -99,6 +99,20 @@ SELECT
 	, T.item.value('@Nombre', 'VARCHAR(64)')
 	, T.item.value('@Pass', 'VARCHAR(64)')
 FROM @xmlData.nodes('Datos/Usuarios/usuario') AS T(Item)
+--se agrega un usuario por defecto para ponerlo en la bitacora
+-- en caso de no existir un usuario cuando se trate de hacer login
+INSERT INTO dbo.Usuario
+(
+	id
+	, Username
+	, Password
+)
+VALUES
+(
+	7
+	, 'No existe'
+	, 'Sin password'
+)
 
 -- Se insertan los datos a la tala TablaVariableMovimiento para mapear el idEmpleado, -------------------------------
 -- el idTipoMovimiento y el idPostByUser, luego agregar la info a la tabla dbo.Movimiento

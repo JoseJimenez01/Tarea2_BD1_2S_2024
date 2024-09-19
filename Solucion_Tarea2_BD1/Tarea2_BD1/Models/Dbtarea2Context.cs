@@ -35,13 +35,13 @@ public partial class Dbtarea2Context : DbContext
 
 //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer("Server=DESKTOP-IN808AI\\SQLEXPRESS; Initial Catalog=DBTarea2; user id= sa; pwd= 123.elSQLs.; Integrated Security=True; TrustServerCertificate=true");
+//        => optionsBuilder.UseSqlServer("Server=DESKTOP-NVUTANU\\SQLEXPRESS; Initial Catalog=DBTarea2; user id= sa; pwd= 123.elSQLs.; Integrated Security=True; TrustServerCertificate=true");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<BitacoraEvento>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Bitacora__3213E83F3771D8CB");
+            entity.HasKey(e => e.Id).HasName("PK__Bitacora__3213E83F43576EC7");
 
             entity.ToTable("BitacoraEvento");
 
@@ -87,7 +87,7 @@ public partial class Dbtarea2Context : DbContext
 
         modelBuilder.Entity<Empleado>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Empleado__3213E83F13A7B6E7");
+            entity.HasKey(e => e.Id).HasName("PK__Empleado__3213E83F53F89BBB");
 
             entity.ToTable("Empleado");
 
@@ -101,12 +101,12 @@ public partial class Dbtarea2Context : DbContext
             entity.HasOne(d => d.IdPuestoNavigation).WithMany(p => p.Empleados)
                 .HasForeignKey(d => d.IdPuesto)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Empleado_Puesto");
+                .HasConstraintName("FK__Empleado__idPues__398D8EEE");
         });
 
         modelBuilder.Entity<Error>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Error__3213E83F517132C6");
+            entity.HasKey(e => e.Id).HasName("PK__Error__3213E83F711974FE");
 
             entity.ToTable("Error");
 
@@ -118,7 +118,7 @@ public partial class Dbtarea2Context : DbContext
 
         modelBuilder.Entity<Movimiento>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Movimien__3213E83F9ED1ACC7");
+            entity.HasKey(e => e.Id).HasName("PK__Movimien__3213E83FA926C626");
 
             entity.ToTable("Movimiento");
 
@@ -152,7 +152,7 @@ public partial class Dbtarea2Context : DbContext
 
         modelBuilder.Entity<Puesto>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Puesto__3213E83FE3E1F282");
+            entity.HasKey(e => e.Id).HasName("PK__Puesto__3213E83F36FD3EEF");
 
             entity.ToTable("Puesto");
 
@@ -167,7 +167,7 @@ public partial class Dbtarea2Context : DbContext
 
         modelBuilder.Entity<TipoEvento>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__TipoEven__3213E83FA07062F3");
+            entity.HasKey(e => e.Id).HasName("PK__TipoEven__3213E83F49563BB8");
 
             entity.ToTable("TipoEvento");
 
@@ -181,7 +181,7 @@ public partial class Dbtarea2Context : DbContext
 
         modelBuilder.Entity<TipoMovimiento>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__TipoMovi__3213E83FADCD713C");
+            entity.HasKey(e => e.Id).HasName("PK__TipoMovi__3213E83F94436E18");
 
             entity.ToTable("TipoMovimiento");
 
@@ -198,7 +198,7 @@ public partial class Dbtarea2Context : DbContext
 
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Usuario__3213E83F3A282098");
+            entity.HasKey(e => e.Id).HasName("PK__Usuario__3213E83F4278D7D5");
 
             entity.ToTable("Usuario");
 
