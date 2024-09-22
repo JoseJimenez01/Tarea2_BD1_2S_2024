@@ -6,7 +6,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE OR ALTER PROCEDURE dbo.SP_ListarEmpleados
+CREATE OR ALTER PROCEDURE dbo.SP_ListarPuestos
 (
 	@outResult INT OUTPUT
 )
@@ -15,11 +15,10 @@ BEGIN
 	BEGIN TRY
 		SET NOCOUNT ON;
 		
-		--Se listan los empleados activos
-		SELECT E.Nombre, E.ValorDocumentoIdentidad
-		FROM dbo.Empleado AS E
-		WHERE E.EsActivo = 1
-		ORDER BY E.Nombre ASC
+		--Se listan los puestos
+		SELECT P.Nombre
+		FROM dbo.Puesto AS P
+		ORDER BY P.Nombre ASC
 
 		-- Codigo de salida
 		SET @outResult = 0

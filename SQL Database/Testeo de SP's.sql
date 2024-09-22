@@ -16,3 +16,21 @@ DECLARE @result INT
 EXEC dbo.SP_ConsultaInicioDeSesionFallidos 'JosePrueba', 20, '192.01.09', @result OUTPUT
 
 SELECT @result
+
+--Testeo del sp para filtrar empleados
+USE DBTarea2
+GO
+DECLARE @result INT
+
+EXEC dbo.SP_Filtro 'nav', 12, '192.01.09', @result OUTPUT
+
+SELECT @result
+
+--Testeo del sp para consultar los puestos
+USE DBTarea2
+GO
+DECLARE @result INT
+
+EXEC dbo.SP_ListarPuestos @result OUTPUT
+
+SELECT @result

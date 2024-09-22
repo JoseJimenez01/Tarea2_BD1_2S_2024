@@ -265,7 +265,7 @@ namespace Tarea2_BD1.Controllers
 
         public ActionResult HacerAviso(string nombreVista, Usuario modeloUsuario, string codigo)
         {
-            if (nombreVista == "ListarFiltrar")
+            if (nombreVista == "Listar")
             {
                 TempData["Message"] = "Inicio de sesión exitoso";
                 return RedirectToAction(nombreVista, "Empleado");
@@ -306,20 +306,12 @@ namespace Tarea2_BD1.Controllers
 
                 if (resultado == "0")
                 {
-                    return HacerAviso("ListarFiltrar", usuario, resultado);
+                    return HacerAviso("Listar", usuario, resultado);
                 }
                 else
                 {
                     return HacerAviso("SignIn", usuario, resultado);
                 }
-                //else if (resultado == "50001" || resultado == "50002" || resultado == "50008")
-                //{
-                //    return HacerAviso("SignIn", usuario, resultado);
-                //}
-                //else
-                //{
-                //    return HacerAviso("SignIn", usuario, resultado);
-                //}
             }
             return Ok();
         }

@@ -29,3 +29,73 @@ body {
 #btnFiltro {
     margin-left: 10px;
 }
+
+#div-lista {
+    width: auto;
+    height: 700px;
+    overflow: auto;
+}
+
+th {
+    position: sticky;
+    top: 0;
+}
+
+th, td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* CSS para el PopUp que agrega los empleados */
+
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 3;
+}
+
+.contenedorPopup {
+    display: none; /* Para ocultar el popup desde que empiece a ejecutarse la web, cuando esta en none */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    height: 450px;
+    width: 600px;
+    transform: translate(-50%, -50%); /* Centra el contenido conforme al contenedor */
+    background-color: white;
+    z-index: 4;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+}
+
+#tituloPopup {
+    position: absolute;
+    top: 15px;
+    /*left: 75px;*/
+
+    transform: translateX(-50%);
+    margin: 0;
+}
+
+#labelParaAviso {
+    text-align: center;
+}
+
+#btnCerrarPopup {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+}
+
+#btnCerrarPopup:hover {
+    background-color: #ca0505
+}

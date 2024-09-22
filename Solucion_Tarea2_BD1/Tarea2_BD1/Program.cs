@@ -28,6 +28,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     //pattern: "{controller=Home}/{action=Index}/{id?}");
-    pattern: "{controller=Login}/{action=SignIn}/{id?}");
-
+    //El siguiente es el oficial:
+    //pattern: "{controller=Login}/{action=SignIn}/{id?}");
+    pattern: "{controller=Empleado}/{action=Listar}/{id?}");
 app.Run();

@@ -6,7 +6,10 @@
 function ObtenerColorDeFondo() {
     document.getElementById('encNom').style.backgroundColor = $("body").css("backgroundColor");
     document.getElementById('encValorDocIdent').style.backgroundColor = $("body").css("backgroundColor");
+    document.getElementById('encAccion').style.backgroundColor = $("body").css("backgroundColor");
 }
+
+document.addEventListener(onload, ObtenerColorDeFondo());
 
 $(document).ready(function () {
     // Desaparece después de 4 segundos
@@ -25,3 +28,59 @@ $(document).ready(function () {
         }, 2000);
     });
 });
+
+$(document).ready(function() {
+    $("#formFiltrar").submit(function(event) {
+        event.preventDefault();  // Evita que se recargue toda la página
+
+        var form = $(this);
+        var url = form.attr('action');
+        var formData = form.serialize();  // Serializa los datos del formulario
+
+        $.post(url, formData, function(data) {
+            $("#div-lista").html(data);  // Actualiza solo la parte de la vista parcial
+            $("#tablaEmpleados").onload(ObtenerColorDeFondo());
+        });
+    });
+});
+
+
+
+/* Desde aqui el JS para el popup de avisos */
+
+//const abrirPopup = document.getElementById('btnAgregar');
+const cerrarPopup = document.getElementById('btnCerrarPopup');
+const contenedorPopup = document.getElementById('elPopup');
+const taparContenido = document.getElementById('overlay');
+
+// Funciones para abrir y cerrar el popup
+function showPopup() {
+    taparContenido.style.display = 'block';
+    contenedorPopup.style.display = 'flex';
+}
+
+function hidePopup() {
+    taparContenido.style.display = 'none';
+    contenedorPopup.style.display = 'none';
+}
+
+// Event listeners para abrir y cerrar el popup
+//abrirPopup.addEventListener('click', showPopup);
+cerrarPopup.addEventListener('click', hidePopup);
+
+document.addEventListener('click', function (event) {
+    // Valida si el clic sucedio en el contenedor overlay
+    if (taparContenido.contains(event.target)) {
+        hidePopup();
+    }
+});
+
+/* Hasta aqui el JS para el popup de avisos */
+
+
+
+
+
+
+
+
