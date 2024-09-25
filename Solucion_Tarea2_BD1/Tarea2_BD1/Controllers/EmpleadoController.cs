@@ -188,7 +188,7 @@ namespace Tarea2_BD1.Controllers
         }//end method
 
         [HttpGet]
-        public IActionResult ObtenerEmpleos()
+        public IActionResult ObtenerPuestos()
         {
             try
             {
@@ -231,13 +231,19 @@ namespace Tarea2_BD1.Controllers
 
                 connection.Close();
 
-                return Ok(listaPuestos);
+                return PartialView("_VistaParcialSeleccionDePuesto", listaPuestos);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }//end method
+
+        public IActionResult Agregar()
+        {
+
+            return View();
+        }
 
     }//end class
 }//end namespace

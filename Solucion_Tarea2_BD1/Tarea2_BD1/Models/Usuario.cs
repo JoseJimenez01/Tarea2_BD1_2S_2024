@@ -9,8 +9,6 @@ public partial class Usuario
     public int Id { get; set; }
 
     [Required(ErrorMessage = "El espacio no puede quedar en blanco")]
-    [RegularExpression(@"^[A-Za-z\ \-\xC1\xC9\xCD\xD3\xDA\xDC\xE1\xE9\xED\xF3\xFA\xFC\xD1\xF1]+$", ErrorMessage = "El nombre pude contener letras, espacios, tildes o un guión")]
-    [MaxLength(64, ErrorMessage = "El usuario puede tener un máximo de 64 caracteres")]
     public string Username { get; set; } = null!;
 
     [Required(ErrorMessage = "El espacio no puede quedar en blanco")]
