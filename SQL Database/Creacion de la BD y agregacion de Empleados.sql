@@ -70,7 +70,7 @@ CREATE TABLE dbo.BitacoraEvento
 	id INT IDENTITY(1, 1) PRIMARY KEY
 	, idTipoEvento INT NOT NULL
 	, idPostByUser INT NOT NULL
-	, Descripcion VARCHAR(128) NOT NULL
+	, Descripcion VARCHAR(256) NOT NULL
 	, PostInIP VARCHAR(32) NOT NULL
 	, PostTime DATETIME NOT NULL
 	, FOREIGN KEY (idTipoEvento) REFERENCES dbo.TipoEvento(id)

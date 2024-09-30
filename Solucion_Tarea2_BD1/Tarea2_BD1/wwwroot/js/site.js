@@ -45,32 +45,12 @@ $(document).ready(function() {
     });
 });
 
-//Para la _VistaparcialSeleccionDePuesto
-$(document).ready(function () {
-    $("#formAgregarEmp").submit(function (event) {
-        event.preventDefault();  // Evita que se recargue toda la página
-
-        var form = $(this);
-        var url = form.attr('action');
-        var formData = form.serialize();  // Serializa los datos del formulario
-
-        $.post(url, formData, function (data) {
-            $("#div-PartialView").html(data);  // Actualiza solo la parte de la vista parcial
-        });
-    });
-});
 
 
-//$("formAgregarEmp").ready(function () {
-//    // Realizar una solicitud AJAX para cargar la partial view
-//    $("#div-PartialView").load('@Url.Action("ObtenerPuestos", "Empleado")');
-//});
 
 
-//$(document).ready(function () {
-//    // Cargar el datalist mediante AJAX cuando la página esté completamente cargada
-//    $("#datalistContainer").load('@Url.Action("ObtenerPuestos")');
-//});
+
+
 
 
 

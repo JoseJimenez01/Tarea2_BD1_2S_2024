@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Tarea2_BD1.csproj": {}
+    "C:\\Users\\Usuario II 2024\\Desktop\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Tarea2_BD1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Tarea2_BD1.csproj": {
+    "C:\\Users\\Usuario II 2024\\Desktop\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Tarea2_BD1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Tarea2_BD1.csproj",
+        "projectUniqueName": "C:\\Users\\Usuario II 2024\\Desktop\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Tarea2_BD1.csproj",
         "projectName": "Tarea2_BD1",
-        "projectPath": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Tarea2_BD1.csproj",
-        "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\obj\\",
+        "projectPath": "C:\\Users\\Usuario II 2024\\Desktop\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Tarea2_BD1.csproj",
+        "packagesPath": "C:\\Users\\Usuario II 2024\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Usuario II 2024\\Desktop\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Usuario II 2024\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

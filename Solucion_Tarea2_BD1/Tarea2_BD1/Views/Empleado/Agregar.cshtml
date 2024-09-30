@@ -18,6 +18,7 @@
     }
 }
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,42 +27,44 @@
 <body>
     <h1>Agregar empleado</h1>
 
-    <div class="form-floating mt-5">
-        <form id="formAgregarEmp" method="post"> @* asp-controller="Agregar" asp-action="Empleado" *@
+    <div>
+        @* action="@Url.Action("Agregar", "Empleado")" *@
+        <form id="formAgregarEmp" method="post" > <!-- Llamar a ControlErroresAvisos -->
             @* Sección para ingresar el valor de documentode identidad *@
             <div class="mt-3">
                 <label asp-for="ValorDocumentoIdentidad">Valor del documento de identidad:</label>
-                <input asp-for="ValorDocumentoIdentidad" type="text" id="entValorDocIdent" class="form-control" placeholder="Escriba el nombre aquí">
+                <input asp-for="ValorDocumentoIdentidad" type="text" id="entValorDocIdent" class="form-control" name="stringValorDocIdent placeholder="Escriba el nombre aquí">
                 <span asp-validation-for="ValorDocumentoIdentidad" id="spanValorDocIdent" class="text-danger"></span>
             </div>
 
             @* Sección para ingresar el nombre *@
             <div class="mt-3">
                 <label asp-for="Nombre">Nombre:</label>
-                <input asp-for="Nombre" type="text" id="entNombre" class="form-control" placeholder="Escriba el salario aquí">
+                <input asp-for="Nombre" type="text" id="entNombre" class="form-control" name="stringNombre" placeholder="Escriba el salario aquí">
                 <span asp-validation-for="Nombre" id="spanSalario" class="text-danger"></span>
             </div>
 
             @* Sección para ingresar el puesto *@
-            <div id="div-PartialView" class="mt-3" ='@Url.Action("ObtenerPuestos", "Empleado")'>
-                <label asp-for="IdPuestoNavigation">Puesto:</label>
-                <input asp-for="IdPuestoNavigation" type="text" id="entPuesto" class="form-control" placeholder="Seleccione el puesto aquí">
-                <span asp-validation-for="IdPuestoNavigation" id="spanPuesto" class="text-danger"></span>
-
-                <input type="text" id="entPuesto" class="form-control" list="listaPuestos" name="dato" placeholder="Seleccione el puesto aquí">
-
-                <div id="datalistContainer"></div>
-
-                @* @Html.Partial("_VistaParcialSeleccionDePuesto") *@
+            <div id="div-PartialView" class="mt-3">
+                <label>Puesto:</label>
+                <select id="selectListaPuestos" class="form-select" name="stringPuesto">
+                    <option value="nada" selected disabled>Seleccione un puesto:</option>
+                    <option value="Albañil">Albañil</option>
+                    <option value="Asistente">Asistente</option>
+                    <option value="Cajero">Cajero</option>
+                    <option value="Camarero">Camarero</option>
+                    <option value="Conductor">Conductor</option>
+                    <option value="Conserje">Conserje</option>
+                    <option value="Cuidador">Cuidador</option>
+                    <option value="Fontanero">Fontanero</option>
+                    <option value="Niñera">Niñera</option>
+                    <option value="Recepcionista">Recepcionista</option>
+                </select>
             </div>
             
             <button type="submit" id="btnAgregarEmp" class="btn btn-primary mt-3">Buscar</button>
 
         </form>
-
-
     </div>
 </body>
-
-
 </html>

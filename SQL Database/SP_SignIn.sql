@@ -19,7 +19,7 @@ BEGIN
 	BEGIN TRY
 		
 		DECLARE @codTipoEvento INT;
-		DECLARE @descripcionBitacora VARCHAR(64);
+		DECLARE @descripcionBitacora VARCHAR(256);
 
 		SET NOCOUNT ON;
 

@@ -8,8 +8,8 @@ DECLARE @xmlData XML;
 -- SE cargan los datos XML a la variable, cambiar la ruta según sea el caso
 SET @xmlData = (
 		SELECT *
-		--FROM OPENROWSET(BULK 'C:\Users\Usuario II 2024\Desktop\Tarea2_BD1_2S_2024\SQL Database\Datos.xml', SINGLE_BLOB) 
-		FROM OPENROWSET(BULK 'C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\SQL Database\DatosOficial.xml', SINGLE_BLOB) 
+		FROM OPENROWSET(BULK 'C:\Users\Usuario II 2024\Desktop\Tarea2_BD1_2S_2024\SQL Database\DatosOficial.xml', SINGLE_BLOB) 
+		--FROM OPENROWSET(BULK 'C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\SQL Database\DatosOficial.xml', SINGLE_BLOB) 
 		AS xmlData
 		);
 -- Tabla para la manipulación y mapeo de los datos para la tabla Empleado

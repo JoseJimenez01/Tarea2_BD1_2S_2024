@@ -26,7 +26,11 @@ public partial class Empleado
 
     //public virtual Puesto IdPuestoNavigation { get; set; } = null!;
     //[Required(ErrorMessage = "Debe seleccionar algún puesto")]
+    [Required(ErrorMessage = "Debe seleccionar un puesto")]
     public virtual Puesto IdPuestoNavigation { get; set; } = new Puesto();
+
+    [Required(ErrorMessage = "Debe seleccionar un puesto")]
+    public string NombrePuesto { get; set; }
 
     public virtual ICollection<Movimiento> Movimientos { get; set; } = new List<Movimiento>();
 

@@ -23,7 +23,6 @@
 
     <div class="form-floating">
         <form id="formFiltrar" method="post" asp-controller="Empleado" asp-action="Filtrar" class="mt-3">
-            @* action="@Url.Action("Filtrar", "Empleado")" *@
             <div id="div-filtrar">
                 <input type="text" name="entradaStringFiltro" id="entFiltro" class="form-control" placeholder="Busqueda por nombre o valor de documento de identidad">
                 <button type="submit" id="btnFiltro" class="btn btn-primary">Buscar</button>
@@ -34,42 +33,10 @@
             @Html.Partial("_VistaParcialFiltro", Model)
         </div>
 
-        <form method="post" action="@Url.Action("Agregar", "Empleado")">
+        <form action="@Url.Action("Agregar", "Empleado")">
             <input type="submit" id="btnAgregar" class="btn btn-primary" value="Agregar">
         </form>
     </div>
 </body>
-
-@* Codigo para agregar empleados *@
-@* <div id="overlay"></div>
-
-<div id="elPopup" class="contenedorPopup">
-    <div id="div-agregarEmpleado">
-        <h5 id="tituloPopup">Agregar empleado</h5>
-        <!-- Formulario para el ingreso de empleados -->
-        <form id="formAgregarEmp" method="post" action="@Url.Action("Agregar", "Empleado")" class="mt-3">
-            <div id="div-formAgregarEmp">
-                <!-- Seccion del valor de documentode identidad -->
-                <label asp-for="Salario">Salario:</label>
-                <input asp-for="ValorDocumentoIdentidad" type="text" name="nameEntradaValDocIdent" id="entValorDocIdent" class="form-control" placeholder="Ingrese aquí el valor del documento de identidad">
-                <span asp-validation-for="Salario" id="spanSalario" class="text-danger"></span>
-                <!-- Seccion del nombre -->
-                <label></label>
-                <input type="text" name="nameEntNombre" id="entNombre" class="form-control" placeholder="Ingrese aquí el nombre">
-                <!-- Seccion del puesto -->
-                <label></label>
-                <input type="text" name="nameEntPuesto" id="entPuesto" class="form-control" placeholder="Seleccione el puesto">
-                
-                 <label asp-for="Salario">Salario:</label>
-                    <input type="text" asp-for="Salario" id="entSal" class="form-control" placeholder="Escriba el salario aquí">
-                    <span asp-validation-for="Salario" id="spanSalario" class="text-danger"></span>
-
-                <button type="submit" id="btnAgregarEmp" class="btn btn-primary">Buscar</button>
-            </div>
-        </form>
-
-        <button id="btnCerrarPopup">X</button>
-    </div>
-</div> *@
 
 </html>
