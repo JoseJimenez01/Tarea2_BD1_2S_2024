@@ -36,10 +36,10 @@ BEGIN
 		--Valida si el valor del documento de identidad es alfabetico
 		ELSE IF (@inValorDocNoEsAlfabetico = 2)
 		BEGIN
-			SET @outResult = 50010; --valorDocIdent alfabetico
+			SET @outResult = 50010; --valorDocIdent es alfabetico
 		END
 		--Valida si el nombre ya existe en la base de datos
-	   	IF EXISTS (SELECT 1 FROM dbo.Empleado AS E WHERE E.Nombre = @inNombre)
+	   	ELSE IF EXISTS (SELECT 1 FROM dbo.Empleado AS E WHERE E.Nombre = @inNombre)
 		BEGIN
 			SET @outResult = 50005; -- nombre empleado ya existe en insercion
 		END
@@ -64,7 +64,7 @@ BEGIN
 										FROM dbo.Error AS E
 										WHERE E.Codigo = @outResult);
 			-- Luego guardamos la info
-			SET @descripcionBitacora = @descripcionBitacora + ', ' + @inValorDocIdent + ', ' + @inNombre + ', ' + @inPuesto;
+			SET @descripcionBitacora = @descripcionBitacora + ', ' + CONVERT(VARCHAR(32), @inValorDocIdent) + ', ' + @inNombre + ', ' + @inPuesto;
 
 			INSERT INTO dbo.BitacoraEvento
 			(
@@ -112,7 +112,7 @@ BEGIN
 				, 1 --por defecto 1
 			);
 
-			SET @descripcionBitacora = @inValorDocIdent + ', ' + @inNombre + ', ' + @inPuesto;
+			SET @descripcionBitacora = CONVERT(VARCHAR(32), @inValorDocIdent) + ', ' + @inNombre + ', ' + @inPuesto;
 
 			-- Luego se registra la inserción en la bitácora
 			INSERT INTO dbo.BitacoraEvento
