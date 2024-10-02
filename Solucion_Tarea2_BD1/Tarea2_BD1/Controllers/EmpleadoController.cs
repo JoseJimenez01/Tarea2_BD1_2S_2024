@@ -11,6 +11,8 @@ using Microsoft.Extensions.FileSystemGlobbing.Internal;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 
 namespace Tarea2_BD1.Controllers
 {
@@ -351,10 +353,12 @@ namespace Tarea2_BD1.Controllers
         }
 
         [HttpPost]
+        
         public IActionResult ControlDeErroresAvisos(Empleado empleado, string stringPuesto)
         {
             Console.WriteLine("Entro en ControlDeErroresAvisos");
             Console.WriteLine("El modelo es valido? " + ModelState.IsValid.ToString());
+            
             if (ModelState.IsValid)
             {
                 if (stringPuesto == "nada")
@@ -376,7 +380,9 @@ namespace Tarea2_BD1.Controllers
                     return HacerAviso("Agregar", resultadoSP, empleado);
                 }
             }
-            return Ok();
+            //return Ok();
+            TempData["Message"] = "Seleccione un puesto valido";
+            return RedirectToAction("Agregar", "Empleado", empleado);
         }//end method
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
