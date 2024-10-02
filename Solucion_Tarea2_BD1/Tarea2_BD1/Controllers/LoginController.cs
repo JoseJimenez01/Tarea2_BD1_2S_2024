@@ -126,14 +126,14 @@ namespace Tarea2_BD1.Controllers
                 comando.CommandText = "SP_ConsultaError";
 
                 //Código para crear parámetros al Store Procedure
-                SqlParameter paramUsername = new SqlParameter
-                {
-                    ParameterName = "@inUsername",
-                    SqlDbType = SqlDbType.VarChar,
-                    Size = 64,
-                    Value = usuario,
-                    Direction = ParameterDirection.Input
-                };
+                //SqlParameter paramUsername = new SqlParameter
+                //{
+                //    ParameterName = "@inUsername",
+                //    SqlDbType = SqlDbType.VarChar,
+                //    Size = 64,
+                //    Value = usuario,
+                //    Direction = ParameterDirection.Input
+                //};
 
                 SqlParameter paramCodigo = new SqlParameter
                 {
@@ -152,7 +152,7 @@ namespace Tarea2_BD1.Controllers
                 };
 
                 //Se agrega cada parámetro al SP
-                comando.Parameters.Add(paramUsername);
+                //comando.Parameters.Add(paramUsername);
                 comando.Parameters.Add(paramCodigo);
                 comando.Parameters.Add(paramResultado);
 

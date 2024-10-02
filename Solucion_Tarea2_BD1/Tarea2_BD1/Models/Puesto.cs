@@ -8,7 +8,6 @@ public partial class Puesto
 {
     public int Id { get; set; }
 
-    [Required(ErrorMessage = "Debe seleccionar un puesto")]
     public string Nombre { get; set; } = null!;
 
     public decimal SalarioXhora { get; set; }

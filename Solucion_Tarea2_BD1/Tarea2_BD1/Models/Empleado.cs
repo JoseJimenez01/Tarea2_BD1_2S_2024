@@ -13,7 +13,6 @@ public partial class Empleado
     [Required(ErrorMessage = "Debe ingresar el valor del documento de identidad")]
     public int ValorDocumentoIdentidad { get; set; }
 
-    //[RegularExpression(@"^[A-Za-z\ \-\xC1\xC9\xCD\xD3\xDA\xDC\xE1\xE9\xED\xF3\xFA\xFC\xD1\xF1]+$", ErrorMessage = "El nombre pude contener letras, espacios, tildes o un guión")]
     [Required(ErrorMessage = "Debe ingresar el nombre")]
     [MaxLength(128, ErrorMessage = "El nombre puede tener un máximo de 128 caracteres")]
     public string Nombre { get; set; } = null!;
@@ -24,7 +23,7 @@ public partial class Empleado
 
     public bool EsActivo { get; set; }
 
-    public virtual Puesto IdPuestoNavigation { get; set; } = new Puesto();
+    public virtual Puesto IdPuestoNavigation { get; set; }
 
     public virtual ICollection<Movimiento> Movimientos { get; set; } = new List<Movimiento>();
 

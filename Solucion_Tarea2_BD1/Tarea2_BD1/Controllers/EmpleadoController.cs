@@ -7,6 +7,10 @@ using System.Net;
 using Tarea2_BD1.Models;
 using System.Reflection.Metadata;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.Extensions.FileSystemGlobbing.Internal;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace Tarea2_BD1.Controllers
 {
@@ -193,38 +197,46 @@ namespace Tarea2_BD1.Controllers
         }//end method
 
         [HttpPost]
-        public string AgregarEmpleado(string inValorDocIdent, string inNombre, string inPuesto) //------------------------------------------------------------------------------------------FALTA TERMINAR
+        [Route("agregarEmpleado")]
+        public string AgregarEmpleado(string inValorDocIdent, string inNombre, string inPuesto)
         {
+            Console.WriteLine("Entro en AgregarEmpleados");
             try
             {
                 //Sacamos la ip desde donde se ejecuta
                 IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
                 var ippaddress = host.AddressList.FirstOrDefault(ip => ip.AddressFamily == AddressFamily.InterNetwork);
 
-                //Para hacerle saber a la base de datos cual es para poder agregarla a la bitacora de eventos
-                //11 si es por nombre, 12 si es por valor
-                int porNombreOporValor;
+                //Revisamos si el valor del documento de identidad es entero o si tiene letras intercaladas en el string.
+                int esValorDocIdentEntero;
 
                 //Para hacer la conversion
                 int valorDocIdent;
 
-                //Se revisa si la entrada es nulla o vacia, si son espacios en blanco se toman como vacio
-                //para asignarle un valor en blanco.
-                //Y se tomaria como consulta por nombre
-                if (string.IsNullOrEmpty(entradaStringFiltro))
+                //Si lo convierte, no es alfabetico
+                if (int.TryParse(inValorDocIdent, out valorDocIdent))
                 {
-                    entradaStringFiltro = " ";
-                    porNombreOporValor = 11;
+                    esValorDocIdentEntero = 1;
                 }
-                //en caso de true, seria filtro por valor del documento de identidad
-                else if (int.TryParse(entradaStringFiltro, out valorDocIdent))
-                {
-                    porNombreOporValor = 12;
-                }
-                //Si ninguna de las anteriores, entonces es por nombre tambien
+                //Si no lo convierte, entonces es alfabetico
                 else
                 {
-                    porNombreOporValor = 11;
+                    esValorDocIdentEntero = 2;
+                }
+
+                //Definimos el patron de la expresion regular para ver si hay numeros intercalados en el nombre
+                string patron = @"^[A-Za-z\ \-\xC1\xC9\xCD\xD3\xDA\xDC\xE1\xE9\xED\xF3\xFA\xFC\xD1\xF1]+$";
+
+                //Para revisar la expresion regular
+                int esNombreAlfabetico;
+
+                if(Regex.IsMatch(inNombre, patron))
+                {
+                    esNombreAlfabetico = 1;
+                }
+                else
+                {
+                    esNombreAlfabetico = 2;
                 }
 
                 //Se crea a conexión se abre
@@ -259,11 +271,20 @@ namespace Tarea2_BD1.Controllers
                     Value = inPuesto,
                     Direction = ParameterDirection.Input
                 };
-
-
-
-
-
+                SqlParameter paramConfirmarNombreAlfabetico = new SqlParameter
+                {
+                    ParameterName = "@inNombreEsAlfabetico",
+                    SqlDbType = SqlDbType.Int,
+                    Value = esNombreAlfabetico,
+                    Direction = ParameterDirection.Input
+                };
+                SqlParameter paramConfirmarValorDocIdentEntero = new SqlParameter
+                {
+                    ParameterName = "@inValorDocNoEsAlfabetico",
+                    SqlDbType = SqlDbType.Int,
+                    Value = esValorDocIdentEntero,
+                    Direction = ParameterDirection.Input
+                };
                 SqlParameter paramPostInIP = new SqlParameter
                 {
                     ParameterName = "@inPostInIP",
@@ -284,8 +305,8 @@ namespace Tarea2_BD1.Controllers
                 comando.Parameters.Add(paramValorDocIdentEmpleado);
                 comando.Parameters.Add(paramNombreEmpleado);
                 comando.Parameters.Add(paramPuestoEmpleado);
-
-
+                comando.Parameters.Add(paramConfirmarNombreAlfabetico);
+                comando.Parameters.Add(paramConfirmarValorDocIdentEntero);
                 comando.Parameters.Add(paramPostInIP);
                 comando.Parameters.Add(paramResultado);
 
@@ -303,55 +324,65 @@ namespace Tarea2_BD1.Controllers
             }
             catch (Exception ex)
             {
-                return String.Format("El error es: {0}", ex.ToString());
+                return System.String.Format("El error es: {0}", ex.ToString());
             }
         }//end method
 
-        public ActionResult HacerAviso(string nombreVista, string codigo) //---------------------------------------------------------------------------------FALTA TERMINAR
+        public ActionResult HacerAviso(string nombreVista, string codigo, Empleado empleado) //---------------------------------------------------------------------------------FALTA TERMINAR
         {
-            //if (nombreVista == "Listar")
-            //{
-            //    TempData["Message"] = "Inicio de sesión exitoso";
-            //    return RedirectToAction(nombreVista, "Empleado");
-            //}
-            ////Error generado en el try and catch del metodo que hace el inicio de sesion en la BD
-            ////O tambien, que tuvo demasiados intentos fallidos en 30 mins
-            //else if (codigo != "0" && codigo != "50001" && codigo != "50002" && codigo != "50008")
-            //{
-            //    TempData["Message"] = codigo;
-            //    return RedirectToAction(nombreVista, modeloUsuario);
-            //}
-            //else if (nombreVista == "SignIn")
-            //{
-            //    //Consulta el error y lo guarda comno aviso cuando redireccione a la pagina de inicio de sesion
-            //    TempData["Message"] = ConsultaCodError(codigo, modeloUsuario.Username);
-            //    return RedirectToAction(nombreVista, modeloUsuario);
-            //}
+            if (nombreVista == "Listar")
+            {
+                TempData["Message"] = "Inserción exitosa";
+                return RedirectToAction(nombreVista, "Empleado");
+            }
+            //Error generado en el try and catch del metodo que agrega el empleado a la BD
+            else if (codigo != "0" && codigo != "50009" && codigo != "50010" && codigo != "50004" && codigo != "50005")
+            {
+                TempData["Message"] = codigo; //el mismo codigo seria el error generado en el metodo AgregarEmpleado
+                return RedirectToAction(nombreVista, empleado);
+            }
+            else if (nombreVista == "Agregar")
+            {
+                //Consulta el error y lo guarda comno aviso cuando redireccione a la pagina de inicio de sesion
+                TempData["Message"] = ValidacionesEstaticas.ConsultaCodError(codigo, this._dbContext);
+                return RedirectToAction(nombreVista, empleado);
+            }
             return Ok();
         }
 
         [HttpPost]
-        public IActionResult ControlDeErroresAvisos(string stringValorDocIdent, string stringNombre, string stringPuesto) //-----------------------------------------------------------------------FALTA TERMINAR
+        public IActionResult ControlDeErroresAvisos(Empleado empleado, string stringPuesto)
         {
+            Console.WriteLine("Entro en ControlDeErroresAvisos");
+            Console.WriteLine("El modelo es valido? " + ModelState.IsValid.ToString());
+            if (ModelState.IsValid)
+            {
+                if (stringPuesto == "nada")
+                {
+                    TempData["Message"] = "Debe seleccionar algún puesto";
+                    return RedirectToAction("Agregar", "Empleado", empleado);
+                }
 
+                //Intentamos agregar el usuario
+                Console.WriteLine("Entro en ModelState IsValid");
+                string resultadoSP = AgregarEmpleado(empleado.ValorDocumentoIdentidad.ToString(), empleado.Nombre, stringPuesto);
 
-            //if (ModelState.IsValid)
-            //{
-            //    //Para la descripcion se ocupa lo mismo pero en 20 minutos
-            //    cantidadFallos = ConsultaInicioSesionFallidos(20, usuario.Username);
-            //    //Resultado del inicio de sesion
-            //    string resultado = InicioDeSesion(usuario.Username, usuario.Password, cantidadFallos);
-
-            //    if (resultado == "0")
-            //    {
-            //        return HacerAviso("Listar", usuario, resultado);
-            //    }
-            //    else
-            //    {
-            //        return HacerAviso("SignIn", usuario, resultado);
-            //    }
-            //}
+                if (resultadoSP == "0")
+                {
+                    return HacerAviso("Listar", resultadoSP, empleado);
+                }
+                else
+                {
+                    return HacerAviso("Agregar", resultadoSP, empleado);
+                }
+            }
             return Ok();
+        }//end method
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
     }//end class

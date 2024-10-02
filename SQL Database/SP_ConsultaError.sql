@@ -8,8 +8,7 @@ GO
 
 CREATE OR ALTER PROCEDURE dbo.SP_ConsultaError
 (
-	@inUsername VARCHAR(64)
-	, @inCodigo VARCHAR(128)
+	@inCodigo VARCHAR(128)
 	, @outResult INT OUTPUT
 )
 AS
@@ -27,12 +26,11 @@ BEGIN
 		SET NOCOUNT OFF;
 	END TRY
 	BEGIN CATCH
-		
+
 		--En caso de que existan errores, se guardan la informacion en una tabla
 		INSERT INTO dbo.DBError
 		(
-			Username
-			, ErrorNumber
+			ErrorNumber
 			, ErrorState
 			, ErrorSeverity
 			, ErrorLine
@@ -42,8 +40,7 @@ BEGIN
 		)
 		VALUES 
 		(
-			@inUsername
-			, ERROR_NUMBER()
+			ERROR_NUMBER()
 			, ERROR_STATE()
 			, ERROR_SEVERITY()
 			, ERROR_LINE()

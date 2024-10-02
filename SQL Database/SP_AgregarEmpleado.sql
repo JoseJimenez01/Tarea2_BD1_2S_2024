@@ -26,6 +26,7 @@ BEGIN
 		DECLARE @descripcionBitacora VARCHAR(256);
 		DECLARE @idPuesto INT;
 
+		--Se pone al inicio por temas de validacion, y el valor recibido al llamar al SP
 		SET @outResult = 0;
 
 		--Valida si el nombre no es alfabetico
