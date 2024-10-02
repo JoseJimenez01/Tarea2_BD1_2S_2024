@@ -61,13 +61,15 @@
                 </select>
             </div>
              
-            <button type="submit" id="btnAgregarEmp" class="btn btn-primary mt-3">Buscar</button>
+            @* <button type="submit" id="btnAgregarEmp" class="btn btn-primary mt-3">Buscar</button>
+            <button id="btnBack" class="btn btn-primary" onclick="location.href='@Url.Action("Listar", "Empleado")'">Regresar</button> *@
 
         </form>
 
-        @* <div class="mt-3" id="div-botones-agregarEmpleado">
+        <div class="mt-3" id="div-botones-agregarEmpleado">
             <button type="submit" id="btnAgregarEmpleado" class="btn btn-primary" form="formAgregarEmp">Agregar empleado</button>
-        </div> *@
+            <button id="btnBackAgregarEmpleados" class="btn btn-primary" onclick="location.href='@Url.Action("Listar", "Empleado")'">Regresar</button>
+        </div>
 
     </div>
 </body>

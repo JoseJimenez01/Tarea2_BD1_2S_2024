@@ -30,10 +30,10 @@ app.MapControllerRoute(
     //pattern: "{controller=Home}/{action=Index}/{id?}");
 
     //El siguiente es el oficial:
-    //pattern: "{controller=Login}/{action=SignIn}/{id
-    
+    pattern: "{controller=Login}/{action=SignIn}/{id?}");
+
     //pattern: "{controller=Empleado}/{action=Listar}/{id?}");
 
-    pattern: "{controller=Empleado}/{action=Agregar}/{id?}");
+    //pattern: "{controller=Empleado}/{action=Agregar}/{id?}");
 
 app.Run();

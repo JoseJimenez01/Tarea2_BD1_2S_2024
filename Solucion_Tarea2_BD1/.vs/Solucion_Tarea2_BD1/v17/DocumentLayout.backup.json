@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|c:\\users\\usuario\\onedrive\\escritorio\\material_y_evaluaciones_de_cursos\\2 s 2024\\bases de datos 1\\tarea 2\\tarea2_bd1_2s_2024\\solucion_tarea2_bd1\\tarea2_bd1\\models\\empleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|solutionrelative:tarea2_bd1\\models\\empleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|c:\\users\\usuario\\onedrive\\escritorio\\material_y_evaluaciones_de_cursos\\2 s 2024\\bases de datos 1\\tarea 2\\tarea2_bd1_2s_2024\\solucion_tarea2_bd1\\tarea2_bd1\\views\\empleado\\agregar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|solutionrelative:tarea2_bd1\\views\\empleado\\agregar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|c:\\users\\usuario\\onedrive\\escritorio\\material_y_evaluaciones_de_cursos\\2 s 2024\\bases de datos 1\\tarea 2\\tarea2_bd1_2s_2024\\solucion_tarea2_bd1\\tarea2_bd1\\models\\dbtarea2context.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|solutionrelative:tarea2_bd1\\models\\dbtarea2context.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|c:\\users\\usuario\\onedrive\\escritorio\\material_y_evaluaciones_de_cursos\\2 s 2024\\bases de datos 1\\tarea 2\\tarea2_bd1_2s_2024\\solucion_tarea2_bd1\\tarea2_bd1\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|solutionrelative:tarea2_bd1\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|c:\\users\\usuario\\onedrive\\escritorio\\material_y_evaluaciones_de_cursos\\2 s 2024\\bases de datos 1\\tarea 2\\tarea2_bd1_2s_2024\\solucion_tarea2_bd1\\tarea2_bd1\\controllers\\empleadocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -19,16 +19,20 @@
       "RelativeMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|solutionrelative:tarea2_bd1\\views\\login\\signin.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|c:\\users\\usuario\\onedrive\\escritorio\\material_y_evaluaciones_de_cursos\\2 s 2024\\bases de datos 1\\tarea 2\\tarea2_bd1_2s_2024\\solucion_tarea2_bd1\\tarea2_bd1\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|solutionrelative:tarea2_bd1\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|c:\\users\\usuario\\onedrive\\escritorio\\material_y_evaluaciones_de_cursos\\2 s 2024\\bases de datos 1\\tarea 2\\tarea2_bd1_2s_2024\\solucion_tarea2_bd1\\tarea2_bd1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|solutionrelative:tarea2_bd1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|c:\\users\\usuario\\onedrive\\escritorio\\material_y_evaluaciones_de_cursos\\2 s 2024\\bases de datos 1\\tarea 2\\tarea2_bd1_2s_2024\\solucion_tarea2_bd1\\tarea2_bd1\\models\\empleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|solutionrelative:tarea2_bd1\\models\\empleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|c:\\users\\usuario\\onedrive\\escritorio\\material_y_evaluaciones_de_cursos\\2 s 2024\\bases de datos 1\\tarea 2\\tarea2_bd1_2s_2024\\solucion_tarea2_bd1\\tarea2_bd1\\models\\dbtarea2context.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|solutionrelative:tarea2_bd1\\models\\dbtarea2context.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|c:\\users\\usuario\\onedrive\\escritorio\\material_y_evaluaciones_de_cursos\\2 s 2024\\bases de datos 1\\tarea 2\\tarea2_bd1_2s_2024\\solucion_tarea2_bd1\\tarea2_bd1\\views\\empleado\\listar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|solutionrelative:tarea2_bd1\\views\\empleado\\listar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|c:\\users\\usuario\\onedrive\\escritorio\\material_y_evaluaciones_de_cursos\\2 s 2024\\bases de datos 1\\tarea 2\\tarea2_bd1_2s_2024\\solucion_tarea2_bd1\\tarea2_bd1\\views\\empleado\\agregar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6E8DF388-AAC4-4C72-A058-66D1A45B11CD}|Tarea2_BD1\\Tarea2_BD1.csproj|solutionrelative:tarea2_bd1\\views\\empleado\\agregar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,20 +42,44 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "site.css",
+              "DocumentMoniker": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\wwwroot\\css\\site.css",
+              "RelativeDocumentMoniker": "Tarea2_BD1\\wwwroot\\css\\site.css",
+              "ToolTip": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\wwwroot\\css\\site.css",
+              "RelativeToolTip": "Tarea2_BD1\\wwwroot\\css\\site.css",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAADAAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-10-02T05:46:49.066Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Program.cs",
+              "RelativeDocumentMoniker": "Tarea2_BD1\\Program.cs",
+              "ToolTip": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Program.cs",
+              "RelativeToolTip": "Tarea2_BD1\\Program.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAD4vyAAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-02T05:38:12.582Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Dbtarea2Context.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Models\\Dbtarea2Context.cs",
               "RelativeDocumentMoniker": "Tarea2_BD1\\Models\\Dbtarea2Context.cs",
               "ToolTip": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Models\\Dbtarea2Context.cs",
               "RelativeToolTip": "Tarea2_BD1\\Models\\Dbtarea2Context.cs",
-              "ViewState": "AgIAAEcAAAAAAAAAAADwv2cAAABFAAAAAAAAAA==",
+              "ViewState": "AgIAAFIAAAAAAAAAAAAAAGcAAABHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-02T05:14:23.591Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-02T05:14:23.591Z"
             },
             {
               "$type": "Document",
@@ -61,46 +89,31 @@
               "RelativeDocumentMoniker": "Tarea2_BD1\\Views\\Login\\SignIn.cshtml",
               "ToolTip": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Views\\Login\\SignIn.cshtml",
               "RelativeToolTip": "Tarea2_BD1\\Views\\Login\\SignIn.cshtml",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAADEAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAADMAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-01T00:29:42.334Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-01T00:29:42.334Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "Empleado.cs",
               "DocumentMoniker": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Models\\Empleado.cs",
               "RelativeDocumentMoniker": "Tarea2_BD1\\Models\\Empleado.cs",
               "ToolTip": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Models\\Empleado.cs",
               "RelativeToolTip": "Tarea2_BD1\\Models\\Empleado.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAlAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-01T00:27:10.088Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-01T00:27:10.088Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "LoginController.cs",
-              "DocumentMoniker": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Controllers\\LoginController.cs",
-              "RelativeDocumentMoniker": "Tarea2_BD1\\Controllers\\LoginController.cs",
-              "ToolTip": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Controllers\\LoginController.cs",
-              "RelativeToolTip": "Tarea2_BD1\\Controllers\\LoginController.cs",
-              "ViewState": "AgIAAB4BAAAAAAAAAAAAAD4BAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-01T00:24:47.392Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 0,
               "Title": "Agregar.cshtml",
               "DocumentMoniker": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Views\\Empleado\\Agregar.cshtml",
               "RelativeDocumentMoniker": "Tarea2_BD1\\Views\\Empleado\\Agregar.cshtml",
               "ToolTip": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Views\\Empleado\\Agregar.cshtml",
               "RelativeToolTip": "Tarea2_BD1\\Views\\Empleado\\Agregar.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAPAAAAAAAAAA==",
+              "ViewState": "AgIAACcAAAAAAAAAAAAAAEgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-09-24T01:28:27.289Z",
               "EditorCaption": ""
@@ -113,14 +126,13 @@
               "RelativeDocumentMoniker": "Tarea2_BD1\\Controllers\\EmpleadoController.cs",
               "ToolTip": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Controllers\\EmpleadoController.cs",
               "RelativeToolTip": "Tarea2_BD1\\Controllers\\EmpleadoController.cs",
-              "ViewState": "AgIAAGMBAAAAAAAAAAAYwGkBAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAGIBAAAAAAAAAAAqwH0BAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T02:52:39.773Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-19T02:52:39.773Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "Listar.cshtml",
               "DocumentMoniker": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Views\\Empleado\\Listar.cshtml",
               "RelativeDocumentMoniker": "Tarea2_BD1\\Views\\Empleado\\Listar.cshtml",
@@ -128,8 +140,7 @@
               "RelativeToolTip": "Tarea2_BD1\\Views\\Empleado\\Listar.cshtml",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABkAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-09-22T17:34:57.224Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-22T17:34:57.224Z"
             }
           ]
         }

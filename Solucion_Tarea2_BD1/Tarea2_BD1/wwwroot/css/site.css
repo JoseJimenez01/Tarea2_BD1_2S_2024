@@ -46,6 +46,24 @@ th, td {
     vertical-align: middle;
 }
 
+#btnBackAgregarEmpleados {
+    position: absolute;
+    right: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* CSS para el PopUp que agrega los empleados */
 
 #overlay {

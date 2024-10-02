@@ -32,7 +32,7 @@ namespace Tarea2_BD1.Controllers
         }
 
         [HttpGet]
-        //[Route("listar_empleados")] /*----------------------------------------------------------------------- descomentar cuando se ponga el patron de inicio origianl -----------------------------------------------*/
+        [Route("listar_empleados")] /*----------------------------------------------------------------------- descomentar cuando se ponga el patron de inicio origianl -----------------------------------------------*/
         public IActionResult Listar()
         {
             try
@@ -356,7 +356,7 @@ namespace Tarea2_BD1.Controllers
         
         public IActionResult ControlDeErroresAvisos(Empleado empleado, string stringPuesto)
         {
-            Console.WriteLine("Entro en ControlDeErroresAvisos");
+            Console.WriteLine("\n\nEntro en ControlDeErroresAvisos");
             Console.WriteLine("El modelo es valido? " + ModelState.IsValid.ToString());
             
             if (ModelState.IsValid)
@@ -380,7 +380,6 @@ namespace Tarea2_BD1.Controllers
                     return HacerAviso("Agregar", resultadoSP, empleado);
                 }
             }
-            //return Ok();
             TempData["Message"] = "Seleccione un puesto valido";
             return RedirectToAction("Agregar", "Empleado", empleado);
         }//end method
