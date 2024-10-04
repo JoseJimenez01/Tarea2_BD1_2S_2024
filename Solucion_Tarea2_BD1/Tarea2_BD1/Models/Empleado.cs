@@ -19,6 +19,7 @@ public partial class Empleado
 
     public DateOnly FechaContratacion { get; set; }
 
+    [Required]
     public decimal SaldoVacaciones { get; set; }
 
     public bool EsActivo { get; set; }

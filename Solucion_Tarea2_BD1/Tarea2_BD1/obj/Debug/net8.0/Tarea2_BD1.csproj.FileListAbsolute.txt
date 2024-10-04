@@ -251,6 +251,15 @@ C:\Users\Usuario II 2024\Desktop\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_B
 C:\Users\Usuario II 2024\Desktop\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\obj\Debug\net8.0\Tarea2_BD1.pdb
 C:\Users\Usuario II 2024\Desktop\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\obj\Debug\net8.0\Tarea2_BD1.genruntimeconfig.cache
 C:\Users\Usuario II 2024\Desktop\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\obj\Debug\net8.0\ref\Tarea2_BD1.dll
+C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\obj\Debug\net8.0\Tarea2_BD1.csproj.AssemblyReference.cache
+C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\obj\Debug\net8.0\Tarea2_BD1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\obj\Debug\net8.0\Tarea2_BD1.AssemblyInfoInputs.cache
+C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\obj\Debug\net8.0\Tarea2_BD1.AssemblyInfo.cs
+C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\obj\Debug\net8.0\Tarea2_BD1.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\obj\Debug\net8.0\Tarea2_BD1.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\obj\Debug\net8.0\Tarea2_BD1.RazorAssemblyInfo.cache
+C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\obj\Debug\net8.0\Tarea2_BD1.RazorAssemblyInfo.cs
+C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\obj\Debug\net8.0\Tarea2_BD1.sourcelink.json
 C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\bin\Debug\net8.0\appsettings.json
 C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\bin\Debug\net8.0\Tarea2_BD1.staticwebassets.runtime.json
@@ -479,15 +488,6 @@ C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\
 C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
 C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
-C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\obj\Debug\net8.0\Tarea2_BD1.csproj.AssemblyReference.cache
-C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\obj\Debug\net8.0\Tarea2_BD1.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\obj\Debug\net8.0\Tarea2_BD1.AssemblyInfoInputs.cache
-C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\obj\Debug\net8.0\Tarea2_BD1.AssemblyInfo.cs
-C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\obj\Debug\net8.0\Tarea2_BD1.csproj.CoreCompileInputs.cache
-C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\obj\Debug\net8.0\Tarea2_BD1.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\obj\Debug\net8.0\Tarea2_BD1.RazorAssemblyInfo.cache
-C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\obj\Debug\net8.0\Tarea2_BD1.RazorAssemblyInfo.cs
-C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\obj\Debug\net8.0\Tarea2_BD1.sourcelink.json
 C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1\obj\Debug\net8.0\staticwebassets\msbuild.Tarea2_BD1.Microsoft.AspNetCore.StaticWebAssets.props

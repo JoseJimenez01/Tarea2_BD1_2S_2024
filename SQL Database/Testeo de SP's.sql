@@ -43,3 +43,12 @@ DECLARE @result INT
 EXEC dbo.SP_AgregarEmpleado 9999997, 'JosePrueba3', 'Cajero', 1, 1, '111.111.1.1111', @result OUTPUT
 
 SELECT @result
+
+--Testeo del sp para agregar empleados
+USE DBTarea2
+GO
+DECLARE @result INT
+
+EXEC dbo.SP_ListarMovimientos 'Christina Ward', @result OUTPUT
+
+SELECT @result

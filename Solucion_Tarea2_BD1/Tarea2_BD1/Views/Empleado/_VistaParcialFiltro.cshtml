@@ -31,7 +31,9 @@
                 <td>
                     @Html.ActionLink("Consultar", "Consultar", new { Nombre = item.Nombre }) |
                     @Html.ActionLink("Modificar", "Modificar", new { Nombre = item.Nombre }) |
-                    @Html.ActionLink("Borrar", "Borrar", new { Nombre = item.Nombre })
+                    @Html.ActionLink("Borrar", "Borrar", new { Nombre = item.Nombre }) |
+                    @Html.ActionLink("Movimientos", "Listar", "Movimiento", new { Nombre = item.Nombre }) |
+                    @Html.ActionLink("Insertar movimiento", "Agregar", "Movimiento", new { Nombre = item.Nombre })
                 </td>
             </tr>
         }

@@ -1,0 +1,87 @@
+﻿
+@* @model Empleado *@
+@model ModeloAgregarMovimiento
+
+@{
+    ViewData["Title"] = "Agregar movimiento";
+}
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Message"]
+    </div>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+    <h1>Agregar movimiento</h1>
+
+    <div class="form-floating">
+
+        <form id="formAgregarMovimiento" method="post" asp-controller="Movimiento" asp-action="ControlErrores">
+
+            <!--
+                NOTA: SI EN EL ATRIBUTO name DE CADA ETIQUETA SE ASIGNA EL NOMBRE DEL ATRIBUTO DE DONDE QUEREMOS MOSTRAR EL VALOR, A LA HORA DE LLAMAR AL METODO
+                QUE HAGA VALIDACIONES CON EL MODELSTATE, AUTOMATICAMENTE SE RELACIONARA EL VALOR DEL NAME CON EL DEL MODELO
+            -->
+
+            @* Sección para el valor de documentode identidad *@
+            <div class="mt-3">
+                <label>Valor del documento de identidad:</label>
+                <input type="text" id="entValorDocIdentMov" class="form-control" name="empleado.ValorDocumentoIdentidad" value="@Html.DisplayFor(modelItem => Model.empleado.ValorDocumentoIdentidad)" readonly>
+            </div>
+
+            @* Sección para el nombre *@
+            <div class="mt-3">
+                <label>Nombre:</label>
+                <input type="text" id="entNombreMov" class="form-control" name="empleado.Nombre" value="@Html.DisplayFor(modelItem => Model.empleado.Nombre)" readonly>
+            </div>
+
+            @* Sección para el nombre *@
+            <div class="mt-3">
+                <label>Saldo vacaciones:</label>
+                <input type="text" id="entSaldoVacacionesMov" class="form-control" name="empleado.SaldoVacaciones" value="@Html.DisplayFor(modelItem => Model.empleado.SaldoVacaciones)" readonly>
+            </div>
+
+            @* Sección para ingresar el monto *@
+            <div class="mt-3">
+                <label asp-for="movimiento.Monto">Monto:</label>
+                <input asp-for="movimiento.Monto" type="text" id="entMontoMov" class="form-control" value="" placeholder="Ingrese el monto aquí">
+                <span asp-validation-for="movimiento.Monto" id="spanMontoAgregarMov" class="text-danger"></span>
+            </div>
+
+            @* Sección para ingresar el puesto *@
+            <div id="div-tipoMovimiento" class="mt-3">
+                <label>Tipo de movimiento:</label>
+                <select id="selectListaMovimientos" class="form-select" name="movimiento.IdTipoMovimientoNavigation.Nombre">
+                    <option value="nada" selected disabled>Seleccione un tipo de movimiento:</option>
+                    <option value="Bono vacacional">Bono vacacional</option>
+                    <option value="Cumplir mes">Cumplir mes</option>
+                    <option value="Disfrute de vacaciones">Disfrute de vacaciones</option>
+                    <option value="Reversion de Credito">Reversion de Credito</option>
+                    <option value="Reversion Debito">Reversion Debito</option>
+                    <option value="Venta de vacaciones">Venta de vacaciones</option>
+                </select>
+            </div>
+
+        </form>
+
+        <div class="mt-3" id="div-botones-agregarMovimiento">
+            <button type="submit" id="btnAgregar" class="btn btn-primary" form="formAgregarMovimiento">Agregar</button>
+            <button id="btnBackAgregar" class="btn btn-primary" onclick="location.href='@Url.Action("Listar", "Empleado")'">Regresar</button>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -6,20 +6,20 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE OR ALTER PROCEDURE dbo.SP_ListarEmpleados
+CREATE OR ALTER PROCEDURE dbo.SP_SacarEmpleado
 (
-	@outResult INT OUTPUT
+	@inNombreEmpleado VARCHAR(128)
+	, @outResult INT OUTPUT
 )
 AS
 BEGIN
 	BEGIN TRY
 		SET NOCOUNT ON;
-		
-		--Se listan los empleados activos
+
+		--Se lista el empleado requerido
 		SELECT E.Nombre, E.ValorDocumentoIdentidad, E.SaldoVacaciones
 		FROM dbo.Empleado AS E
-		WHERE E.EsActivo = 1
-		ORDER BY E.Nombre ASC
+		WHERE (E.EsActivo = 1) AND (E.Nombre = @inNombreEmpleado);
 
 		-- Codigo de salida
 		SET @outResult = 0

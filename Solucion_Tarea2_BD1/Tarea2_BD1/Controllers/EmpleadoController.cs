@@ -32,7 +32,7 @@ namespace Tarea2_BD1.Controllers
         }
 
         [HttpGet]
-        [Route("listar_empleados")] /*----------------------------------------------------------------------- descomentar cuando se ponga el patron de inicio origianl -----------------------------------------------*/
+        //[Route("listar_empleados")] /*----------------------------------------------------------------------- descomentar cuando se ponga el patron de inicio origianl -----------------------------------------------*/
         public IActionResult Listar()
         {
             try
@@ -330,7 +330,7 @@ namespace Tarea2_BD1.Controllers
             }
         }//end method
 
-        public ActionResult HacerAviso(string nombreVista, string codigo, Empleado empleado) //---------------------------------------------------------------------------------FALTA TERMINAR
+        public ActionResult HacerAviso(string nombreVista, string codigo, Empleado empleado)
         {
             if (nombreVista == "Listar")
             {
@@ -353,22 +353,11 @@ namespace Tarea2_BD1.Controllers
         }
 
         [HttpPost]
-        
         public IActionResult ControlDeErroresAvisos(Empleado empleado, string stringPuesto)
         {
-            Console.WriteLine("\n\nEntro en ControlDeErroresAvisos");
-            Console.WriteLine("El modelo es valido? " + ModelState.IsValid.ToString());
-            
             if (ModelState.IsValid)
             {
-                if (stringPuesto == "nada")
-                {
-                    TempData["Message"] = "Debe seleccionar algún puesto";
-                    return RedirectToAction("Agregar", "Empleado", empleado);
-                }
-
                 //Intentamos agregar el usuario
-                Console.WriteLine("Entro en ModelState IsValid");
                 string resultadoSP = AgregarEmpleado(empleado.ValorDocumentoIdentidad.ToString(), empleado.Nombre, stringPuesto);
 
                 if (resultadoSP == "0")
