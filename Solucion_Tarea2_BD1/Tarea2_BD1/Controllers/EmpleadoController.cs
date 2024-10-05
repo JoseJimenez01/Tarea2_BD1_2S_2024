@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
+using Newtonsoft.Json;
 
 namespace Tarea2_BD1.Controllers
 {
@@ -27,7 +28,6 @@ namespace Tarea2_BD1.Controllers
 
         public IActionResult Agregar()
         {
-
             return View();
         }
 
@@ -202,7 +202,6 @@ namespace Tarea2_BD1.Controllers
         [Route("agregarEmpleado")]
         public string AgregarEmpleado(string inValorDocIdent, string inNombre, string inPuesto)
         {
-            Console.WriteLine("Entro en AgregarEmpleados");
             try
             {
                 //Sacamos la ip desde donde se ejecuta
@@ -377,6 +376,98 @@ namespace Tarea2_BD1.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        //public Empleado sacarEmpleado(ModeloAgregarMovimiento inModelo)
+        //{
+        //    try
+        //    {
+        //        //Se crea a conexión se abre
+        //        SqlConnection connection = (SqlConnection)_dbContext.Database.GetDbConnection();
+        //        connection.Open();
+
+        //        //Se crea el SP
+        //        SqlCommand comando = connection.CreateCommand();
+        //        comando.CommandType = System.Data.CommandType.StoredProcedure;
+        //        comando.CommandText = "SP_SacarEmpleado";
+
+        //        SqlParameter paramNombreEmpleado = new SqlParameter
+        //        {
+        //            ParameterName = "@inNombreEmpleado",
+        //            SqlDbType = SqlDbType.VarChar,
+        //            Size = 128,
+        //            Value = inModelo.empleado.Nombre,
+        //            Direction = ParameterDirection.Input
+        //        };
+        //        SqlParameter paramResultado = new SqlParameter
+        //        {
+        //            ParameterName = "@outResult",
+        //            SqlDbType = SqlDbType.Int,
+        //            Value = -345678,
+        //            Direction = ParameterDirection.InputOutput
+        //        };
+
+        //        //Se agrega cada parámetro al SP
+        //        comando.Parameters.Add(paramNombreEmpleado);
+        //        comando.Parameters.Add(paramResultado);
+
+        //        //Se leen los datos devueltos por el SP(dataset)
+        //        SqlDataReader reader = comando.ExecuteReader();
+
+        //        reader.Read();
+        //        ModeloAgregarMovimiento modelo = new ModeloAgregarMovimiento();
+        //        modelo.empleado.Nombre = Convert.ToString(reader["Nombre"])!;
+        //        modelo.empleado.ValorDocumentoIdentidad = Convert.ToInt32(reader["ValorDocumentoIdentidad"]);
+        //        modelo.empleado.SaldoVacaciones = Convert.ToDecimal(reader["SaldoVacaciones"]);
+
+        //        reader.Close();
+
+        //        comando.ExecuteNonQuery();
+
+        //        //Se leen los parámetros de salida
+        //        string SPresult = comando.Parameters["@outResult"].Value.ToString()!;
+        //        Console.WriteLine("\n------------------- SE HA EJECUTADO EL SP_SacarEmpleado -------------------");
+        //        Console.WriteLine(" El codigo de salida del sp es: " + SPresult);
+        //        Console.WriteLine("-----------------------------------------------------------------------------\n");
+
+        //        connection.Close();
+
+        //        return modelo;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ModeloAgregarMovimiento modeloError = new ModeloAgregarMovimiento();
+        //        modeloError.empleado.Nombre = ex.Message;
+        //        return modeloError;
+        //    }
+        //}// end meethod
+
+        public IActionResult Update()
+        {
+            ////Se descerializa el modelo para seguir validando
+            //var modeloJson = TempData["Modelo"] as string;
+            //var modelo = new ModeloAgregarMovimiento();
+
+            //if (modeloJson != null)
+            //{
+            //    modelo = JsonConvert.DeserializeObject<ModeloAgregarMovimiento>(modeloJson);
+            //}
+
+            //ModeloAgregarMovimiento modeloEnviado = new ModeloAgregarMovimiento();
+            //ModeloAgregarMovimiento modeloRecibido = new ModeloAgregarMovimiento();
+
+            //if (Nombre != null)
+            //{
+            //    modeloEnviado.empleado.Nombre = Nombre;
+            //}
+            //else
+            //{
+            //    modeloEnviado.empleado.Nombre = modelo.empleado.Nombre;
+            //}
+            //modeloRecibido = sacarEmpleado(modeloEnviado);
+
+            //return View(modeloRecibido);
+            return View();
         }
 
     }//end class

@@ -17,7 +17,7 @@ public partial class Movimiento
     public DateOnly Fecha { get; set; }
 
     [Required(ErrorMessage = "Debe agregar el monto")]
-    [Range(1.00,1000000.00, ErrorMessage = "El monto debe estar entre {1} y {2}")]
+    [Range(1.00,10000000.00, ErrorMessage = "El monto debe estar entre {1} y {2}")]
     public decimal Monto { get; set; }
 
     public decimal NuevoSaldo { get; set; }

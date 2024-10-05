@@ -26,15 +26,6 @@ EXEC dbo.SP_Filtro 'nav', 12, '192.01.09', @result OUTPUT
 
 SELECT @result
 
---Testeo del sp para consultar los puestos
-USE DBTarea2
-GO
-DECLARE @result INT
-
-EXEC dbo.SP_ListarPuestos @result OUTPUT
-
-SELECT @result
-
 --Testeo del sp para agregar empleados
 USE DBTarea2
 GO
@@ -50,5 +41,14 @@ GO
 DECLARE @result INT
 
 EXEC dbo.SP_ListarMovimientos 'Christina Ward', @result OUTPUT
+
+SELECT @result
+
+--Testeo del sp para agregar empleados
+USE DBTarea2
+GO
+DECLARE @result INT
+
+EXEC dbo.SP_AgregarMovimiento 111111, 'Jose prueba desde el navegador', 0.00, 1000000.00, 'Reversion Debito', '111.111.1.1111', @result OUTPUT
 
 SELECT @result
