@@ -577,7 +577,7 @@ namespace Tarea2_BD1.Controllers
             return View(modeloRecibido);
         }//end method
 
-        public ActionResult HacerAvisoUpdate(string nombreVista, string codigo, ActualizarEmpleado modelo) //--------------------------------------------------------------------------FALTA TERMINAR
+        public ActionResult HacerAvisoUpdate(string nombreVista, string codigo, ActualizarEmpleado modelo)
         {
             if (nombreVista == "Listar")
             {
@@ -626,12 +626,263 @@ namespace Tarea2_BD1.Controllers
 
         }//end method
 
+        //-------------------------------------------------------------------------------- Metodos para borrar empleado-------------------------------------------------
 
+        [HttpPost]
+        [Route("borrar-empleado")]
+        public string BorrarEmpleado(string inNombre, int inValorDocIdent, string inPuesto, Decimal inSaldoVacaciones, int inConfirmacion )
+        {
+            try
+            {
+                //Sacamos la ip desde donde se ejecuta
+                IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
+                var ippaddress = host.AddressList.FirstOrDefault(ip => ip.AddressFamily == AddressFamily.InterNetwork);
 
+                //Se crea a conexión se abre
+                SqlConnection connection = (SqlConnection)_dbContext.Database.GetDbConnection();
+                connection.Open();
 
+                //Se crea el SP
+                SqlCommand comando = connection.CreateCommand();
+                comando.CommandType = System.Data.CommandType.StoredProcedure;
+                comando.CommandText = "SP_BorrarEmpleado";
 
+                SqlParameter paramValorDocIdentEmpleado = new SqlParameter
+                {
+                    ParameterName = "@inValorDocIdent",
+                    SqlDbType = SqlDbType.Int,
+                    Value = inValorDocIdent,
+                    Direction = ParameterDirection.Input
+                };
+                SqlParameter paramNombreEmpleado = new SqlParameter
+                {
+                    ParameterName = "@inNombreEmpleado",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 128,
+                    Value = inNombre,
+                    Direction = ParameterDirection.Input
+                };
+                SqlParameter paramSaldoVacasEmpleado = new SqlParameter
+                {
+                    ParameterName = "@inSaldoVacaciones",
+                    SqlDbType = SqlDbType.Decimal,
+                    Value = inSaldoVacaciones,
+                    Direction = ParameterDirection.Input
+                };
 
+                SqlParameter paramPuestoEmpleado = new SqlParameter
+                {
+                    ParameterName = "@inPuesto",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 128,
+                    Value = inPuesto,
+                    Direction = ParameterDirection.Input
+                };
+                SqlParameter paramConfirmacion = new SqlParameter
+                {
+                    ParameterName = "@inConfirmaOno",
+                    SqlDbType = SqlDbType.Int,
+                    Value = inConfirmacion,
+                    Direction = ParameterDirection.Input
+                };
+                SqlParameter paramPostInIP = new SqlParameter
+                {
+                    ParameterName = "@inPostInIP",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 32,
+                    Value = ippaddress.ToString(),
+                    Direction = ParameterDirection.Input
+                };
+                SqlParameter paramResultado = new SqlParameter
+                {
+                    ParameterName = "@outResult",
+                    SqlDbType = SqlDbType.Int,
+                    Value = -345678,
+                    Direction = ParameterDirection.InputOutput
+                };
 
+                //Se agrega cada parámetro al SP
+                comando.Parameters.Add(paramValorDocIdentEmpleado);
+                comando.Parameters.Add(paramNombreEmpleado);
+                comando.Parameters.Add(paramSaldoVacasEmpleado);
+                comando.Parameters.Add(paramPuestoEmpleado);
+                comando.Parameters.Add(paramConfirmacion);
+                comando.Parameters.Add(paramPostInIP);
+                comando.Parameters.Add(paramResultado);
+
+                comando.ExecuteNonQuery();
+
+                //Se leen los parámetros de salida
+                string SPresult = comando.Parameters["@outResult"].Value.ToString()!;
+                Console.WriteLine("\n------------------- SE HA EJECUTADO EL SP_BorrarEmpleado -------------------");
+                Console.WriteLine(" El codigo de salida del sp es: " + SPresult);
+                Console.WriteLine("-----------------------------------------------------------------------------\n");
+
+                connection.Close();
+
+                return SPresult;
+            }
+            catch (Exception ex)
+            {
+                return System.String.Format("El error es: {0}", ex.ToString());
+            }
+        }//end method
+
+        public Empleado sacarEmpleadoBorrar(Empleado inModelo)
+        {
+            try
+            {
+                //Se crea a conexión se abre
+                SqlConnection connection = (SqlConnection)_dbContext.Database.GetDbConnection();
+                connection.Open();
+
+                //Se crea el SP
+                SqlCommand comando = connection.CreateCommand();
+                comando.CommandType = System.Data.CommandType.StoredProcedure;
+                comando.CommandText = "SP_SacarEmpleado";
+
+                SqlParameter paramNombreEmpleado = new SqlParameter
+                {
+                    ParameterName = "@inNombreEmpleado",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 128,
+                    Value = inModelo.Nombre,
+                    Direction = ParameterDirection.Input
+                };
+                SqlParameter paramResultado = new SqlParameter
+                {
+                    ParameterName = "@outResult",
+                    SqlDbType = SqlDbType.Int,
+                    Value = -345678,
+                    Direction = ParameterDirection.InputOutput
+                };
+
+                //Se agrega cada parámetro al SP
+                comando.Parameters.Add(paramNombreEmpleado);
+                comando.Parameters.Add(paramResultado);
+
+                //Se leen los datos devueltos por el SP(dataset)
+                SqlDataReader reader = comando.ExecuteReader();
+
+                reader.Read();
+                Empleado modelo = new Empleado();
+                modelo.Nombre = Convert.ToString(reader["Nombre"])!;
+                modelo.ValorDocumentoIdentidad = Convert.ToInt32(reader["ValorDocumentoIdentidad"]);
+                modelo.SaldoVacaciones = Convert.ToDecimal(reader["SaldoVacaciones"]);
+                modelo.IdPuestoNavigation.Nombre = Convert.ToString(reader["PuestoNombre"])!;
+
+                reader.Close();
+
+                comando.ExecuteNonQuery();
+
+                //Se leen los parámetros de salida
+                string SPresult = comando.Parameters["@outResult"].Value.ToString()!;
+                Console.WriteLine("\n------------------- SE HA EJECUTADO EL SP_SacarEmpleado -------------------");
+                Console.WriteLine(" El codigo de salida del sp es: " + SPresult);
+                Console.WriteLine("-----------------------------------------------------------------------------\n");
+
+                connection.Close();
+
+                return modelo;
+            }
+            catch (Exception ex)
+            {
+                Empleado modeloError = new Empleado();
+                modeloError.Nombre = ex.Message;
+                return modeloError;
+            }
+        }// end meethod
+
+        public IActionResult Borrar(string? Nombre)
+        {
+            //Se descerializa el modelo para seguir validando
+            var modeloJson = TempData["Modelo"] as string;
+            var modelo = new Empleado();
+
+            if (modeloJson != null)
+            {
+                modelo = JsonConvert.DeserializeObject<Empleado>(modeloJson);
+            }
+
+            Empleado modeloEnviado = new Empleado();
+            Empleado modeloRecibido = new Empleado();
+
+            if (Nombre != null)
+            {
+                modeloEnviado.Nombre = Nombre;
+            }
+            else
+            {
+                modeloEnviado.Nombre = modelo.Nombre;
+            }
+            modeloRecibido = sacarEmpleadoBorrar(modeloEnviado);
+
+            return View(modeloRecibido);
+        }//end method
+
+        public ActionResult HacerAvisoBorrar(string nombreVista, string codigo, Empleado modelo)
+        {
+            if (nombreVista == "Listar")
+            {
+                TempData["Message"] = "Borrado exitoso";
+                return RedirectToAction(nombreVista, "Empleado");
+            }
+            //Error generado en el try and catch del metodo que agrega el empleado a la BD
+            else if (codigo != "0")
+            {
+                TempData["Message"] = codigo; //el mismo codigo seria el error generado en el metodo ActualizarEmpleado
+                return RedirectToAction(nombreVista, modelo);
+            }
+            else if (nombreVista == "Borrar")
+            {
+                //Consulta el error y lo guarda comno aviso cuando redireccione a la pagina de inicio de sesion
+                TempData["Message"] = ValidacionesEstaticas.ConsultaCodError(codigo, this._dbContext);
+                return RedirectToAction(nombreVista, "Empleado", new { modelo.Nombre });
+            }
+            return Ok();
+        }
+
+        [HttpPost]
+        public IActionResult ControlErroresBorrar(Empleado modelo, string confirmacion)
+        {
+            if(confirmacion == "Si")
+            {
+                //Intentamos actualizar el empleado
+                string resultadoSP = BorrarEmpleado(modelo.Nombre, modelo.ValorDocumentoIdentidad, modelo.IdPuestoNavigation.Nombre, modelo.SaldoVacaciones, 1);
+                if (resultadoSP == "0")
+                {
+                    return HacerAvisoBorrar("Listar", resultadoSP, modelo);
+                }
+                else
+                {
+                    return HacerAvisoBorrar("Borrar", resultadoSP, modelo);
+                }
+            }
+            else if (confirmacion == "No")
+            {
+                TempData["Message"] = "No se ha borrado ningún empleado";
+                BorrarEmpleado(modelo.Nombre, modelo.ValorDocumentoIdentidad, modelo.IdPuestoNavigation.Nombre, modelo.SaldoVacaciones, 2);
+                return RedirectToAction("Listar", "Empleado");
+            }
+            //Se serializa el modelo en un Json para enviarlo por TempData ya que por temas de HttpPost y HttpGet que se hacen
+            //entre un metodo y el otro, no deja enviar el modelo por parametro
+            TempData["Modelo"] = JsonConvert.SerializeObject(modelo);
+            return RedirectToAction("Borrar", "Empleado", new { modelo.Nombre });
+
+        }//end method
+
+        //--------------------------------------------------------------------------------------- METODOS PARA CONSULTAR EMPLEADOS
+        public IActionResult Consulta(string Nombre)
+        {
+            Empleado modeloEnviado = new Empleado();
+            Empleado modeloRecibido = new Empleado();
+
+            modeloEnviado.Nombre = Nombre;
+
+            modeloRecibido = sacarEmpleadoBorrar(modeloEnviado);
+
+            return View(modeloRecibido);
+        }//end method
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

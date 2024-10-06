@@ -1,0 +1,60 @@
+﻿@model Empleado
+
+@{
+    ViewData["Title"] = "Borrar empleado";
+}
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Message"]
+    </div>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+    <h1>Borrar empleado</h1>
+
+    <div class="form-floating">
+
+        <form id="formBorrarEmpleado" method="post" asp-controller="Empleado" asp-action="ControlErroresBorrar">
+
+            @* Sección para el valor de documentode identidad *@
+            <div class="mt-3">
+                <label>Valor del documento de identidad:</label>
+                <input type="text" id="entValorDocIdentMov" class="form-control" name="ValorDocumentoIdentidad" value="@Html.DisplayFor(modelItem => Model.ValorDocumentoIdentidad)" readonly>
+            </div>
+
+            @* Sección para el nombre *@
+            <div class="mt-3">
+                <label>Nombre:</label>
+                <input type="text" id="entNombreMov" class="form-control" name="Nombre" value="@Html.DisplayFor(modelItem => Model.Nombre)" readonly>
+            </div>
+            <!-- Se ponene dos campos ocultos para que el modelo envie la info cuando se envias los datos -->
+            <input type="text" name="SaldoVacaciones" value="@Html.DisplayFor(modelItem => Model.SaldoVacaciones)" hidden>
+            <input type="text" name="IdPuestoNavigation.Nombre" value="@Html.DisplayFor(modelItem => Model.IdPuestoNavigation.Nombre)" hidden>
+
+        </form>
+
+        <div>
+            <label>¿Está seguro de que desea eliminar este empleado?</label>
+        </div>
+
+        <div class="mt-3" id="div-botones-borrarEmpleado">
+            <button type="submit" id="btnAgregar" class="btn btn-primary" form="formBorrarEmpleado" name="confirmacion" value="Si">Borrar</button>
+            <button type="submit" id="btnBackAgregar" class="btn btn-primary" form="formBorrarEmpleado" name="confirmacion" value="No">Regresar</button>
+        </div>
+
+    </div>
+</body>
+</html>

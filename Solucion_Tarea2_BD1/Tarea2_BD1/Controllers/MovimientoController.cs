@@ -328,6 +328,7 @@ namespace Tarea2_BD1.Controllers
             //Se eliminan algunas validaciones que hace el ModelState que realmente no se necesitan para efectos del formulario
             ModelState.Remove("movimiento.PostInIp");
             ModelState.Remove("movimiento.IdEmpleadoNavigation");
+            ModelState.Remove("empleado.IdPuestoNavigation.Nombre");
             ModelState.Remove("movimiento.IdPostByUserNavigation.Password");
             ModelState.Remove("movimiento.IdPostByUserNavigation.Username");
             ModelState.Remove("movimiento.IdTipoMovimientoNavigation.TipoAccion");

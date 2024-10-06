@@ -42,7 +42,7 @@ BEGIN
 							FROM dbo.TipoMovimiento AS TM
 							WHERE @inTipoMovimiento = TM.Nombre);
 		
-		--Se setea el saldo
+		--Se setea el saldo para hacer el proceso
 		SET @nuevoSaldo = @inSaldoVacaciones;
 
 		IF (@tipoAccion = 'Credito')

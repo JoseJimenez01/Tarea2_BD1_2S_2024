@@ -74,3 +74,13 @@ EXEC dbo.SP_ActualizarEmpleado 5095109, 'Christina Ward', 'Cajero', 50951096, 'C
 SELECT @result 
 
 
+
+--Testeo del sp para borrar empleados
+USE DBTarea2
+GO
+DECLARE @result INT
+
+EXEC dbo.SP_BorrarEmpleado 'Christina Ward Jhonson', 50951096, 'Conserje', 0.00, 1, '111.111.1.1111', @result OUTPUT
+
+SELECT @result 
+

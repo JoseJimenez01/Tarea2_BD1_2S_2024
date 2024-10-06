@@ -35,7 +35,8 @@ BEGIN
 		INNER JOIN dbo.Usuario AS U
 		ON M.idPostByUser = U.id
 		WHERE @idEmpleado = M.idEmpleado
-		ORDER BY M.Fecha DESC;
+		--ORDER BY M.Fecha DESC;
+		ORDER BY M.PostTime DESC;
 
 		-- Codigo de salida
 		SET @outResult = 0
