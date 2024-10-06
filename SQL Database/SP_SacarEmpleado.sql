@@ -17,8 +17,11 @@ BEGIN
 		SET NOCOUNT ON;
 
 		--Se lista el empleado requerido
-		SELECT E.Nombre, E.ValorDocumentoIdentidad, E.SaldoVacaciones
+		SELECT E.Nombre, E.ValorDocumentoIdentidad, E.SaldoVacaciones, P.Nombre AS PuestoNombre
 		FROM dbo.Empleado AS E
+		--Probando a la hora de actualizar empleado
+		INNER JOIN dbo.Puesto AS P
+		ON E.idPuesto = P.id
 		WHERE (E.EsActivo = 1) AND (E.Nombre = @inNombreEmpleado);
 
 		-- Codigo de salida

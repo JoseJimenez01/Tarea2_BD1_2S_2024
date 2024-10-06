@@ -6,11 +6,14 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE OR ALTER PROCEDURE dbo.SP_AgregarEmpleado
+CREATE OR ALTER PROCEDURE dbo.SP_ActualizarEmpleado
 (
-	@inValorDocIdent VARCHAR(128)
-	, @inNombre VARCHAR(128)
-	, @inPuesto VARCHAR(128)
+	@inValorDocIdentOriginal INT
+	, @inNombreOriginal VARCHAR(128)
+	, @inPuestoOriginal VARCHAR(128)
+	, @inValorDocIdent VARCHAR(128)		--valor nuevo
+	, @inNombre VARCHAR(128)	--nombre nuevo
+	, @inPuesto VARCHAR(128)	--puesto nuevo
 	, @inNombreEsAlfabetico INT -- 1 si es alfabetico, 2 si no lo es
 	, @inPostInIP VARCHAR(32)
 	, @outResult INT OUTPUT
@@ -24,6 +27,7 @@ BEGIN
 		DECLARE @idUsuario INT;
 		DECLARE @descripcionBitacora VARCHAR(256);
 		DECLARE @idPuesto INT;
+		DECLARE @saldoVacas MONEY;
 		DECLARE @valorDocEntero INT;
 
 		--Se pone al inicio por temas de validacion, y el valor recibido al llamar al SP
@@ -49,12 +53,12 @@ BEGIN
 		--Valida si el nombre ya existe en la base de datos
 	   	ELSE IF EXISTS (SELECT 1 FROM dbo.Empleado AS E WHERE E.Nombre = @inNombre)
 		BEGIN
-			SET @outResult = 50005; -- nombre empleado ya existe en insercion
+			SET @outResult = 50007; -- nombre empleado ya existe en actualizacion
 		END
 		--Valida si el valor del doc ident ya existe
 		ELSE IF EXISTS (SELECT 1 FROM dbo.Empleado AS E WHERE E.ValorDocumentoIdentidad = @inValorDocIdent)
 		BEGIN
-			SET @outResult = 50004; -- valor doc ident ya existe en inserción
+			SET @outResult = 50006; -- valor doc ident ya existe en actualizacion
 		END;
 
 		--Se busca el usuario que esta logueado, por medio del ultimo registro
@@ -72,7 +76,9 @@ BEGIN
 										FROM dbo.Error AS E
 										WHERE E.Codigo = @outResult);
 			-- Luego guardamos la info
-			SET @descripcionBitacora = @descripcionBitacora + ', ' + CONVERT(VARCHAR(32), @inValorDocIdent) + ', ' + @inNombre + ', ' + @inPuesto;
+			SET @descripcionBitacora = @descripcionBitacora + ', ' + CONVERT(VARCHAR(32), @inValorDocIdentOriginal) + ', ' +
+										@inNombreOriginal + ', ' + @inPuestoOriginal + ', ' +  CONVERT(VARCHAR(32), @inValorDocIdent) +
+										', ' + @inNombre + ', ' + @inPuesto;
 
 			INSERT INTO dbo.BitacoraEvento
 			(
@@ -84,7 +90,7 @@ BEGIN
 			)
 			VALUES
 			(
-				5 -- ya que hubo errores, es una insercion no exitosa
+				7 -- ya que hubo errores, update no exitoso
 				, @idUsuario
 				, @descripcionBitacora
 				, @inPostInIP
@@ -93,34 +99,28 @@ BEGIN
 			RETURN;
 		END;
 		
-		-- Una vez validados los datos, se actualizan las tablas
-		BEGIN TRANSACTION tAgregarEmpleado;
-
-			SET @idPuesto = (SELECT P.id
+		--Se buscan los valores faltantes para ingresar en las tablas
+		SET @idPuesto = (SELECT P.id
 							FROM dbo.Puesto AS P
 							WHERE P.Nombre = @inPuesto);
+		
+		SET @saldoVacas = (SELECT E.SaldoVacaciones
+							FROM dbo.Empleado AS E
+							WHERE E.Nombre = @inNombreOriginal);
 
-			-- Se inserta el nuevo empleado
-			INSERT INTO dbo.Empleado
-			(
-				idPuesto
-				, ValorDocumentoIdentidad
-				, Nombre
-				, FechaContratacion
-				, SaldoVacaciones
-				, EsActivo
-			)
-			VALUES
-			(
-				@idPuesto
-				, @inValorDocIdent
-				, @inNombre
-				, CONVERT (DATE, GETDATE())
-				, 0.00 --por defecto cero
-				, 1 --por defecto 1
-			);
+		SET @descripcionBitacora = CONVERT(VARCHAR(32), @inValorDocIdentOriginal) + ', ' +
+									@inNombreOriginal + ', ' + @inPuestoOriginal + ', ' + CONVERT(VARCHAR(32), @inValorDocIdent) +
+									', ' + @inNombre + ', ' + @inPuesto + ', ' + CONVERT(VARCHAR(32), @saldoVacas);
 
-			SET @descripcionBitacora = CONVERT(VARCHAR(32), @inValorDocIdent) + ', ' + @inNombre + ', ' + @inPuesto;
+		-- Una vez validados los datos, se actualizan las tablas
+		BEGIN TRANSACTION tActualizarEmpleado;
+
+			-- Se actualiza el empleado indicado
+			UPDATE dbo.Empleado
+			SET ValorDocumentoIdentidad = @inValorDocIdent,
+				Nombre = @inNombre,
+				idPuesto = @idPuesto
+			WHERE ValorDocumentoIdentidad = @inValorDocIdentOriginal AND Nombre = @inNombreOriginal AND EsActivo = 1;
 
 			-- Luego se registra la inserción en la bitácora
 			INSERT INTO dbo.BitacoraEvento
@@ -133,14 +133,14 @@ BEGIN
 			)
 			VALUES
 			(
-				6 -- insercion exitosa
+				8 -- update exitoso
 				, @idUsuario
 				, @descripcionBitacora
 				, @inPostInIP
 				, GETDATE()
 			);
 
-		COMMIT TRANSACTION tAgregarEmpleado;
+		COMMIT TRANSACTION tActualizarEmpleado;
 
 		SET NOCOUNT OFF;
 	END TRY
@@ -149,7 +149,7 @@ BEGIN
 		-- Se deshace lo hecho en la transación
 		IF @@TRANCOUNT > 0
 		BEGIN
-			ROLLBACK TRANSACTION tAgregarEmpleado;
+			ROLLBACK TRANSACTION tActualizarEmpleado;
 		END
 
 		--Buscamos el username para DBError

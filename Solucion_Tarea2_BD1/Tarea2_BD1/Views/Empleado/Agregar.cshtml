@@ -28,10 +28,10 @@
 
     <div class="form-floating">
         <form id="formAgregarEmp" method="post" asp-controller="Empleado" asp-action="ControlDeErroresAvisos">
-            @* Sección para ingresar el valor de documentode identidad *@
+            @* Sección para ingresar el valor de documento de identidad *@
             <div class="mt-3">
                 <label asp-for="ValorDocumentoIdentidad">Valor del documento de identidad:</label>
-                <input asp-for="ValorDocumentoIdentidad" type="text" id="entValorDocIdent" class="form-control" placeholder="Escriba el nombre aquí">
+                <input asp-for="ValorDocumentoIdentidad" type="text" id="entValorDocIdent" class="form-control"  placeholder="Escriba el nombre aquí">
                 <span asp-validation-for="ValorDocumentoIdentidad" id="spanValorDocIdent" class="text-danger"></span>
             </div>
 
@@ -61,9 +61,6 @@
                 </select>
             </div>
              
-            @* <button type="submit" id="btnAgregarEmp" class="btn btn-primary mt-3">Buscar</button>
-            <button id="btnBack" class="btn btn-primary" onclick="location.href='@Url.Action("Listar", "Empleado")'">Regresar</button> *@
-
         </form>
 
         <div class="mt-3" id="div-botones-agregarEmpleado">

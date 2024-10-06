@@ -1,5 +1,6 @@
 ﻿
-@model Empleado
+@* @model Empleado *@
+@model ActualizarEmpleado
 
 @{
     ViewData["Title"] = "Actualizar empleado";
@@ -28,27 +29,46 @@
 
     <div class="form-floating">
 
-        <form id="formActualizarEmpleado" method="post" asp-controller="Empleado" asp-action="">
+        <form id="formActualizarEmpleado" method="post" asp-controller="Empleado" asp-action="ControlErroresActualizar">
 
-            @* Sección para el valor de documentode identidad *@
+            @* Sección para el valor de documentode identidad original *@
             <div class="mt-3">
-                <label asp-for="ValorDocumentoIdentidad">Valor del documento de identidad:</label>
-                <input type="text" id="entValorDocIdentMov" class="form-control" name="ValorDocumentoIdentidad" value="@Html.DisplayFor(modelItem => Model.ValorDocumentoIdentidad)">
-                <span asp-validation-for="ValorDocumentoIdentidad" id="spanValorDocIdent" class="text-danger"></span>
+                <label>Valor del documento de identidad original:</label>
+                <input type="text" class="form-control" name="empleadoOriginal.ValorDocumentoIdentidad" value="@Html.DisplayFor(modelItem => Model.empleadoOriginal.ValorDocumentoIdentidad)" readonly>
             </div>
 
-            @* Sección para el nombre *@
+            @* Sección para el nombre original *@
             <div class="mt-3">
-                <label asp-for="Nombre">Nombre:</label>
-                <input asp-for="Nombre" type="text" id="entNombreMov" class="form-control" name="empleado.Nombre" value="@Html.DisplayFor(modelItem => Model.Nombre)">
-                <span asp-validation-for="Nombre" id="spanValorDocIdent" class="text-danger"></span>
+                <label>Nombre original:</label>
+                <input type="text" class="form-control" name="empleadoOriginal.Nombre" value="@Html.DisplayFor(modelItem => Model.empleadoOriginal.Nombre)" readonly>
             </div>
 
-            @* Sección para ingresar el puesto *@
-            <div id="div-PartialView" class="mt-3">
-                <label>Puesto:</label>
-                <select id="selectListaPuestos" class="form-select" name="stringPuesto">
-                    <option value="nada" selected disabled>Seleccione un puesto:</option>
+            @* Sección para el puesto original *@
+            <div class="mt-3">
+                <label>Puesto original:</label>
+                <input type="text" class="form-control" name="empleadoOriginal.IdPuestoNavigation.Nombre"
+                value="@Html.DisplayFor(modelItem => Model.empleadoOriginal.IdPuestoNavigation.Nombre)" readonly>
+            </div>
+
+            @* Sección para el valor de documentode identidad nuevo *@
+            <div class="mt-4">
+                <label asp-for="empleadoNuevo.ValorDocumentoIdentidad">Valor del documento de identidad nuevo:</label>
+                <input asp-for="empleadoNuevo.ValorDocumentoIdentidad" type="text" class="form-control" value="" placeholder="Ingrese el nuevo valor del documento de identidad aquí">
+                <span asp-validation-for="empleadoNuevo.ValorDocumentoIdentidad" class="text-danger"></span>
+            </div>
+
+            @* Sección para el nombre nuevo *@
+            <div class="mt-3">
+                <label asp-for="empleadoNuevo.Nombre">Nombre nuevo:</label>
+                <input asp-for="empleadoNuevo.Nombre" type="text" class="form-control" placeholder="Ingrese el nuevo nombre aquí">
+                <span asp-validation-for="empleadoNuevo.Nombre" class="text-danger"></span>
+            </div>
+
+            @* Sección para ingresar el puesto nuevo *@
+            <div id="div-select" class="mt-3">
+                <label>Puesto nuevo:</label>
+                <select id="selectListaPuestos" class="form-select" name="empleadoNuevo.IdPuestoNavigation.Nombre">
+                    <option value="nada" selected disabled>Seleccione el nuevo puesto:</option>
                     <option value="Albañil">Albañil</option>
                     <option value="Asistente">Asistente</option>
                     <option value="Cajero">Cajero</option>

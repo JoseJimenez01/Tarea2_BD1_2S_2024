@@ -52,3 +52,25 @@ DECLARE @result INT
 EXEC dbo.SP_AgregarMovimiento 111111, 'Jose prueba desde el navegador', 0.00, 1000000.00, 'Reversion Debito', '111.111.1.1111', @result OUTPUT
 
 SELECT @result
+
+
+--Testeo del sp para agregar empleados
+USE DBTarea2
+GO
+DECLARE @result INT
+
+EXEC dbo.SP_SacarEmpleado 'Jose Jimenez', @result OUTPUT
+
+SELECT @result
+
+
+--Testeo del sp para agregar empleados
+USE DBTarea2
+GO
+DECLARE @result INT
+
+EXEC dbo.SP_ActualizarEmpleado 5095109, 'Christina Ward', 'Cajero', 50951096, 'Christina Ward Jhonson', 'Conserje', 1, 1, '111.111.1.1111', @result OUTPUT
+
+SELECT @result 
+
+

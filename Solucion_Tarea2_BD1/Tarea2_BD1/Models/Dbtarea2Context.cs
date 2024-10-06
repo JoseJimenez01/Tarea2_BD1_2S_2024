@@ -98,10 +98,10 @@ public partial class Dbtarea2Context : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.SaldoVacaciones).HasColumnType("money");
 
-            //entity.HasOne(d => d.IdPuestoNavigation).WithMany(p => p.Empleados)
-            //    .HasForeignKey(d => d.IdPuesto)
-            //    .OnDelete(DeleteBehavior.ClientSetNull)
-            //    .HasConstraintName("FK__Empleado__idPues__398D8EEE");
+            entity.HasOne(d => d.IdPuestoNavigation).WithMany(p => p.Empleados)
+                .HasForeignKey(d => d.IdPuesto)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Empleado__idPues__398D8EEE");
         });
 
         modelBuilder.Entity<Error>(entity =>
