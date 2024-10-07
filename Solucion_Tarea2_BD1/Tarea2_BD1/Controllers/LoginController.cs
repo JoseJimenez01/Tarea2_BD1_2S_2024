@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
 using System.Data;
 using System.Diagnostics;
 using System.Net;
@@ -125,16 +123,6 @@ namespace Tarea2_BD1.Controllers
                 comando.CommandType = System.Data.CommandType.StoredProcedure;
                 comando.CommandText = "SP_ConsultaError";
 
-                //Código para crear parámetros al Store Procedure
-                //SqlParameter paramUsername = new SqlParameter
-                //{
-                //    ParameterName = "@inUsername",
-                //    SqlDbType = SqlDbType.VarChar,
-                //    Size = 64,
-                //    Value = usuario,
-                //    Direction = ParameterDirection.Input
-                //};
-
                 SqlParameter paramCodigo = new SqlParameter
                 {
                     ParameterName = "@inCodigo",
@@ -152,7 +140,6 @@ namespace Tarea2_BD1.Controllers
                 };
 
                 //Se agrega cada parámetro al SP
-                //comando.Parameters.Add(paramUsername);
                 comando.Parameters.Add(paramCodigo);
                 comando.Parameters.Add(paramResultado);
 
@@ -314,6 +301,68 @@ namespace Tarea2_BD1.Controllers
                 }
             }
             return Ok();
+        }
+
+        [HttpPost]
+        public string CerrarSesion()
+        {
+            try
+            {
+                //Sacamos la ip desde donde se ejecuta
+                IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
+                var ippaddress = host.AddressList.FirstOrDefault(ip => ip.AddressFamily == AddressFamily.InterNetwork);
+
+                //Se crea a conexión se abre
+                SqlConnection connection = (SqlConnection)_dbContext.Database.GetDbConnection();
+                connection.Open();
+
+                //Se crea el SP
+                SqlCommand comando = connection.CreateCommand();
+                comando.CommandType = System.Data.CommandType.StoredProcedure;
+                comando.CommandText = "SP_LogOut";
+
+                SqlParameter paramPostInIP = new SqlParameter
+                {
+                    ParameterName = "@inPostInIP",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 32,
+                    Value = ippaddress.ToString(),
+                    Direction = ParameterDirection.Input
+                };
+                SqlParameter paramResultado = new SqlParameter
+                {
+                    ParameterName = "@outResult",
+                    SqlDbType = SqlDbType.Int,
+                    Value = -345678,
+                    Direction = ParameterDirection.InputOutput
+                };
+
+                //Se agrega cada parámetro al SP
+                comando.Parameters.Add(paramPostInIP);
+                comando.Parameters.Add(paramResultado);
+
+                comando.ExecuteNonQuery();
+
+                //Se leen los parámetros de salida
+                string SPresult = comando.Parameters["@outResult"].Value.ToString()!;
+                Console.WriteLine("\n------------------- SE HA EJECUTADO EL SP_LogOut -------------------");
+                Console.WriteLine(" El codigo de salida del sp es: " + SPresult);
+                Console.WriteLine("-----------------------------------------------------------------------------\n");
+
+                connection.Close();
+
+                return SPresult;
+            }
+            catch (Exception ex)
+            {
+                return String.Format("El error es: {0}", ex.ToString());
+            }
+        }
+
+        public IActionResult ControlCerrarSesion()
+        {
+            CerrarSesion();
+            return RedirectToAction("SignIn", "Login"); 
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

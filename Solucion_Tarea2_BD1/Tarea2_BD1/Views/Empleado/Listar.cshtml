@@ -33,9 +33,8 @@
             @Html.Partial("_VistaParcialFiltro", Model)
         </div>
 
-        <form action="@Url.Action("Agregar", "Empleado")">
-            <input type="submit" id="btnAgregar" class="btn btn-primary" value="Agregar">
-        </form>
+        <button type="submit" id="btnAgregar" class="btn btn-primary" onclick="location.href='@Url.Action("Agregar", "Empleado")'">Agregar</button>
+        
     </div>
 </body>
 

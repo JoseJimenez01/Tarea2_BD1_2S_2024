@@ -24,8 +24,6 @@ public partial class Empleado
 
     public bool EsActivo { get; set; }
 
-    //public virtual Puesto IdPuestoNavigation { get; set; } = null!;
-
     public virtual Puesto IdPuestoNavigation { get; set; } = new Puesto();
     public virtual ICollection<Movimiento> Movimientos { get; set; } = new List<Movimiento>();
 

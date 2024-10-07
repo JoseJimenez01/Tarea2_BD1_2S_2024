@@ -46,7 +46,7 @@ th, td {
     vertical-align: middle;
 }
 
-#btnBackAgregar {
+#btnBackAgregar, #botonLogOut {
     position: absolute;
     right: 0;
 }

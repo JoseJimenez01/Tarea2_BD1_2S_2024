@@ -5,10 +5,7 @@ using Newtonsoft.Json;
 using System.Data;
 using System.Net.Sockets;
 using System.Net;
-using System.Text.RegularExpressions;
 using Tarea2_BD1.Models;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Drawing;
 
 namespace Tarea2_BD1.Controllers
 {

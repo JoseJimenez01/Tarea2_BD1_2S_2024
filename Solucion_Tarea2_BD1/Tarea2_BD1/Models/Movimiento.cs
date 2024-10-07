@@ -28,9 +28,7 @@ public partial class Movimiento
 
     public virtual Empleado IdEmpleadoNavigation { get; set; } = null!;
 
-    //public virtual Usuario IdPostByUserNavigation { get; set; } = null!;
     public virtual Usuario IdPostByUserNavigation { get; set; } = new Usuario();
 
-    //public virtual TipoMovimiento IdTipoMovimientoNavigation { get; set; } = null!;
     public virtual TipoMovimiento IdTipoMovimientoNavigation { get; set; } = new TipoMovimiento();
 }

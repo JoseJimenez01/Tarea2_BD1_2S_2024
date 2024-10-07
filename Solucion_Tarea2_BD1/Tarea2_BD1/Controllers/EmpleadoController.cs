@@ -5,14 +5,8 @@ using System.Data;
 using System.Net.Sockets;
 using System.Net;
 using Tarea2_BD1.Models;
-using System.Reflection.Metadata;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using Microsoft.Extensions.FileSystemGlobbing.Internal;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using Newtonsoft.Json;
 
 namespace Tarea2_BD1.Controllers
@@ -32,7 +26,7 @@ namespace Tarea2_BD1.Controllers
         }
 
         [HttpGet]
-        //[Route("listar_empleados")] /*----------------------------------------------------------------------- descomentar cuando se ponga el patron de inicio origianl -----------------------------------------------*/
+        [Route("listar_empleados")]
         public IActionResult Listar()
         {
             try

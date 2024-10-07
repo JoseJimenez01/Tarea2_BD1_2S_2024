@@ -22,16 +22,6 @@ namespace Tarea2_BD1.Models
                 comando.CommandType = System.Data.CommandType.StoredProcedure;
                 comando.CommandText = "SP_ConsultaError";
 
-                //Código para crear parámetros al Store Procedure
-                //SqlParameter paramUsername = new SqlParameter
-                //{
-                //    ParameterName = "@inUsername",
-                //    SqlDbType = SqlDbType.VarChar,
-                //    Size = 64,
-                //    Value = usuario,
-                //    Direction = ParameterDirection.Input
-                //};
-
                 SqlParameter paramCodigo = new SqlParameter
                 {
                     ParameterName = "@inCodigo",
@@ -39,7 +29,6 @@ namespace Tarea2_BD1.Models
                     Value = int.Parse(codigo), //lo cambiamos a int, porque asi esta guardado en la base de datos
                     Direction = ParameterDirection.Input
                 };
-
                 SqlParameter paramResultado = new SqlParameter
                 {
                     ParameterName = "@outResult",
@@ -49,7 +38,6 @@ namespace Tarea2_BD1.Models
                 };
 
                 //Se agrega cada parámetro al SP
-                //comando.Parameters.Add(paramUsername);
                 comando.Parameters.Add(paramCodigo);
                 comando.Parameters.Add(paramResultado);
 
