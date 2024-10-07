@@ -1,11 +1,19 @@
 is_global = true
 build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
 build_property.TargetPlatformMinVersion = 
 build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
 build_property.PlatformNeutralAssembly = 
 build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Tarea2_BD1
 build_property.RootNamespace = Tarea2_BD1
@@ -18,12 +26,48 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Usuario\OneDrive\Escritorio\Material_y_evaluaciones_de_cursos\2 S 2024\Bases de Datos 1\Tarea 2\Tarea2_BD1_2S_2024\Solucion_Tarea2_BD1\Tarea2_BD1
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/Usuario/OneDrive/Escritorio/Material_y_evaluaciones_de_cursos/2 S 2024/Bases de Datos 1/Tarea 2/Tarea2_BD1_2S_2024/Solucion_Tarea2_BD1/Tarea2_BD1/Views/Empleado/Agregar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbGVhZG9cQWdyZWdhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Usuario/OneDrive/Escritorio/Material_y_evaluaciones_de_cursos/2 S 2024/Bases de Datos 1/Tarea 2/Tarea2_BD1_2S_2024/Solucion_Tarea2_BD1/Tarea2_BD1/Views/Empleado/Borrar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbGVhZG9cQm9ycmFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Usuario/OneDrive/Escritorio/Material_y_evaluaciones_de_cursos/2 S 2024/Bases de Datos 1/Tarea 2/Tarea2_BD1_2S_2024/Solucion_Tarea2_BD1/Tarea2_BD1/Views/Empleado/Consulta.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbGVhZG9cQ29uc3VsdGEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Usuario/OneDrive/Escritorio/Material_y_evaluaciones_de_cursos/2 S 2024/Bases de Datos 1/Tarea 2/Tarea2_BD1_2S_2024/Solucion_Tarea2_BD1/Tarea2_BD1/Views/Empleado/Listar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbGVhZG9cTGlzdGFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Usuario/OneDrive/Escritorio/Material_y_evaluaciones_de_cursos/2 S 2024/Bases de Datos 1/Tarea 2/Tarea2_BD1_2S_2024/Solucion_Tarea2_BD1/Tarea2_BD1/Views/Empleado/Update.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbGVhZG9cVXBkYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Usuario/OneDrive/Escritorio/Material_y_evaluaciones_de_cursos/2 S 2024/Bases de Datos 1/Tarea 2/Tarea2_BD1_2S_2024/Solucion_Tarea2_BD1/Tarea2_BD1/Views/Empleado/_VistaParcialFiltro.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbGVhZG9cX1Zpc3RhUGFyY2lhbEZpbHRyby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Usuario/OneDrive/Escritorio/Material_y_evaluaciones_de_cursos/2 S 2024/Bases de Datos 1/Tarea 2/Tarea2_BD1_2S_2024/Solucion_Tarea2_BD1/Tarea2_BD1/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Usuario/OneDrive/Escritorio/Material_y_evaluaciones_de_cursos/2 S 2024/Bases de Datos 1/Tarea 2/Tarea2_BD1_2S_2024/Solucion_Tarea2_BD1/Tarea2_BD1/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Usuario/OneDrive/Escritorio/Material_y_evaluaciones_de_cursos/2 S 2024/Bases de Datos 1/Tarea 2/Tarea2_BD1_2S_2024/Solucion_Tarea2_BD1/Tarea2_BD1/Views/Login/SignIn.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cU2lnbkluLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Usuario/OneDrive/Escritorio/Material_y_evaluaciones_de_cursos/2 S 2024/Bases de Datos 1/Tarea 2/Tarea2_BD1_2S_2024/Solucion_Tarea2_BD1/Tarea2_BD1/Views/Movimiento/Agregar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTW92aW1pZW50b1xBZ3JlZ2FyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Usuario/OneDrive/Escritorio/Material_y_evaluaciones_de_cursos/2 S 2024/Bases de Datos 1/Tarea 2/Tarea2_BD1_2S_2024/Solucion_Tarea2_BD1/Tarea2_BD1/Views/Movimiento/Listar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTW92aW1pZW50b1xMaXN0YXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Usuario/OneDrive/Escritorio/Material_y_evaluaciones_de_cursos/2 S 2024/Bases de Datos 1/Tarea 2/Tarea2_BD1_2S_2024/Solucion_Tarea2_BD1/Tarea2_BD1/Views/Shared/Error.cshtml]

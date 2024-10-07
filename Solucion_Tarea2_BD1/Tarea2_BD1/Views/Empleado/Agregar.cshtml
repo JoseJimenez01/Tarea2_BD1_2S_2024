@@ -1,0 +1,73 @@
+﻿
+@model Empleado
+
+@{
+    ViewData["Title"] = "Agregar empleados";
+}
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Message"]
+    </div>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+    <h1>Agregar empleado</h1>
+
+    <div class="form-floating">
+        <form id="formAgregarEmp" method="post" asp-controller="Empleado" asp-action="ControlDeErroresAvisos">
+            @* Sección para ingresar el valor de documento de identidad *@
+            <div class="mt-3">
+                <label asp-for="ValorDocumentoIdentidad">Valor del documento de identidad:</label>
+                <input asp-for="ValorDocumentoIdentidad" type="text" id="entValorDocIdent" class="form-control"  placeholder="Escriba el nombre aquí">
+                <span asp-validation-for="ValorDocumentoIdentidad" id="spanValorDocIdent" class="text-danger"></span>
+            </div>
+
+            @* Sección para ingresar el nombre *@
+            <div class="mt-3">
+                <label asp-for="Nombre">Nombre:</label>
+                <input asp-for="Nombre" type="text" id="entNombre" class="form-control" placeholder="Escriba el salario aquí">
+                <span asp-validation-for="Nombre" id="spanSalario" class="text-danger"></span>
+            </div>
+
+            @* Sección para ingresar el puesto *@
+            <div id="div-PartialView" class="mt-3">
+                <label>Puesto:</label>
+                @* <input type="text" class="form-control" name="stringPuesto" placeholder="Probandoooooooooooo"> *@
+                <select id="selectListaPuestos" class="form-select" name="stringPuesto">
+                    <option value="nada" selected disabled>Seleccione un puesto:</option>
+                    <option value="Albañil">Albañil</option>
+                    <option value="Asistente">Asistente</option>
+                    <option value="Cajero">Cajero</option>
+                    <option value="Camarero">Camarero</option>
+                    <option value="Conductor">Conductor</option>
+                    <option value="Conserje">Conserje</option>
+                    <option value="Cuidador">Cuidador</option>
+                    <option value="Fontanero">Fontanero</option>
+                    <option value="Niñera">Niñera</option>
+                    <option value="Recepcionista">Recepcionista</option>
+                </select>
+            </div>
+             
+        </form>
+
+        <div class="mt-3" id="div-botones-agregarEmpleado">
+            <button type="submit" id="btnAgregarEmpleado" class="btn btn-primary" form="formAgregarEmp">Agregar empleado</button>
+            <button id="btnBackAgregar" class="btn btn-primary" onclick="location.href='@Url.Action("Listar", "Empleado")'">Regresar</button>
+        </div>
+
+    </div>
+</body>
+</html>

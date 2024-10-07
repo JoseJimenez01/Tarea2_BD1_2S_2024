@@ -1,0 +1,115 @@
+﻿
+@model VistaListarMovimientos
+
+@{
+    ViewData["Title"] = "Movimientos";
+}
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+    <h1>Lista de Movimientos según el usuario</h1>
+
+    <div class="form-floating">
+        <h5 class="mt-5">Información del empleado seleccionado:</h5>
+        <table id="tablaUsuarioMovimientos" class="table table-hover">
+            <tr>
+                <th id="encNombreEnListaMov">
+                    Nombre
+                </th>
+                <th id="encValorDocIdentEnListaMov">
+                    Valor del documento de identidad
+                </th>
+                <th id="encSaldoVacasEnListaMov">
+                    Saldo de vacaciones
+                </th>
+            </tr>
+            @foreach (var item in Model.empleados)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ValorDocumentoIdentidad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SaldoVacaciones)
+                    </td>
+                </tr>
+            }
+        </table>
+        <h5 class="mt-5">A continuación los movimientos del empleado:</h5>
+        
+        <table id="tablaMovimientos" class="table table-hover">
+            <tr>
+                <th id="encFechaMov">
+                    Fecha
+                </th>
+                <th id="encNombreMov">
+                    Nombre movimiento
+                </th>
+                <th id="encMontoMov">
+                    Monto
+                </th>
+                <th id="encNuevoSaldoMov">
+                    Nuevo saldo
+                </th>
+                <th id="encUsuarioMov">
+                    Usuario que registró
+                </th>
+                <th id="encIpMov">
+                    Ip
+                </th>
+                <th id="encEstampaMov">
+                    Estampa de tiempo
+                </th>
+            </tr>
+            @foreach (var item in Model.movimientos)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fecha)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdTipoMovimientoNavigation.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Monto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NuevoSaldo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdPostByUserNavigation.Username)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PostInIp)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PostTime)
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <div class="mt-3" id="div-botones-agregarEmpleado">
+            @* <button type="submit" id="btnAgregar" class="btn btn-primary" onclick="location.href='@Url.Action("Agregar", "Movimiento")'">Agregar movimiento</button> *@
+            <button id="btnBackAgregar" class="btn btn-primary" onclick="location.href='@Url.Action("Listar", "Empleado")'">Regresar</button>
+        </div>
+
+    </div>
+</body>
+
+</html>

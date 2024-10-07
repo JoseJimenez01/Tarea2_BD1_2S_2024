@@ -1,0 +1,41 @@
+﻿
+
+@model IEnumerable<Tarea2_BD1.Models.Empleado>
+
+@{
+    ViewData["Title"] = "Empleados";
+}
+
+<body>
+    <table id="tablaEmpleados" class="table table-hover">
+        <tr>
+            <th id="encNom">
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th id="encValorDocIdent">
+                Valor del documento de identidad
+            </th>
+            <th id="encAccion">
+                Acción
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorDocumentoIdentidad)
+                </td>
+                <td>
+                    @Html.ActionLink("Consultar", "Consulta", "Empleado", new { Nombre = item.Nombre }) |
+                    @Html.ActionLink("Modificar", "Update", "Empleado", new { Nombre = item.Nombre }) |
+                    @Html.ActionLink("Borrar", "Borrar", "Empleado", new { Nombre = item.Nombre }) |
+                    @Html.ActionLink("Movimientos", "Listar", "Movimiento", new { Nombre = item.Nombre }) |
+                    @Html.ActionLink("Insertar movimiento", "Agregar", "Movimiento", new { Nombre = item.Nombre })
+                </td>
+            </tr>
+        }
+    </table>
+</body>
