@@ -1,19 +1,31 @@
 using Microsoft.EntityFrameworkCore;
 using Tarea2_BD1.Models;
+using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<Dbtarea2Context>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("conexion")));
+//Search .env
+DotNetEnv.Env.Load(Path.Combine(Directory.GetCurrentDirectory(), ".env"));
+
+//Get connection
+var conexion = Environment.GetEnvironmentVariable("ConnectionStrings__conexion");
+if (string.IsNullOrWhiteSpace(conexion))
+{
+    throw new Exception("La cadena de conexión no fue encontrada.");
+}
+
+//Add connection to the context
+builder.Services.AddDbContext<Dbtarea2Context>(opt => opt.UseSqlServer(conexion));
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Login/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
@@ -29,10 +41,6 @@ app.MapControllerRoute(
     name: "default",
 
     //El siguiente es el oficial:
-    //pattern: "{controller=Login}/{action=SignIn}/{id?}");
-
-    pattern: "{controller=Empleado}/{action=Listar}/{id?}");
-
-    //pattern: "{controller=Empleado}/{action=Agregar}/{id?}");
+    pattern: "{controller=Login}/{action=SignIn}/{id?}");
 
 app.Run();

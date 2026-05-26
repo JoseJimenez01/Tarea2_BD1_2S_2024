@@ -32,7 +32,7 @@ namespace Tarea2_BD1.Controllers
         }
 
         [HttpGet]
-        //[Route("listar_empleados")] /*----------------------------------------------------------------------- descomentar cuando se ponga el patron de inicio origianl -----------------------------------------------*/
+        [Route("listar_empleados")]
         public IActionResult Listar()
         {
             try

@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Tarea2_BD1.csproj": {}
+    "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2024 2 S\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Tarea2_BD1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Tarea2_BD1.csproj": {
+    "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2024 2 S\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Tarea2_BD1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Tarea2_BD1.csproj",
+        "projectUniqueName": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2024 2 S\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Tarea2_BD1.csproj",
         "projectName": "Tarea2_BD1",
-        "projectPath": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Tarea2_BD1.csproj",
+        "projectPath": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2024 2 S\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\Tarea2_BD1.csproj",
         "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2 S 2024\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\obj\\",
+        "outputPath": "C:\\Users\\Usuario\\OneDrive\\Escritorio\\Material_y_evaluaciones_de_cursos\\2024 2 S\\Bases de Datos 1\\Tarea 2\\Tarea2_BD1_2S_2024\\Solucion_Tarea2_BD1\\Tarea2_BD1\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
           "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -27,6 +31,7 @@
         },
         "frameworks": {
           "net8.0": {
+            "framework": "net8.0",
             "targetAlias": "net8.0",
             "projectReferences": {}
           }
@@ -40,12 +45,18 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
         "net8.0": {
+          "framework": "net8.0",
           "targetAlias": "net8.0",
           "dependencies": {
+            "DotNetEnv": {
+              "target": "Package",
+              "version": "[3.2.0, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[8.0.8, )"
@@ -80,7 +91,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\Tarea2_BD1.props" />
-</Project>
