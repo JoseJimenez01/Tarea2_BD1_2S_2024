@@ -30,13 +30,13 @@ The important views:
 ![App Screenshot](/imgs/Empleados.png)
 
 #### Update employe
-![App Screenshot](/imgs/ActualizarEmpleado.png.png)
+![App Screenshot](/imgs/ActualizarEmpleado.png)
 
 #### Employee movements
-![App Screenshot](/imgs/MovimientosPorUsuario.png.png)
+![App Screenshot](/imgs/MovimientosPorUsuario.png)
 
 #### Add movements
-![App Screenshot](/imgs/AgregarMovimiento.png.png)
+![App Screenshot](/imgs/AgregarMovimiento.png)
 
 ---
 
