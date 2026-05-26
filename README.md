@@ -30,13 +30,13 @@ The important views:
 ![App Screenshot](/imgs/Empleados.png)
 
 #### Update employe
-![App Screenshot](/imgs/Actualizar%20empleado.png.png)
+![App Screenshot](/imgs/ActualizarEmpleado.png.png)
 
 #### Employee movements
-![App Screenshot](/imgs/Movimientos%20por%20usuario.png.png)
+![App Screenshot](/imgs/MovimientosPorUsuario.png.png)
 
 #### Add movements
-![App Screenshot](/imgs/Agregar%20movimiento.png.png)
+![App Screenshot](/imgs/AgregarMovimiento.png.png)
 
 ---
 
@@ -92,9 +92,6 @@ Make sure you have the following installed:
    ```
 
 2. Navigate to the project folder where the .csproj is.
-   ```bash
-   dotnet restore
-   ```
 
 3. Restore dependencies:
    ```bash
