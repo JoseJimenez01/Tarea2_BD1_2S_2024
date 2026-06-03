@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
@@ -7,6 +9,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
+using System.Security.Claims;
 using Tarea2_BD1.Models;
 
 namespace Tarea2_BD1.Controllers
@@ -15,16 +18,34 @@ namespace Tarea2_BD1.Controllers
     {
         public readonly Dbtarea2Context _dbContext;
 
+        /// <summary>
+        /// Get the context of the DB
+        /// </summary>
+        /// <param name="_context"></param>
         public LoginController(Dbtarea2Context _context)
         {
             _dbContext = _context;
         }
 
+        /// <summary>
+        /// Return the view to login in the platform
+        /// </summary>
+        [HttpGet("/Login")]
         public IActionResult SignIn()
         {
+            //If there is an active login
+            if (User.Identity != null &&
+                User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Listar", "Empleado");
+            }
             return View();
         }
 
+        /// <summary>
+        /// Execute the store procedure SP_ConsultaInicioDeSesionFallidos
+        /// </summary>
+        /// <returns>Times that the user has tried to login</returns>
         [HttpPost]
         public int ConsultaInicioSesionFallidos(int tiempo, string usuario)
         {
@@ -111,8 +132,13 @@ namespace Tarea2_BD1.Controllers
             }
         }
 
+        /// <summary>
+        /// Execute the store procedure SP_ConsultaError
+        /// </summary>
+        /// <param name="codigo">Code store in a catalog table</param>
+        /// <returns>The description of a code error</returns>
         [HttpPost]
-        public string ConsultaCodError(string codigo, string usuario)
+        public string ConsultaCodError(string codigo)
         {
             try
             {
@@ -124,16 +150,6 @@ namespace Tarea2_BD1.Controllers
                 SqlCommand comando = connection.CreateCommand();
                 comando.CommandType = System.Data.CommandType.StoredProcedure;
                 comando.CommandText = "SP_ConsultaError";
-
-                //Código para crear parámetros al Store Procedure
-                //SqlParameter paramUsername = new SqlParameter
-                //{
-                //    ParameterName = "@inUsername",
-                //    SqlDbType = SqlDbType.VarChar,
-                //    Size = 64,
-                //    Value = usuario,
-                //    Direction = ParameterDirection.Input
-                //};
 
                 SqlParameter paramCodigo = new SqlParameter
                 {
@@ -180,6 +196,14 @@ namespace Tarea2_BD1.Controllers
             }
         }
 
+        /// <summary>
+        /// Execute the store procedure SP_SignIn
+        /// It validates if the user exists in the DB
+        /// </summary>
+        /// <param name="usernameForm">Username entered in the web form</param>
+        /// <param name="passwordForm">Password entered in the web form</param>
+        /// <param name="cantSesionesFallidas">Times that the user has tried to login before</param>
+        /// <returns>Result code of SP, 0 = succed</returns>
         [HttpPost]
         public string InicioDeSesion(string usernameForm, string passwordForm, int cantSesionesFallidas)
         {
@@ -263,6 +287,13 @@ namespace Tarea2_BD1.Controllers
             }
         }
 
+        /// <summary>
+        /// Depending on the SP's result codes or the view, this method redirect and have a diferent message to a user.
+        /// </summary>
+        /// <param name="nombreVista">Where to redirect</param>
+        /// <param name="modeloUsuario">Model of the web form</param>
+        /// <param name="codigo">Result of the SP's</param>
+        /// <returns>Redirect to a specific view.</returns>
         public ActionResult HacerAviso(string nombreVista, Usuario modeloUsuario, string codigo)
         {
             if (nombreVista == "Listar")
@@ -280,14 +311,20 @@ namespace Tarea2_BD1.Controllers
             else if (nombreVista == "SignIn")
             {
                 //Consulta el error y lo guarda comno aviso cuando redireccione a la pagina de inicio de sesion
-                TempData["Message"] = ConsultaCodError(codigo, modeloUsuario.Username);
+                TempData["Message"] = ConsultaCodError(codigo);
                 return RedirectToAction(nombreVista, modeloUsuario);
             }
             return Ok();
         }
 
+        /// <summary>
+        /// Validate if the user can login or not in the platform using the SP's result codes,
+        /// if succeed create the cookie and add credentials
+        /// </summary>
+        /// <param name="usuario">Username entered in the web form model</param>
+        /// <returns>Function HacerAviso() that have retroalimentation</returns>
         [HttpPost]
-        public IActionResult ValidarDataAnnotations(Usuario usuario)
+        public async Task<IActionResult> ValidarDataAnnotations(Usuario usuario)
         {
             //Valida la cantidad de inicios de sesion fallidos en 30 mins
             //si es mayor que 5 deshabilita el boton
@@ -306,6 +343,22 @@ namespace Tarea2_BD1.Controllers
 
                 if (resultado == "0")
                 {
+                    //This section creates the cookie and add credentials
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Name, usuario.Username)
+                    };
+
+                    var identity = new ClaimsIdentity(
+                        claims,
+                        CookieAuthenticationDefaults.AuthenticationScheme);
+
+                    var principal = new ClaimsPrincipal(identity);
+
+                    await HttpContext.SignInAsync(
+                        CookieAuthenticationDefaults.AuthenticationScheme,
+                        principal);
+
                     return HacerAviso("Listar", usuario, resultado);
                 }
                 else
@@ -316,6 +369,32 @@ namespace Tarea2_BD1.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Log out of the cookie
+        /// </summary>
+        /// <returns>Redirection to Login page</returns>
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return RedirectToAction("SignIn", "Login");
+        }
+
+        /// <summary>
+        /// In case of denied access
+        /// </summary>
+        /// <returns>Redirection to Login page</returns>
+        public ActionResult Denied()
+        {
+            TempData["Message"] = "Inicio de sesión fallido";
+            return RedirectToAction("SignIn", "Login");
+        }
+
+        /// <summary>
+        /// Dont cached errors when login.
+        /// </summary>
+        /// <returns></returns>
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

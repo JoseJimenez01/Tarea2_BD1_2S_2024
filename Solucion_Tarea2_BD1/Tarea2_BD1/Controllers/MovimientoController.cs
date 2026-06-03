@@ -1,17 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Data;
-using System.Net.Sockets;
+using System.Drawing;
 using System.Net;
+using System.Net.Sockets;
 using System.Text.RegularExpressions;
 using Tarea2_BD1.Models;
 using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Drawing;
 
 namespace Tarea2_BD1.Controllers
 {
+    [Authorize]
     public class MovimientoController : Controller
     {
         public readonly Dbtarea2Context _dbContext;
@@ -21,8 +23,7 @@ namespace Tarea2_BD1.Controllers
             _dbContext = _context;
         }
 
-        [HttpGet]
-        [Route("listar_movimientos")]
+        [HttpGet("Movimientos")]
         public IActionResult Listar(string Nombre)
         {
             try
@@ -109,7 +110,6 @@ namespace Tarea2_BD1.Controllers
         }// end meethod
 
         [HttpGet]
-        [Route("Empleado")]
         public ModeloAgregarMovimiento sacarEmpleado(ModeloAgregarMovimiento inModelo)
         {
             try
@@ -173,7 +173,7 @@ namespace Tarea2_BD1.Controllers
                 return modeloError;
             }
         }// end meethod
-
+        
         public IActionResult Agregar(string? Nombre)
         {
             //Se descerializa el modelo para seguir validando
@@ -202,7 +202,6 @@ namespace Tarea2_BD1.Controllers
         }
 
         [HttpPost]
-        [Route("agregarMovimiento")]
         public string AgregarMovimiento(int inValorDocIdent, string inNombre, Decimal inSaldoVacaciones, Decimal inMonto, string inTipoMovimiento)
         {
             try

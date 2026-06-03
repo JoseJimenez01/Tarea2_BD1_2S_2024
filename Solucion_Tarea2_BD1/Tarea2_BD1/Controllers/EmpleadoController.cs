@@ -14,13 +14,19 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Tarea2_BD1.Controllers
 {
+    [Authorize]
     public class EmpleadoController : Controller
     {
         public readonly Dbtarea2Context _dbContext;
 
+        /// <summary>
+        /// Get the context of the DB
+        /// </summary>
+        /// <param name="_context"></param>
         public EmpleadoController(Dbtarea2Context _context)
         {
             _dbContext = _context;
@@ -31,8 +37,7 @@ namespace Tarea2_BD1.Controllers
             return View();
         }
 
-        [HttpGet]
-        [Route("listar_empleados")]
+        [HttpGet("/Empleados")]
         public IActionResult Listar()
         {
             try
@@ -199,7 +204,6 @@ namespace Tarea2_BD1.Controllers
         }//end method
 
         [HttpPost]
-        [Route("agregarEmpleado")]
         public string AgregarEmpleado(string inValorDocIdent, string inNombre, string inPuesto)
         {
             try
@@ -353,7 +357,6 @@ namespace Tarea2_BD1.Controllers
         }//end method
 
         [HttpPost]
-        [Route("actualizarEmpleado")]
         public string ActualizarEmpleado(string inValorDocIdentOriginal, string inNombreOriginal, string inPuestoOriginal, string inValorDocIdent, string inNombre, string inPuesto)
         {
             try
@@ -629,7 +632,6 @@ namespace Tarea2_BD1.Controllers
         //-------------------------------------------------------------------------------- Metodos para borrar empleado-------------------------------------------------
 
         [HttpPost]
-        [Route("borrar-empleado")]
         public string BorrarEmpleado(string inNombre, int inValorDocIdent, string inPuesto, Decimal inSaldoVacaciones, int inConfirmacion )
         {
             try
@@ -883,13 +885,6 @@ namespace Tarea2_BD1.Controllers
 
             return View(modeloRecibido);
         }//end method
-
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
 
     }//end class
 }//end namespace

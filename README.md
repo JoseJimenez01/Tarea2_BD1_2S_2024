@@ -18,7 +18,14 @@ The entire architecture and system design were developed with the ACID principle
 **Tech stack:**
 - Language / Framework: `C# / ASP.NET Core 8`
 - Database: `SQL Server`
-- Packages: `Microsoft.EntityFrameworkCore.SqlServer (8.0.8), Microsoft.EntityFrameworkCore.Tools (8.0.8), Microsoft.VisualStudio.Web.CodeGeneration.Design (8.0.5), DotNetEnv (3.2.0)`
+
+**NuGet Packages**
+
+- Microsoft.EntityFrameworkCore.SqlServer (8.0.8)  
+- Microsoft.EntityFrameworkCore.Tools (8.0.8)  
+- Microsoft.VisualStudio.Web.CodeGeneration.Design (8.0.5)  
+- DotNetEnv (3.2.0)  
+- Microsoft.AspNetCore.Authentication.Cookies
 
 ---
 
@@ -127,21 +134,13 @@ dotnet test
 
 | Method | Endpoint | Description | Auth required |
 |--------|----------|-------------|---------------|
-| POST | `/api/ConsultaInicioSesionFallido` | See how many times someone has tried to Login | No |
-| POST | `/api/ConsultaCodError` | List all employees | No |
-| POST | `/api/InicioDeSesion` | To login in the platform | No |
-| POST | `/api/ValidarDataAnnotations` | Manage retroalimentation when login | No |
-| GET | `/api/listar_empleados` | List all employees | No |
-| POST | `/api/Filtrar` | Search for emplyees that matches some string | No |
-| POST | `/api/agregarEmpleado` | Add a new employe | No |
-| POST | `/api/actualizarEmpleado` | Update an employe | No |
-| POST | `/api/ControlErroresActualizar` | Manage retroalimentation when updating an employe | No |
-| POST | `/api/borrar-empleado` | Delete an employe | No |
-| POST | `/api/ControlErroresBorrar` | Manage retroalimentation when deleting an employe | No |
-| GET | `/api/listar_movimientos` | List all movements of an employe | No |
-| GET | `/api/Empleado` | List all movements of an employe | No |
-| POST | `/api/agregarMovimiento` | Add a movement to an employe | No |
-| POST | `/api/ControlErrores` | Manage retroalimentation when adding a movement | No |
+| POST | `/Login` | Login in the platform | No |
+| GET | `/Empleados` | List all employees | Yes |
+| GET | `/Empleado/Consulta?Nombre=...` | Show the information of an especific employee | Yes |
+| GET | `/Empleado/Update?Nombre=...` | Show the information of an especific employee before update | Yes |
+| GET | `/Empleado/Borrar?Nombre=...` | Show the information of an especific employee before delete | Yes |
+| GET | `/Movimientos?Nombre=...` | Show the information and transactions of an especific employee | Yes |
+| GET | `/Movimiento/Agregar?Nombre=...` | Show the information of an especific employee before add a transaction | Yes |
 
 ---
 
@@ -155,8 +154,6 @@ dotnet test
 ## Future improves
 >NOTE: this is a mid-career project, so reviewing it at the end, i can identify some things that i would change:
 
-- Configure cookies for the autentications.
-- Add path protection.
 - Change how to query the DB, the amount of times someone has tried to login, don't using the logs, instead of that, using the table users with an attribute for attempts and another for time blocked, using triggers for this attributes.
 - Use functions for instead of repetitive code, like the creation of store procedures in the controllers.
 - Testing simulations.
