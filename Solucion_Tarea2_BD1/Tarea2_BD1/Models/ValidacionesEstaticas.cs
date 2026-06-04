@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
@@ -9,13 +9,13 @@ namespace Tarea2_BD1.Models
     {
 
         [HttpPost]
-        public static string ConsultaCodError(string codigo, Dbtarea2Context dbContext)
+        public static async Task<string> ConsultaCodError(string codigo, Dbtarea2Context dbContext)
         {
             try
             {
                 //Se crea a conexión se abre
                 SqlConnection connection = (SqlConnection)dbContext.Database.GetDbConnection();
-                connection.Open();
+                await connection.OpenAsync();
 
                 //Se crea el SP
                 SqlCommand comando = connection.CreateCommand();
@@ -54,12 +54,12 @@ namespace Tarea2_BD1.Models
                 comando.Parameters.Add(paramResultado);
 
                 //Se leen los datos devueltos por el SP(dataset)
-                SqlDataReader reader = comando.ExecuteReader();
-                reader.Read();
+                SqlDataReader reader = await comando.ExecuteReaderAsync();
+                await reader.ReadAsync();
                 string descripcionError = reader.GetString(0);
-                reader.Close();
+                await reader.CloseAsync();
 
-                comando.ExecuteNonQuery();
+                await comando.ExecuteNonQueryAsync();
 
                 //Se leen los parámetros de salida
                 string SPresult = comando.Parameters["@outResult"].Value.ToString()!;
@@ -67,7 +67,7 @@ namespace Tarea2_BD1.Models
                 Console.WriteLine(" El codigo de salida del sp es: " + SPresult);
                 Console.WriteLine("-----------------------------------------------------------------------------\n");
 
-                connection.Close();
+                await connection.CloseAsync();
 
                 return descripcionError;
             }

@@ -46,13 +46,13 @@ namespace Tarea2_BD1.Controllers
         /// </summary>
         /// <returns>The "Listar" view containing the active employees list, or a BadRequest if an error occurs.</returns>
         [HttpGet("/Empleados")]
-        public IActionResult Listar()
+        public async Task<IActionResult> Listar()
         {
             try
             {
                 //Se crea a conexión se abre
                 SqlConnection connection = (SqlConnection)_dbContext.Database.GetDbConnection();
-                connection.Open();
+                await connection.OpenAsync();
 
                 //Se crea el SP
                 SqlCommand comando = connection.CreateCommand();
@@ -71,18 +71,18 @@ namespace Tarea2_BD1.Controllers
                 comando.Parameters.Add(paramResultado);
 
                 //Se leen los datos devueltos por el SP(dataset)
-                SqlDataReader reader = comando.ExecuteReader();
+                SqlDataReader reader = await comando.ExecuteReaderAsync();
                 List<Models.Empleado> listaEmpleados = new List<Models.Empleado>();
-                while (reader.Read())
+                while (await reader.ReadAsync())
                 {
                     Empleado empleado = new Empleado();
                     empleado.Nombre = Convert.ToString(reader["Nombre"])!;
                     empleado.ValorDocumentoIdentidad = Convert.ToInt32(reader["ValorDocumentoIdentidad"]);
                     listaEmpleados.Add(empleado);
                 }
-                reader.Close();
+                await reader.CloseAsync();
 
-                comando.ExecuteNonQuery();
+                await comando.ExecuteNonQueryAsync();
 
                 //Se leen los parámetros de salida
                 string SPresult = comando.Parameters["@outResult"].Value.ToString()!;
@@ -90,7 +90,7 @@ namespace Tarea2_BD1.Controllers
                 Console.WriteLine(" El codigo de salida del sp es: " + SPresult);
                 Console.WriteLine("-----------------------------------------------------------------------------\n");
                 
-                connection.Close();
+                await connection.CloseAsync();
 
                 return View(listaEmpleados);
             }
@@ -107,7 +107,7 @@ namespace Tarea2_BD1.Controllers
         /// <param name="entradaStringFiltro">The term to filter by (name or identity document value).</param>
         /// <returns>A partial view "_VistaParcialFiltro" containing the filtered results, or a BadRequest if an error occurs.</returns>
         [HttpPost]
-        public IActionResult Filtrar(string entradaStringFiltro)
+        public async Task<IActionResult> Filtrar(string entradaStringFiltro)
         {
             try
             {
@@ -143,7 +143,7 @@ namespace Tarea2_BD1.Controllers
 
                 //Se crea a conexión se abre
                 SqlConnection connection = (SqlConnection)_dbContext.Database.GetDbConnection();
-                connection.Open();
+                await connection.OpenAsync();
 
                 //Se crea el SP
                 SqlCommand comando = connection.CreateCommand();
@@ -188,18 +188,18 @@ namespace Tarea2_BD1.Controllers
                 comando.Parameters.Add(paramResultado);
 
                 //Se leen los datos devueltos por el SP(dataset)
-                SqlDataReader reader = comando.ExecuteReader();
+                SqlDataReader reader = await comando.ExecuteReaderAsync();
                 List<Models.Empleado> listaEmpleados = new List<Models.Empleado>();
-                while (reader.Read())
+                while (await reader.ReadAsync())
                 {
                     Empleado empleado = new Empleado();
                     empleado.Nombre = Convert.ToString(reader["Nombre"])!;
                     empleado.ValorDocumentoIdentidad = Convert.ToInt32(reader["ValorDocumentoIdentidad"]);
                     listaEmpleados.Add(empleado);
                 }
-                reader.Close();
+                await reader.CloseAsync();
 
-                comando.ExecuteNonQuery();
+                await comando.ExecuteNonQueryAsync();
 
                 //Se leen los parámetros de salida
                 string SPresult = comando.Parameters["@outResult"].Value.ToString()!;
@@ -207,7 +207,7 @@ namespace Tarea2_BD1.Controllers
                 Console.WriteLine(" El codigo de salida del sp es: " + SPresult);
                 Console.WriteLine("-----------------------------------------------------------------------------\n");
 
-                connection.Close();
+                await connection.CloseAsync();
 
                 return PartialView("_VistaParcialFiltro", listaEmpleados);
             }
@@ -226,7 +226,7 @@ namespace Tarea2_BD1.Controllers
         /// <param name="inPuesto">The name of the position to assign.</param>
         /// <returns>The exit code from the stored procedure or the error message in case of an exception.</returns>
         [HttpPost]
-        public string AgregarEmpleado(string inValorDocIdent, string inNombre, string inPuesto)
+        public async Task<string> AgregarEmpleado(string inValorDocIdent, string inNombre, string inPuesto)
         {
             try
             {
@@ -251,7 +251,7 @@ namespace Tarea2_BD1.Controllers
 
                 //Se crea a conexión se abre
                 SqlConnection connection = (SqlConnection)_dbContext.Database.GetDbConnection();
-                connection.Open();
+                await connection.OpenAsync();
 
                 //Se crea el SP
                 SqlCommand comando = connection.CreateCommand();
@@ -313,7 +313,7 @@ namespace Tarea2_BD1.Controllers
                 comando.Parameters.Add(paramPostInIP);
                 comando.Parameters.Add(paramResultado);
 
-                comando.ExecuteNonQuery();
+                await comando.ExecuteNonQueryAsync();
 
                 //Se leen los parámetros de salida
                 string SPresult = comando.Parameters["@outResult"].Value.ToString()!;
@@ -321,7 +321,7 @@ namespace Tarea2_BD1.Controllers
                 Console.WriteLine(" El codigo de salida del sp es: " + SPresult);
                 Console.WriteLine("-----------------------------------------------------------------------------\n");
 
-                connection.Close();
+                await connection.CloseAsync();
 
                 return SPresult;
             }
@@ -338,7 +338,7 @@ namespace Tarea2_BD1.Controllers
         /// <param name="codigo">The result code returned by the database or exception.</param>
         /// <param name="empleado">The Empleado object containing the entered data.</param>
         /// <returns>An ActionResult redirecting to the corresponding action with the configured message.</returns>
-        public ActionResult HacerAviso(string nombreVista, string codigo, Empleado empleado)
+        public async Task<ActionResult> HacerAviso(string nombreVista, string codigo, Empleado empleado)
         {
             if (nombreVista == "Listar")
             {
@@ -354,7 +354,7 @@ namespace Tarea2_BD1.Controllers
             else if (nombreVista == "Agregar")
             {
                 //Consulta el error y lo guarda comno aviso cuando redireccione a la pagina de inicio de sesion
-                TempData["Message"] = ValidacionesEstaticas.ConsultaCodError(codigo, this._dbContext);
+                TempData["Message"] = await ValidacionesEstaticas.ConsultaCodError(codigo, this._dbContext);
                 return RedirectToAction(nombreVista, empleado);
             }
             return Ok();
@@ -369,7 +369,7 @@ namespace Tarea2_BD1.Controllers
         /// <param name="form">The form collection containing the complete identity document value.</param>
         /// <returns>A redirect to the corresponding view containing the operation result.</returns>
         [HttpPost]
-        public IActionResult ControlDeErroresAvisos(Empleado empleado, string stringPuesto, IFormCollection form)
+        public async Task<IActionResult> ControlDeErroresAvisos(Empleado empleado, string stringPuesto, IFormCollection form)
         {
             //Se quita la validacion que no valida nada del formulario realmente
             ModelState.Remove("IdPuestoNavigation");
@@ -378,15 +378,15 @@ namespace Tarea2_BD1.Controllers
             if (ModelState.IsValid)
             {
                 //Intentamos agregar el usuario
-                string resultadoSP = AgregarEmpleado(form["ValorDocumentoIdentidad"].ToString(), empleado.Nombre, stringPuesto);
+                string resultadoSP = await AgregarEmpleado(form["ValorDocumentoIdentidad"].ToString(), empleado.Nombre, stringPuesto);
 
                 if (resultadoSP == "0")
                 {
-                    return HacerAviso("Listar", resultadoSP, empleado);
+                    return await HacerAviso("Listar", resultadoSP, empleado);
                 }
                 else
                 {
-                    return HacerAviso("Agregar", resultadoSP, empleado);
+                    return await HacerAviso("Agregar", resultadoSP, empleado);
                 }
             }
             TempData["Message"] = "Seleccione un puesto valido";
@@ -405,7 +405,7 @@ namespace Tarea2_BD1.Controllers
         /// <param name="inPuesto">The proposed new position.</param>
         /// <returns>The exit code from the stored procedure or the error message in case of an exception.</returns>
         [HttpPost]
-        public string ActualizarEmpleado(string inValorDocIdentOriginal, string inNombreOriginal, string inPuestoOriginal, string inValorDocIdent, string inNombre, string inPuesto)
+        public async Task<string> ActualizarEmpleado(string inValorDocIdentOriginal, string inNombreOriginal, string inPuestoOriginal, string inValorDocIdent, string inNombre, string inPuesto)
         {
             try
             {
@@ -430,7 +430,7 @@ namespace Tarea2_BD1.Controllers
 
                 //Se crea a conexión se abre
                 SqlConnection connection = (SqlConnection)_dbContext.Database.GetDbConnection();
-                connection.Open();
+                await connection.OpenAsync();
 
                 //Se crea el SP
                 SqlCommand comando = connection.CreateCommand();
@@ -518,7 +518,7 @@ namespace Tarea2_BD1.Controllers
                 comando.Parameters.Add(paramPostInIP);
                 comando.Parameters.Add(paramResultado);
 
-                comando.ExecuteNonQuery();
+                await comando.ExecuteNonQueryAsync();
 
                 //Se leen los parámetros de salida
                 string SPresult = comando.Parameters["@outResult"].Value.ToString()!;
@@ -526,7 +526,7 @@ namespace Tarea2_BD1.Controllers
                 Console.WriteLine(" El codigo de salida del sp es: " + SPresult);
                 Console.WriteLine("-----------------------------------------------------------------------------\n");
 
-                connection.Close();
+                await connection.CloseAsync();
 
                 return SPresult;
             }
@@ -541,13 +541,13 @@ namespace Tarea2_BD1.Controllers
         /// </summary>
         /// <param name="inModelo">The ActualizarEmpleado model containing the name of the employee to search for.</param>
         /// <returns>The model containing the loaded employee information, or a model with an error message if the query fails.</returns>
-        public ActualizarEmpleado sacarEmpleadoUpdate(ActualizarEmpleado inModelo)
+        public async Task<ActualizarEmpleado> sacarEmpleadoUpdate(ActualizarEmpleado inModelo)
         {
             try
             {
                 //Se crea a conexión se abre
                 SqlConnection connection = (SqlConnection)_dbContext.Database.GetDbConnection();
-                connection.Open();
+                await connection.OpenAsync();
 
                 //Se crea el SP
                 SqlCommand comando = connection.CreateCommand();
@@ -575,18 +575,18 @@ namespace Tarea2_BD1.Controllers
                 comando.Parameters.Add(paramResultado);
 
                 //Se leen los datos devueltos por el SP(dataset)
-                SqlDataReader reader = comando.ExecuteReader();
+                SqlDataReader reader = await comando.ExecuteReaderAsync();
 
-                reader.Read();
+                await reader.ReadAsync();
                 ActualizarEmpleado modelo = new ActualizarEmpleado();
                 modelo.empleadoOriginal.Nombre = Convert.ToString(reader["Nombre"])!;
                 modelo.empleadoOriginal.ValorDocumentoIdentidad = Convert.ToInt32(reader["ValorDocumentoIdentidad"]);
                 modelo.empleadoOriginal.SaldoVacaciones = Convert.ToDecimal(reader["SaldoVacaciones"]);
                 modelo.empleadoOriginal.IdPuestoNavigation.Nombre = Convert.ToString(reader["PuestoNombre"])!;
 
-                reader.Close();
+                await reader.CloseAsync();
 
-                comando.ExecuteNonQuery();
+                await comando.ExecuteNonQueryAsync();
 
                 //Se leen los parámetros de salida
                 string SPresult = comando.Parameters["@outResult"].Value.ToString()!;
@@ -594,7 +594,7 @@ namespace Tarea2_BD1.Controllers
                 Console.WriteLine(" El codigo de salida del sp es: " + SPresult);
                 Console.WriteLine("-----------------------------------------------------------------------------\n");
 
-                connection.Close();
+                await connection.CloseAsync();
 
                 return modelo;
             }
@@ -612,7 +612,7 @@ namespace Tarea2_BD1.Controllers
         /// </summary>
         /// <param name="Nombre">The name of the employee to update.</param>
         /// <returns>The "Update" view loaded with the ActualizarEmpleado model.</returns>
-        public IActionResult Update(string? Nombre)
+        public async Task<IActionResult> Update(string? Nombre)
         {
             //Se descerializa el modelo para seguir validando
             var modeloJson = TempData["Modelo"] as string;
@@ -634,7 +634,7 @@ namespace Tarea2_BD1.Controllers
             {
                 modeloEnviado.empleadoOriginal.Nombre = modelo.empleadoOriginal.Nombre;
             }
-            modeloRecibido = sacarEmpleadoUpdate(modeloEnviado);
+            modeloRecibido = await sacarEmpleadoUpdate(modeloEnviado);
 
             return View(modeloRecibido);
         }//end method
@@ -646,7 +646,7 @@ namespace Tarea2_BD1.Controllers
         /// <param name="codigo">The result code returned by the database or exception.</param>
         /// <param name="modelo">The ActualizarEmpleado model involved in the transaction.</param>
         /// <returns>An ActionResult redirecting to the corresponding action with the configured message.</returns>
-        public ActionResult HacerAvisoUpdate(string nombreVista, string codigo, ActualizarEmpleado modelo)
+        public async Task<ActionResult> HacerAvisoUpdate(string nombreVista, string codigo, ActualizarEmpleado modelo)
         {
             if (nombreVista == "Listar")
             {
@@ -662,7 +662,7 @@ namespace Tarea2_BD1.Controllers
             else if (nombreVista == "Update")
             {
                 //Consulta el error y lo guarda comno aviso cuando redireccione a la pagina de inicio de sesion
-                TempData["Message"] = ValidacionesEstaticas.ConsultaCodError(codigo, this._dbContext);
+                TempData["Message"] = await ValidacionesEstaticas.ConsultaCodError(codigo, this._dbContext);
                 return RedirectToAction(nombreVista, "Empleado", new { modelo.empleadoOriginal.Nombre });
             }
             return Ok();
@@ -676,20 +676,20 @@ namespace Tarea2_BD1.Controllers
         /// <param name="form">The form collection with the new identity document value.</param>
         /// <returns>A redirect to the corresponding view containing the operation result.</returns>
         [HttpPost]
-        public IActionResult ControlErroresActualizar(ActualizarEmpleado modelo, IFormCollection form)
+        public async Task<IActionResult> ControlErroresActualizar(ActualizarEmpleado modelo, IFormCollection form)
         {
             ModelState.Remove("empleadoNuevo.ValorDocumentoIdentidad");
             if (ModelState.IsValid)
             {
                 //Intentamos actualizar el empleado
-                string resultadoSP = ActualizarEmpleado(modelo.empleadoOriginal.ValorDocumentoIdentidad.ToString(), modelo.empleadoOriginal.Nombre, modelo.empleadoOriginal.IdPuestoNavigation.Nombre, form["empleadoNuevo.ValorDocumentoIdentidad"].ToString(), modelo.empleadoNuevo.Nombre, modelo.empleadoNuevo.IdPuestoNavigation.Nombre);
+                string resultadoSP = await ActualizarEmpleado(modelo.empleadoOriginal.ValorDocumentoIdentidad.ToString(), modelo.empleadoOriginal.Nombre, modelo.empleadoOriginal.IdPuestoNavigation.Nombre, form["empleadoNuevo.ValorDocumentoIdentidad"].ToString(), modelo.empleadoNuevo.Nombre, modelo.empleadoNuevo.IdPuestoNavigation.Nombre);
                 if (resultadoSP == "0")
                 {
-                    return HacerAvisoUpdate("Listar", resultadoSP, modelo);
+                    return await HacerAvisoUpdate("Listar", resultadoSP, modelo);
                 }
                 else
                 {
-                    return HacerAvisoUpdate("Update", resultadoSP, modelo);
+                    return await HacerAvisoUpdate("Update", resultadoSP, modelo);
                 }
             }
 
@@ -715,7 +715,7 @@ namespace Tarea2_BD1.Controllers
         /// <param name="inConfirmacion">The confirmation code (1 to proceed with deletion, 2 to cancel).</param>
         /// <returns>The exit code from the stored procedure or the error message in case of an exception.</returns>
         [HttpPost]
-        public string BorrarEmpleado(string inNombre, int inValorDocIdent, string inPuesto, Decimal inSaldoVacaciones, int inConfirmacion )
+        public async Task<string> BorrarEmpleado(string inNombre, int inValorDocIdent, string inPuesto, Decimal inSaldoVacaciones, int inConfirmacion )
         {
             try
             {
@@ -725,7 +725,7 @@ namespace Tarea2_BD1.Controllers
 
                 //Se crea a conexión se abre
                 SqlConnection connection = (SqlConnection)_dbContext.Database.GetDbConnection();
-                connection.Open();
+                await connection.OpenAsync();
 
                 //Se crea el SP
                 SqlCommand comando = connection.CreateCommand();
@@ -795,7 +795,7 @@ namespace Tarea2_BD1.Controllers
                 comando.Parameters.Add(paramPostInIP);
                 comando.Parameters.Add(paramResultado);
 
-                comando.ExecuteNonQuery();
+                await comando.ExecuteNonQueryAsync();
 
                 //Se leen los parámetros de salida
                 string SPresult = comando.Parameters["@outResult"].Value.ToString()!;
@@ -803,7 +803,7 @@ namespace Tarea2_BD1.Controllers
                 Console.WriteLine(" El codigo de salida del sp es: " + SPresult);
                 Console.WriteLine("-----------------------------------------------------------------------------\n");
 
-                connection.Close();
+                await connection.CloseAsync();
 
                 return SPresult;
             }
@@ -818,13 +818,13 @@ namespace Tarea2_BD1.Controllers
         /// </summary>
         /// <param name="inModelo">The Empleado model containing the name of the employee to search for.</param>
         /// <returns>An Empleado model filled with the corresponding data, or a model with an error message if it fails.</returns>
-        public Empleado sacarEmpleadoBorrar(Empleado inModelo)
+        public async Task<Empleado> sacarEmpleadoBorrar(Empleado inModelo)
         {
             try
             {
                 //Se crea a conexión se abre
                 SqlConnection connection = (SqlConnection)_dbContext.Database.GetDbConnection();
-                connection.Open();
+                await connection.OpenAsync();
 
                 //Se crea el SP
                 SqlCommand comando = connection.CreateCommand();
@@ -852,18 +852,18 @@ namespace Tarea2_BD1.Controllers
                 comando.Parameters.Add(paramResultado);
 
                 //Se leen los datos devueltos por el SP(dataset)
-                SqlDataReader reader = comando.ExecuteReader();
+                SqlDataReader reader = await comando.ExecuteReaderAsync();
 
-                reader.Read();
+                await reader.ReadAsync();
                 Empleado modelo = new Empleado();
                 modelo.Nombre = Convert.ToString(reader["Nombre"])!;
                 modelo.ValorDocumentoIdentidad = Convert.ToInt32(reader["ValorDocumentoIdentidad"]);
                 modelo.SaldoVacaciones = Convert.ToDecimal(reader["SaldoVacaciones"]);
                 modelo.IdPuestoNavigation.Nombre = Convert.ToString(reader["PuestoNombre"])!;
 
-                reader.Close();
+                await reader.CloseAsync();
 
-                comando.ExecuteNonQuery();
+                await comando.ExecuteNonQueryAsync();
 
                 //Se leen los parámetros de salida
                 string SPresult = comando.Parameters["@outResult"].Value.ToString()!;
@@ -871,7 +871,7 @@ namespace Tarea2_BD1.Controllers
                 Console.WriteLine(" El codigo de salida del sp es: " + SPresult);
                 Console.WriteLine("-----------------------------------------------------------------------------\n");
 
-                connection.Close();
+                await connection.CloseAsync();
 
                 return modelo;
             }
@@ -888,7 +888,7 @@ namespace Tarea2_BD1.Controllers
         /// </summary>
         /// <param name="Nombre">The name of the employee to delete.</param>
         /// <returns>The "Borrar" view loaded with the employee's data.</returns>
-        public IActionResult Borrar(string? Nombre)
+        public async Task<IActionResult> Borrar(string? Nombre)
         {
             //Se descerializa el modelo para seguir validando
             var modeloJson = TempData["Modelo"] as string;
@@ -910,7 +910,7 @@ namespace Tarea2_BD1.Controllers
             {
                 modeloEnviado.Nombre = modelo.Nombre;
             }
-            modeloRecibido = sacarEmpleadoBorrar(modeloEnviado);
+            modeloRecibido = await sacarEmpleadoBorrar(modeloEnviado);
 
             return View(modeloRecibido);
         }//end method
@@ -922,7 +922,7 @@ namespace Tarea2_BD1.Controllers
         /// <param name="codigo">The result code returned by the database or exception.</param>
         /// <param name="modelo">The Empleado model involved in the transaction.</param>
         /// <returns>An ActionResult redirecting to the corresponding action with the configured message.</returns>
-        public ActionResult HacerAvisoBorrar(string nombreVista, string codigo, Empleado modelo)
+        public async Task<ActionResult> HacerAvisoBorrar(string nombreVista, string codigo, Empleado modelo)
         {
             if (nombreVista == "Listar")
             {
@@ -938,7 +938,7 @@ namespace Tarea2_BD1.Controllers
             else if (nombreVista == "Borrar")
             {
                 //Consulta el error y lo guarda comno aviso cuando redireccione a la pagina de inicio de sesion
-                TempData["Message"] = ValidacionesEstaticas.ConsultaCodError(codigo, this._dbContext);
+                TempData["Message"] = await ValidacionesEstaticas.ConsultaCodError(codigo, this._dbContext);
                 return RedirectToAction(nombreVista, "Empleado", new { modelo.Nombre });
             }
             return Ok();
@@ -952,25 +952,25 @@ namespace Tarea2_BD1.Controllers
         /// <param name="confirmacion">The user's confirmation decision ("Si" or "No").</param>
         /// <returns>A redirect to the appropriate view based on the deletion flow.</returns>
         [HttpPost]
-        public IActionResult ControlErroresBorrar(Empleado modelo, string confirmacion)
+        public async Task<IActionResult> ControlErroresBorrar(Empleado modelo, string confirmacion)
         {
             if(confirmacion == "Si")
             {
                 //Intentamos actualizar el empleado
-                string resultadoSP = BorrarEmpleado(modelo.Nombre, modelo.ValorDocumentoIdentidad, modelo.IdPuestoNavigation.Nombre, modelo.SaldoVacaciones, 1);
+                string resultadoSP = await BorrarEmpleado(modelo.Nombre, modelo.ValorDocumentoIdentidad, modelo.IdPuestoNavigation.Nombre, modelo.SaldoVacaciones, 1);
                 if (resultadoSP == "0")
                 {
-                    return HacerAvisoBorrar("Listar", resultadoSP, modelo);
+                    return await HacerAvisoBorrar("Listar", resultadoSP, modelo);
                 }
                 else
                 {
-                    return HacerAvisoBorrar("Borrar", resultadoSP, modelo);
+                    return await HacerAvisoBorrar("Borrar", resultadoSP, modelo);
                 }
             }
             else if (confirmacion == "No")
             {
                 TempData["Message"] = "No se ha borrado ningún empleado";
-                BorrarEmpleado(modelo.Nombre, modelo.ValorDocumentoIdentidad, modelo.IdPuestoNavigation.Nombre, modelo.SaldoVacaciones, 2);
+                await BorrarEmpleado(modelo.Nombre, modelo.ValorDocumentoIdentidad, modelo.IdPuestoNavigation.Nombre, modelo.SaldoVacaciones, 2);
                 return RedirectToAction("Listar", "Empleado");
             }
             //Se serializa el modelo en un Json para enviarlo por TempData ya que por temas de HttpPost y HttpGet que se hacen
@@ -986,14 +986,14 @@ namespace Tarea2_BD1.Controllers
         /// </summary>
         /// <param name="Nombre">The name of the employee to query.</param>
         /// <returns>The "Consulta" view loaded with the employee's data.</returns>
-        public IActionResult Consulta(string Nombre)
+        public async Task<IActionResult> Consulta(string Nombre)
         {
             Empleado modeloEnviado = new Empleado();
             Empleado modeloRecibido = new Empleado();
 
             modeloEnviado.Nombre = Nombre;
 
-            modeloRecibido = sacarEmpleadoBorrar(modeloEnviado);
+            modeloRecibido = await sacarEmpleadoBorrar(modeloEnviado);
 
             return View(modeloRecibido);
         }//end method

@@ -47,7 +47,7 @@ namespace Tarea2_BD1.Controllers
         /// </summary>
         /// <returns>Times that the user has tried to login</returns>
         [HttpPost]
-        public int ConsultaInicioSesionFallidos(int tiempo, string usuario)
+        public async Task<int> ConsultaInicioSesionFallidos(int tiempo, string usuario)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace Tarea2_BD1.Controllers
 
                 //Se crea a conexión se abre
                 SqlConnection connection = (SqlConnection)_dbContext.Database.GetDbConnection();
-                connection.Open();
+                await connection.OpenAsync();
 
                 //Se crea el SP
                 SqlCommand comando = connection.CreateCommand();
@@ -103,17 +103,16 @@ namespace Tarea2_BD1.Controllers
                 comando.Parameters.Add(paramResultado);
 
                 //Se leen los datos devueltos por el SP(dataset)
-                SqlDataReader reader = comando.ExecuteReader();
+                SqlDataReader reader = await comando.ExecuteReaderAsync();
                 int cantidad = -88888;
-                if (reader.Read())
+                if (await reader.ReadAsync())
                 {
-                    //reader.NextResult();
                     //la cantidad de intentos de inicio de sesion fallidos dependiendo de la cantidad de tiempo especificado
                     cantidad = reader.GetInt32(0);
                 }
-                reader.Close();
+                await reader.CloseAsync();
 
-                comando.ExecuteNonQuery();
+                await comando.ExecuteNonQueryAsync();
 
                 //Se leen los parámetros de salida
                 string SPresult = comando.Parameters["@outResult"].Value.ToString()!;
@@ -121,7 +120,7 @@ namespace Tarea2_BD1.Controllers
                 Console.WriteLine(" El codigo de salida del sp es: " + SPresult);
                 Console.WriteLine("-----------------------------------------------------------------------------\n");
 
-                connection.Close();
+                await connection.CloseAsync();
                 
                 return cantidad;
             }
@@ -138,13 +137,13 @@ namespace Tarea2_BD1.Controllers
         /// <param name="codigo">Code store in a catalog table</param>
         /// <returns>The description of a code error</returns>
         [HttpPost]
-        public string ConsultaCodError(string codigo)
+        public async Task<string> ConsultaCodError(string codigo)
         {
             try
             {
                 //Se crea a conexión se abre
                 SqlConnection connection = (SqlConnection)_dbContext.Database.GetDbConnection();
-                connection.Open();
+                await connection.OpenAsync();
 
                 //Se crea el SP
                 SqlCommand comando = connection.CreateCommand();
@@ -173,12 +172,12 @@ namespace Tarea2_BD1.Controllers
                 comando.Parameters.Add(paramResultado);
 
                 //Se leen los datos devueltos por el SP(dataset)
-                SqlDataReader reader = comando.ExecuteReader();
-                reader.Read();
+                SqlDataReader reader = await comando.ExecuteReaderAsync();
+                await reader.ReadAsync();
                 string descripcionError = reader.GetString(0);
-                reader.Close();
+                await reader.CloseAsync();
 
-                comando.ExecuteNonQuery();
+                await comando.ExecuteNonQueryAsync();
 
                 //Se leen los parámetros de salida
                 string SPresult = comando.Parameters["@outResult"].Value.ToString()!;
@@ -186,7 +185,7 @@ namespace Tarea2_BD1.Controllers
                 Console.WriteLine(" El codigo de salida del sp es: " + SPresult);
                 Console.WriteLine("-----------------------------------------------------------------------------\n");
 
-                connection.Close();
+                await connection.CloseAsync();
 
                 return descripcionError;
             }
@@ -205,7 +204,7 @@ namespace Tarea2_BD1.Controllers
         /// <param name="cantSesionesFallidas">Times that the user has tried to login before</param>
         /// <returns>Result code of SP, 0 = succed</returns>
         [HttpPost]
-        public string InicioDeSesion(string usernameForm, string passwordForm, int cantSesionesFallidas)
+        public async Task<string> InicioDeSesion(string usernameForm, string passwordForm, int cantSesionesFallidas)
         {
             try
             {
@@ -215,7 +214,7 @@ namespace Tarea2_BD1.Controllers
 
                 //Se crea a conexión se abre
                 SqlConnection connection = (SqlConnection)_dbContext.Database.GetDbConnection();
-                connection.Open();
+                await connection.OpenAsync();
 
                 //Se crea el SP
                 SqlCommand comando = connection.CreateCommand();
@@ -269,7 +268,7 @@ namespace Tarea2_BD1.Controllers
                 comando.Parameters.Add(paramPostInIP);
                 comando.Parameters.Add(paramResultado);
 
-                comando.ExecuteNonQuery();
+                await comando.ExecuteNonQueryAsync();
 
                 //Se leen los parámetros de salida
                 string SPresult = comando.Parameters["@outResult"].Value.ToString()!;
@@ -277,7 +276,7 @@ namespace Tarea2_BD1.Controllers
                 Console.WriteLine(" El codigo de salida del sp es: " + SPresult);
                 Console.WriteLine("-----------------------------------------------------------------------------\n");
 
-                connection.Close();
+                await connection.CloseAsync();
 
                 return SPresult;
             }
@@ -294,7 +293,7 @@ namespace Tarea2_BD1.Controllers
         /// <param name="modeloUsuario">Model of the web form</param>
         /// <param name="codigo">Result of the SP's</param>
         /// <returns>Redirect to a specific view.</returns>
-        public ActionResult HacerAviso(string nombreVista, Usuario modeloUsuario, string codigo)
+        public async Task<ActionResult> HacerAviso(string nombreVista, Usuario modeloUsuario, string codigo)
         {
             if (nombreVista == "Listar")
             {
@@ -311,7 +310,7 @@ namespace Tarea2_BD1.Controllers
             else if (nombreVista == "SignIn")
             {
                 //Consulta el error y lo guarda comno aviso cuando redireccione a la pagina de inicio de sesion
-                TempData["Message"] = ConsultaCodError(codigo);
+                TempData["Message"] = await ConsultaCodError(codigo);
                 return RedirectToAction(nombreVista, modeloUsuario);
             }
             return Ok();
@@ -328,18 +327,18 @@ namespace Tarea2_BD1.Controllers
         {
             //Valida la cantidad de inicios de sesion fallidos en 30 mins
             //si es mayor que 5 deshabilita el boton
-            int cantidadFallos = ConsultaInicioSesionFallidos(30, usuario.Username);
+            int cantidadFallos = await ConsultaInicioSesionFallidos(30, usuario.Username);
             if (cantidadFallos > 5)
             {
-                return HacerAviso("SignIn", usuario, "Demasiados intentos de login, intente de nuevo dentro de 10 minutos");
+                return await HacerAviso("SignIn", usuario, "Demasiados intentos de login, intente de nuevo dentro de 10 minutos");
             }
             
             if (ModelState.IsValid)
             {
                 //Para la descripcion se ocupa lo mismo pero en 20 minutos
-                cantidadFallos = ConsultaInicioSesionFallidos(20, usuario.Username);
+                cantidadFallos = await ConsultaInicioSesionFallidos(20, usuario.Username);
                 //Resultado del inicio de sesion
-                string resultado = InicioDeSesion(usuario.Username, usuario.Password, cantidadFallos);
+                string resultado = await InicioDeSesion(usuario.Username, usuario.Password, cantidadFallos);
 
                 if (resultado == "0")
                 {
@@ -359,11 +358,11 @@ namespace Tarea2_BD1.Controllers
                         CookieAuthenticationDefaults.AuthenticationScheme,
                         principal);
 
-                    return HacerAviso("Listar", usuario, resultado);
+                    return await HacerAviso("Listar", usuario, resultado);
                 }
                 else
                 {
-                    return HacerAviso("SignIn", usuario, resultado);
+                    return await HacerAviso("SignIn", usuario, resultado);
                 }
             }
             return Ok();
@@ -385,7 +384,7 @@ namespace Tarea2_BD1.Controllers
         /// In case of denied access
         /// </summary>
         /// <returns>Redirection to Login page</returns>
-        public ActionResult Denied()
+        public async Task<ActionResult> Denied()
         {
             TempData["Message"] = "Inicio de sesión fallido";
             return RedirectToAction("SignIn", "Login");

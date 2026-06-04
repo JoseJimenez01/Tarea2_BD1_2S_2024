@@ -33,13 +33,13 @@ namespace Tarea2_BD1.Controllers
         /// <param name="Nombre">The name of the employee to retrieve movements for.</param>
         /// <returns>The "Listar" view loaded with the employee's movements, or a BadRequest if an exception occurs.</returns>
         [HttpGet("Movimientos")]
-        public IActionResult Listar(string Nombre)
+        public async Task<IActionResult> Listar(string Nombre)
         {
             try
             {
                 //Se crea a conexión se abre
                 SqlConnection connection = (SqlConnection)_dbContext.Database.GetDbConnection();
-                connection.Open();
+                await connection.OpenAsync();
 
                 //Se crea el SP
                 SqlCommand comando = connection.CreateCommand();
@@ -67,12 +67,12 @@ namespace Tarea2_BD1.Controllers
                 comando.Parameters.Add(paramResultado);
 
                 //Se leen los datos devueltos por el SP(dataset)
-                SqlDataReader reader = comando.ExecuteReader();
+                SqlDataReader reader = await comando.ExecuteReaderAsync();
 
                 VistaListarMovimientos listasEmpleadoMovimientos = new VistaListarMovimientos();
 
                 //Reader para leer el empleado
-                while (reader.Read())
+                while (await reader.ReadAsync())
                 {
                     Empleado empleado = new Empleado();
                     empleado.Nombre = Convert.ToString(reader["Nombre"])!;
@@ -82,10 +82,10 @@ namespace Tarea2_BD1.Controllers
                 }
 
                 //Cambiamos de dataset
-                reader.NextResult();
+                await reader.NextResultAsync();
 
                 //Reader para leer los movimientos del empleado
-                while (reader.Read())
+                while (await reader.ReadAsync())
                 {
                     Movimiento movimiento = new Movimiento();
 
@@ -98,9 +98,9 @@ namespace Tarea2_BD1.Controllers
                     movimiento.PostTime = Convert.ToDateTime(reader["PostTime"]);
                     listasEmpleadoMovimientos.movimientos.Add(movimiento);
                 }
-                reader.Close();
+                await reader.CloseAsync();
 
-                comando.ExecuteNonQuery();
+                await comando.ExecuteNonQueryAsync();
 
                 //Se leen los parámetros de salida
                 string SPresult = comando.Parameters["@outResult"].Value.ToString()!;
@@ -108,7 +108,7 @@ namespace Tarea2_BD1.Controllers
                 Console.WriteLine(" El codigo de salida del sp es: " + SPresult);
                 Console.WriteLine("-----------------------------------------------------------------------------\n");
 
-                connection.Close();
+                await connection.CloseAsync();
 
                 return View(listasEmpleadoMovimientos);
             }
@@ -124,13 +124,13 @@ namespace Tarea2_BD1.Controllers
         /// <param name="inModelo">The model containing the employee's name to search for.</param>
         /// <returns>The model containing the loaded employee information, or a model with an error message if the query fails.</returns>
         [HttpGet]
-        public ModeloAgregarMovimiento sacarEmpleado(ModeloAgregarMovimiento inModelo)
+        public async Task<ModeloAgregarMovimiento> sacarEmpleado(ModeloAgregarMovimiento inModelo)
         {
             try
             {
                 //Se crea a conexión se abre
                 SqlConnection connection = (SqlConnection)_dbContext.Database.GetDbConnection();
-                connection.Open();
+                await connection.OpenAsync();
 
                 //Se crea el SP
                 SqlCommand comando = connection.CreateCommand();
@@ -158,17 +158,17 @@ namespace Tarea2_BD1.Controllers
                 comando.Parameters.Add(paramResultado);
 
                 //Se leen los datos devueltos por el SP(dataset)
-                SqlDataReader reader = comando.ExecuteReader();
+                SqlDataReader reader = await comando.ExecuteReaderAsync();
 
-                reader.Read();
+                await reader.ReadAsync();
                 ModeloAgregarMovimiento modelo = new ModeloAgregarMovimiento();
                 modelo.empleado.Nombre = Convert.ToString(reader["Nombre"])!;
                 modelo.empleado.ValorDocumentoIdentidad = Convert.ToInt32(reader["ValorDocumentoIdentidad"]);
                 modelo.empleado.SaldoVacaciones = Convert.ToDecimal(reader["SaldoVacaciones"]);
 
-                reader.Close();
+                await reader.CloseAsync();
 
-                comando.ExecuteNonQuery();
+                await comando.ExecuteNonQueryAsync();
 
                 //Se leen los parámetros de salida
                 string SPresult = comando.Parameters["@outResult"].Value.ToString()!;
@@ -176,7 +176,7 @@ namespace Tarea2_BD1.Controllers
                 Console.WriteLine(" El codigo de salida del sp es: " + SPresult);
                 Console.WriteLine("-----------------------------------------------------------------------------\n");
 
-                connection.Close();
+                await connection.CloseAsync();
 
                 return modelo;
             }
@@ -194,7 +194,7 @@ namespace Tarea2_BD1.Controllers
         /// </summary>
         /// <param name="Nombre">The name of the employee.</param>
         /// <returns>The "Agregar" view loaded with the ModeloAgregarMovimiento model.</returns>
-        public IActionResult Agregar(string? Nombre)
+        public async Task<IActionResult> Agregar(string? Nombre)
         {
             //Se descerializa el modelo para seguir validando
             var modeloJson = TempData["Modelo"] as string;
@@ -216,7 +216,7 @@ namespace Tarea2_BD1.Controllers
             {
                 modeloEnviado.empleado.Nombre = modelo.empleado.Nombre;
             }
-            modeloRecibido = sacarEmpleado(modeloEnviado);
+            modeloRecibido = await sacarEmpleado(modeloEnviado);
 
             return View(modeloRecibido);
         }
@@ -232,7 +232,7 @@ namespace Tarea2_BD1.Controllers
         /// <param name="inTipoMovimiento">The movement type name (e.g. debit/credit).</param>
         /// <returns>The exit code from the stored procedure or the error message in case of an exception.</returns>
         [HttpPost]
-        public string AgregarMovimiento(int inValorDocIdent, string inNombre, Decimal inSaldoVacaciones, Decimal inMonto, string inTipoMovimiento)
+        public async Task<string> AgregarMovimiento(int inValorDocIdent, string inNombre, Decimal inSaldoVacaciones, Decimal inMonto, string inTipoMovimiento)
         {
             try
             {
@@ -242,7 +242,7 @@ namespace Tarea2_BD1.Controllers
 
                 //Se crea a conexión se abre
                 SqlConnection connection = (SqlConnection)_dbContext.Database.GetDbConnection();
-                connection.Open();
+                await connection.OpenAsync();
 
                 //Se crea el SP
                 SqlCommand comando = connection.CreateCommand();
@@ -311,7 +311,7 @@ namespace Tarea2_BD1.Controllers
                 comando.Parameters.Add(paramPostInIP);
                 comando.Parameters.Add(paramResultado);
 
-                comando.ExecuteNonQuery();
+                await comando.ExecuteNonQueryAsync();
 
                 //Se leen los parámetros de salida
                 string SPresult = comando.Parameters["@outResult"].Value.ToString()!;
@@ -319,7 +319,7 @@ namespace Tarea2_BD1.Controllers
                 Console.WriteLine(" El codigo de salida del sp es: " + SPresult);
                 Console.WriteLine("-----------------------------------------------------------------------------\n");
 
-                connection.Close();
+                await connection.CloseAsync();
 
                 return SPresult;
             }
@@ -336,7 +336,7 @@ namespace Tarea2_BD1.Controllers
         /// <param name="codigo">The result code returned by the database or exception.</param>
         /// <param name="modelo">The ModeloAgregarMovimiento model involved in the transaction.</param>
         /// <returns>An ActionResult redirecting to the corresponding action with the configured message.</returns>
-        public ActionResult HacerAviso(string nombreVista, string codigo, ModeloAgregarMovimiento modelo)
+        public async Task<ActionResult> HacerAviso(string nombreVista, string codigo, ModeloAgregarMovimiento modelo)
         {
             if (nombreVista == "Listar")
             {
@@ -352,7 +352,7 @@ namespace Tarea2_BD1.Controllers
             else if (nombreVista == "Agregar")
             {
                 //Consulta el error y lo guarda comno aviso cuando redireccione a la pagina de inicio de sesion
-                TempData["Message"] = ValidacionesEstaticas.ConsultaCodError(codigo, this._dbContext);
+                TempData["Message"] = await ValidacionesEstaticas.ConsultaCodError(codigo, this._dbContext);
                 return RedirectToAction("Agregar", "Movimiento", new { modelo.empleado.Nombre });
             }
             return Ok();
@@ -365,7 +365,7 @@ namespace Tarea2_BD1.Controllers
         /// <param name="modelo">The model containing the employee and movement information to add.</param>
         /// <returns>A redirect to the corresponding view containing the operation result.</returns>
         [HttpPost]
-        public IActionResult ControlErrores(ModeloAgregarMovimiento modelo)
+        public async Task<IActionResult> ControlErrores(ModeloAgregarMovimiento modelo)
         {
             //Se eliminan algunas validaciones que hace el ModelState que realmente no se necesitan para efectos del formulario
             ModelState.Remove("movimiento.PostInIp");
@@ -378,15 +378,15 @@ namespace Tarea2_BD1.Controllers
             if (ModelState.IsValid)
             {
                 //Intentamos agregar el movimiento
-                string resultadoSP = AgregarMovimiento(modelo.empleado.ValorDocumentoIdentidad, modelo.empleado.Nombre, modelo.empleado.SaldoVacaciones, modelo.movimiento.Monto, modelo.movimiento.IdTipoMovimientoNavigation.Nombre);
+                string resultadoSP = await AgregarMovimiento(modelo.empleado.ValorDocumentoIdentidad, modelo.empleado.Nombre, modelo.empleado.SaldoVacaciones, modelo.movimiento.Monto, modelo.movimiento.IdTipoMovimientoNavigation.Nombre);
 
                 if (resultadoSP == "0")
                 {
-                    return HacerAviso("Listar", resultadoSP, modelo);
+                    return await HacerAviso("Listar", resultadoSP, modelo);
                 }
                 else
                 {
-                    return HacerAviso("Agregar", resultadoSP, modelo);
+                    return await HacerAviso("Agregar", resultadoSP, modelo);
                 }
             }
 
