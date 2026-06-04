@@ -25,7 +25,7 @@ The entire architecture and system design were developed with the ACID principle
 - Microsoft.EntityFrameworkCore.Tools (8.0.8)  
 - Microsoft.VisualStudio.Web.CodeGeneration.Design (8.0.5)  
 - DotNetEnv (3.2.0)  
-- Microsoft.AspNetCore.Authentication.Cookies
+- Microsoft.AspNetCore.Authentication.Cookies (2.3.10)
 
 ---
 
@@ -136,6 +136,7 @@ dotnet test
 |--------|----------|-------------|---------------|
 | POST | `/Login` | Login in the platform | No |
 | GET | `/Empleados` | List all employees | Yes |
+| GET | `/Empleado/Agregar?` | Show the view where to add a employee | Yes |
 | GET | `/Empleado/Consulta?Nombre=...` | Show the information of an especific employee | Yes |
 | GET | `/Empleado/Update?Nombre=...` | Show the information of an especific employee before update | Yes |
 | GET | `/Empleado/Borrar?Nombre=...` | Show the information of an especific employee before delete | Yes |

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
@@ -24,19 +24,27 @@ namespace Tarea2_BD1.Controllers
         public readonly Dbtarea2Context _dbContext;
 
         /// <summary>
-        /// Get the context of the DB
+        /// Constructor for the EmpleadoController class. Initializes the database context.
         /// </summary>
-        /// <param name="_context"></param>
+        /// <param name="_context">The Entity Framework Core database context.</param>
         public EmpleadoController(Dbtarea2Context _context)
         {
             _dbContext = _context;
         }
 
+        /// <summary>
+        /// Displays the view to add a new employee.
+        /// </summary>
+        /// <returns>The "Agregar" view containing the employee registration form.</returns>
         public IActionResult Agregar()
         {
             return View();
         }
 
+        /// <summary>
+        /// Obtains the complete list of employees from the database using the SP_ListarEmpleados stored procedure.
+        /// </summary>
+        /// <returns>The "Listar" view containing the active employees list, or a BadRequest if an error occurs.</returns>
         [HttpGet("/Empleados")]
         public IActionResult Listar()
         {
@@ -92,6 +100,12 @@ namespace Tarea2_BD1.Controllers
             }
         }// end meethod
 
+        /// <summary>
+        /// Filters the employee list by name or by identity document value using the SP_Filtro stored procedure.
+        /// Logs the client's IP address in the event log.
+        /// </summary>
+        /// <param name="entradaStringFiltro">The term to filter by (name or identity document value).</param>
+        /// <returns>A partial view "_VistaParcialFiltro" containing the filtered results, or a BadRequest if an error occurs.</returns>
         [HttpPost]
         public IActionResult Filtrar(string entradaStringFiltro)
         {
@@ -203,6 +217,14 @@ namespace Tarea2_BD1.Controllers
             }
         }//end method
 
+        /// <summary>
+        /// Registers a new employee in the database by calling the SP_AgregarEmpleado stored procedure.
+        /// Validates via regular expression if the entered name contains only alphabetic characters.
+        /// </summary>
+        /// <param name="inValorDocIdent">The identity document value as a string.</param>
+        /// <param name="inNombre">The full name of the employee.</param>
+        /// <param name="inPuesto">The name of the position to assign.</param>
+        /// <returns>The exit code from the stored procedure or the error message in case of an exception.</returns>
         [HttpPost]
         public string AgregarEmpleado(string inValorDocIdent, string inNombre, string inPuesto)
         {
@@ -309,6 +331,13 @@ namespace Tarea2_BD1.Controllers
             }
         }//end method
 
+        /// <summary>
+        /// Manages notifications and TempData messages based on the response code received when adding an employee.
+        /// </summary>
+        /// <param name="nombreVista">The name of the view to redirect to.</param>
+        /// <param name="codigo">The result code returned by the database or exception.</param>
+        /// <param name="empleado">The Empleado object containing the entered data.</param>
+        /// <returns>An ActionResult redirecting to the corresponding action with the configured message.</returns>
         public ActionResult HacerAviso(string nombreVista, string codigo, Empleado empleado)
         {
             if (nombreVista == "Listar")
@@ -331,6 +360,14 @@ namespace Tarea2_BD1.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Controller action that processes the employee creation form submission. Validates model state,
+        /// calls AgregarEmpleado, and manages notifications according to the stored procedure's result.
+        /// </summary>
+        /// <param name="empleado">The Empleado model with basic data.</param>
+        /// <param name="stringPuesto">The selected position in text format.</param>
+        /// <param name="form">The form collection containing the complete identity document value.</param>
+        /// <returns>A redirect to the corresponding view containing the operation result.</returns>
         [HttpPost]
         public IActionResult ControlDeErroresAvisos(Empleado empleado, string stringPuesto, IFormCollection form)
         {
@@ -356,6 +393,17 @@ namespace Tarea2_BD1.Controllers
             return RedirectToAction("Agregar", "Empleado", empleado);
         }//end method
 
+        /// <summary>
+        /// Calls the SP_ActualizarEmpleado stored procedure to modify the details of an existing employee.
+        /// Validates the alphabetic structure of the new name and logs the client's IP address.
+        /// </summary>
+        /// <param name="inValorDocIdentOriginal">The current identity document value of the employee.</param>
+        /// <param name="inNombreOriginal">The current name of the employee.</param>
+        /// <param name="inPuestoOriginal">The current position of the employee.</param>
+        /// <param name="inValorDocIdent">The proposed new identity document value.</param>
+        /// <param name="inNombre">The proposed new name.</param>
+        /// <param name="inPuesto">The proposed new position.</param>
+        /// <returns>The exit code from the stored procedure or the error message in case of an exception.</returns>
         [HttpPost]
         public string ActualizarEmpleado(string inValorDocIdentOriginal, string inNombreOriginal, string inPuestoOriginal, string inValorDocIdent, string inNombre, string inPuesto)
         {
@@ -488,6 +536,11 @@ namespace Tarea2_BD1.Controllers
             }
         }//end method
 
+        /// <summary>
+        /// Queries and retrieves the original data of an employee by name using SP_SacarEmpleado to fill the update model.
+        /// </summary>
+        /// <param name="inModelo">The ActualizarEmpleado model containing the name of the employee to search for.</param>
+        /// <returns>The model containing the loaded employee information, or a model with an error message if the query fails.</returns>
         public ActualizarEmpleado sacarEmpleadoUpdate(ActualizarEmpleado inModelo)
         {
             try
@@ -553,6 +606,12 @@ namespace Tarea2_BD1.Controllers
             }
         }// end meethod
 
+        /// <summary>
+        /// Displays the view to update an employee. Retrieves original data based on the Nombre parameter
+        /// or TempData if returning from a previous failed attempt.
+        /// </summary>
+        /// <param name="Nombre">The name of the employee to update.</param>
+        /// <returns>The "Update" view loaded with the ActualizarEmpleado model.</returns>
         public IActionResult Update(string? Nombre)
         {
             //Se descerializa el modelo para seguir validando
@@ -580,6 +639,13 @@ namespace Tarea2_BD1.Controllers
             return View(modeloRecibido);
         }//end method
 
+        /// <summary>
+        /// Manages notifications and TempData messages based on the response code received when updating an employee.
+        /// </summary>
+        /// <param name="nombreVista">The name of the view to redirect to.</param>
+        /// <param name="codigo">The result code returned by the database or exception.</param>
+        /// <param name="modelo">The ActualizarEmpleado model involved in the transaction.</param>
+        /// <returns>An ActionResult redirecting to the corresponding action with the configured message.</returns>
         public ActionResult HacerAvisoUpdate(string nombreVista, string codigo, ActualizarEmpleado modelo)
         {
             if (nombreVista == "Listar")
@@ -602,6 +668,13 @@ namespace Tarea2_BD1.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Processes the employee update form submission. Validates model state,
+        /// calls ActualizarEmpleado, and manages notifications according to the stored procedure's result.
+        /// </summary>
+        /// <param name="modelo">The model containing the employee's original and new information.</param>
+        /// <param name="form">The form collection with the new identity document value.</param>
+        /// <returns>A redirect to the corresponding view containing the operation result.</returns>
         [HttpPost]
         public IActionResult ControlErroresActualizar(ActualizarEmpleado modelo, IFormCollection form)
         {
@@ -631,6 +704,16 @@ namespace Tarea2_BD1.Controllers
 
         //-------------------------------------------------------------------------------- Metodos para borrar empleado-------------------------------------------------
 
+        /// <summary>
+        /// Calls the SP_BorrarEmpleado stored procedure to logically or physically delete an employee
+        /// depending on the provided confirmation, logging the user's IP address.
+        /// </summary>
+        /// <param name="inNombre">The name of the employee.</param>
+        /// <param name="inValorDocIdent">The identity document value of the employee.</param>
+        /// <param name="inPuesto">The position of the employee.</param>
+        /// <param name="inSaldoVacaciones">The accumulated vacation balance of the employee.</param>
+        /// <param name="inConfirmacion">The confirmation code (1 to proceed with deletion, 2 to cancel).</param>
+        /// <returns>The exit code from the stored procedure or the error message in case of an exception.</returns>
         [HttpPost]
         public string BorrarEmpleado(string inNombre, int inValorDocIdent, string inPuesto, Decimal inSaldoVacaciones, int inConfirmacion )
         {
@@ -730,6 +813,11 @@ namespace Tarea2_BD1.Controllers
             }
         }//end method
 
+        /// <summary>
+        /// Queries and retrieves the detailed data of an employee by calling the SP_SacarEmpleado stored procedure.
+        /// </summary>
+        /// <param name="inModelo">The Empleado model containing the name of the employee to search for.</param>
+        /// <returns>An Empleado model filled with the corresponding data, or a model with an error message if it fails.</returns>
         public Empleado sacarEmpleadoBorrar(Empleado inModelo)
         {
             try
@@ -795,6 +883,11 @@ namespace Tarea2_BD1.Controllers
             }
         }// end meethod
 
+        /// <summary>
+        /// Displays the confirmation view to delete an employee, loading their current data.
+        /// </summary>
+        /// <param name="Nombre">The name of the employee to delete.</param>
+        /// <returns>The "Borrar" view loaded with the employee's data.</returns>
         public IActionResult Borrar(string? Nombre)
         {
             //Se descerializa el modelo para seguir validando
@@ -822,6 +915,13 @@ namespace Tarea2_BD1.Controllers
             return View(modeloRecibido);
         }//end method
 
+        /// <summary>
+        /// Manages notifications and TempData messages based on the response code received when deleting an employee.
+        /// </summary>
+        /// <param name="nombreVista">The name of the view to redirect to.</param>
+        /// <param name="codigo">The result code returned by the database or exception.</param>
+        /// <param name="modelo">The Empleado model involved in the transaction.</param>
+        /// <returns>An ActionResult redirecting to the corresponding action with the configured message.</returns>
         public ActionResult HacerAvisoBorrar(string nombreVista, string codigo, Empleado modelo)
         {
             if (nombreVista == "Listar")
@@ -844,6 +944,13 @@ namespace Tarea2_BD1.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Processes the employee deletion confirmation. Calls BorrarEmpleado and redirects according to
+        /// the user's confirmation response ("Si" or "No").
+        /// </summary>
+        /// <param name="modelo">The model of the employee to be deleted.</param>
+        /// <param name="confirmacion">The user's confirmation decision ("Si" or "No").</param>
+        /// <returns>A redirect to the appropriate view based on the deletion flow.</returns>
         [HttpPost]
         public IActionResult ControlErroresBorrar(Empleado modelo, string confirmacion)
         {
@@ -874,6 +981,11 @@ namespace Tarea2_BD1.Controllers
         }//end method
 
         //--------------------------------------------------------------------------------------- METODOS PARA CONSULTAR EMPLEADOS
+        /// <summary>
+        /// Displays the detailed query view with the information of a specific employee.
+        /// </summary>
+        /// <param name="Nombre">The name of the employee to query.</param>
+        /// <returns>The "Consulta" view loaded with the employee's data.</returns>
         public IActionResult Consulta(string Nombre)
         {
             Empleado modeloEnviado = new Empleado();

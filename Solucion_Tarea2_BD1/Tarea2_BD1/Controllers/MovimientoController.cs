@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -18,11 +18,20 @@ namespace Tarea2_BD1.Controllers
     {
         public readonly Dbtarea2Context _dbContext;
 
+        /// <summary>
+        /// Constructor for the MovimientoController class. Initializes the database context.
+        /// </summary>
+        /// <param name="_context">The Entity Framework Core database context.</param>
         public MovimientoController(Dbtarea2Context _context)
         {
             _dbContext = _context;
         }
 
+        /// <summary>
+        /// Retrieves the list of movements and basic info for a specific employee by name using SP_ListarMovimientos stored procedure.
+        /// </summary>
+        /// <param name="Nombre">The name of the employee to retrieve movements for.</param>
+        /// <returns>The "Listar" view loaded with the employee's movements, or a BadRequest if an exception occurs.</returns>
         [HttpGet("Movimientos")]
         public IActionResult Listar(string Nombre)
         {
@@ -109,6 +118,11 @@ namespace Tarea2_BD1.Controllers
             }
         }// end meethod
 
+        /// <summary>
+        /// Queries and retrieves basic data of an employee by name using SP_SacarEmpleado stored procedure to build a movement request.
+        /// </summary>
+        /// <param name="inModelo">The model containing the employee's name to search for.</param>
+        /// <returns>The model containing the loaded employee information, or a model with an error message if the query fails.</returns>
         [HttpGet]
         public ModeloAgregarMovimiento sacarEmpleado(ModeloAgregarMovimiento inModelo)
         {
@@ -174,6 +188,12 @@ namespace Tarea2_BD1.Controllers
             }
         }// end meethod
         
+        /// <summary>
+        /// Displays the view to add a new movement for an employee. Retrieves employee information based on the Nombre parameter
+        /// or from serialized TempData if returning from a previous failed attempt.
+        /// </summary>
+        /// <param name="Nombre">The name of the employee.</param>
+        /// <returns>The "Agregar" view loaded with the ModeloAgregarMovimiento model.</returns>
         public IActionResult Agregar(string? Nombre)
         {
             //Se descerializa el modelo para seguir validando
@@ -201,6 +221,16 @@ namespace Tarea2_BD1.Controllers
             return View(modeloRecibido);
         }
 
+        /// <summary>
+        /// Registers a new movement (vacation change) in the database by calling the SP_AgregarMovimiento stored procedure,
+        /// and records the client's IP address.
+        /// </summary>
+        /// <param name="inValorDocIdent">The identity document value of the employee.</param>
+        /// <param name="inNombre">The name of the employee.</param>
+        /// <param name="inSaldoVacaciones">The current vacation balance of the employee.</param>
+        /// <param name="inMonto">The vacation days/hours amount to adjust.</param>
+        /// <param name="inTipoMovimiento">The movement type name (e.g. debit/credit).</param>
+        /// <returns>The exit code from the stored procedure or the error message in case of an exception.</returns>
         [HttpPost]
         public string AgregarMovimiento(int inValorDocIdent, string inNombre, Decimal inSaldoVacaciones, Decimal inMonto, string inTipoMovimiento)
         {
@@ -299,6 +329,13 @@ namespace Tarea2_BD1.Controllers
             }
         }//end method
 
+        /// <summary>
+        /// Manages notifications and TempData messages based on the response code received when adding a movement.
+        /// </summary>
+        /// <param name="nombreVista">The name of the view to redirect to.</param>
+        /// <param name="codigo">The result code returned by the database or exception.</param>
+        /// <param name="modelo">The ModeloAgregarMovimiento model involved in the transaction.</param>
+        /// <returns>An ActionResult redirecting to the corresponding action with the configured message.</returns>
         public ActionResult HacerAviso(string nombreVista, string codigo, ModeloAgregarMovimiento modelo)
         {
             if (nombreVista == "Listar")
@@ -321,6 +358,12 @@ namespace Tarea2_BD1.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Processes the movement addition form submission. Validates model state,
+        /// calls AgregarMovimiento, and manages notifications according to the stored procedure's result.
+        /// </summary>
+        /// <param name="modelo">The model containing the employee and movement information to add.</param>
+        /// <returns>A redirect to the corresponding view containing the operation result.</returns>
         [HttpPost]
         public IActionResult ControlErrores(ModeloAgregarMovimiento modelo)
         {
