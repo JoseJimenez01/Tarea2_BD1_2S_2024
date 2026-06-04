@@ -214,7 +214,7 @@ namespace Tarea2_BD1.Controllers
             }
             else
             {
-                modeloEnviado.empleado.Nombre = modelo.empleado.Nombre;
+                modeloEnviado.empleado.Nombre = modelo?.empleado.Nombre ?? "Nombre no encontrado";
             }
             modeloRecibido = await sacarEmpleado(modeloEnviado);
 
@@ -291,7 +291,7 @@ namespace Tarea2_BD1.Controllers
                     ParameterName = "@inPostInIP",
                     SqlDbType = SqlDbType.VarChar,
                     Size = 32,
-                    Value = ippaddress.ToString(),
+                    Value = ippaddress?.ToString() ?? "No ip encontrado",
                     Direction = ParameterDirection.Input
                 };
                 SqlParameter paramResultado = new SqlParameter

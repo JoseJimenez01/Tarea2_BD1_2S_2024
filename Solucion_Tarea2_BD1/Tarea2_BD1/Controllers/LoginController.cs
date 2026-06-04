@@ -85,7 +85,7 @@ namespace Tarea2_BD1.Controllers
                     ParameterName = "@inPostInIP",
                     SqlDbType = SqlDbType.VarChar,
                     Size = 32,
-                    Value = ippaddress.ToString(),
+                    Value = ippaddress?.ToString() ?? "No ip encontrado",
                     Direction = ParameterDirection.Input
                 };
                 SqlParameter paramResultado = new SqlParameter
@@ -126,6 +126,7 @@ namespace Tarea2_BD1.Controllers
             }
             catch (Exception ex)
             {
+                Console.WriteLine("Error al ejecutar ConsultaInicioSesionFallidos: " + ex.Message);
                 //Algun error pero no sabemos cual
                 return -1000;
             }
@@ -250,7 +251,7 @@ namespace Tarea2_BD1.Controllers
                     ParameterName = "@inPostInIP",
                     SqlDbType = SqlDbType.VarChar,
                     Size = 32,
-                    Value = ippaddress.ToString(),
+                    Value = ippaddress?.ToString() ?? "No ip encontrado",
                     Direction = ParameterDirection.Input
                 };
                 SqlParameter paramResultado = new SqlParameter

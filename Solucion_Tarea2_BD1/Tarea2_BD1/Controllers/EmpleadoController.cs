@@ -170,7 +170,7 @@ namespace Tarea2_BD1.Controllers
                     ParameterName = "@inPostInIP",
                     SqlDbType = SqlDbType.VarChar,
                     Size = 32,
-                    Value = ippaddress.ToString(),
+                    Value = ippaddress?.ToString() ?? "No ip encontrado",
                     Direction = ParameterDirection.Input
                 };
                 SqlParameter paramResultado = new SqlParameter
@@ -294,7 +294,7 @@ namespace Tarea2_BD1.Controllers
                     ParameterName = "@inPostInIP",
                     SqlDbType = SqlDbType.VarChar,
                     Size = 32,
-                    Value = ippaddress.ToString(),
+                    Value = ippaddress?.ToString() ?? "No ip encontrado",
                     Direction = ParameterDirection.Input
                 };
                 SqlParameter paramResultado = new SqlParameter
@@ -496,7 +496,7 @@ namespace Tarea2_BD1.Controllers
                     ParameterName = "@inPostInIP",
                     SqlDbType = SqlDbType.VarChar,
                     Size = 32,
-                    Value = ippaddress.ToString(),
+                    Value = ippaddress?.ToString() ?? "No ip encontrado",
                     Direction = ParameterDirection.Input
                 };
                 SqlParameter paramResultado = new SqlParameter
@@ -632,7 +632,7 @@ namespace Tarea2_BD1.Controllers
             }
             else
             {
-                modeloEnviado.empleadoOriginal.Nombre = modelo.empleadoOriginal.Nombre;
+                modeloEnviado.empleadoOriginal.Nombre = modelo?.empleadoOriginal.Nombre ?? "Nombre no encontrado";
             }
             modeloRecibido = await sacarEmpleadoUpdate(modeloEnviado);
 
@@ -775,7 +775,7 @@ namespace Tarea2_BD1.Controllers
                     ParameterName = "@inPostInIP",
                     SqlDbType = SqlDbType.VarChar,
                     Size = 32,
-                    Value = ippaddress.ToString(),
+                    Value = ippaddress?.ToString() ?? "No ip encontrado",
                     Direction = ParameterDirection.Input
                 };
                 SqlParameter paramResultado = new SqlParameter
@@ -908,7 +908,7 @@ namespace Tarea2_BD1.Controllers
             }
             else
             {
-                modeloEnviado.Nombre = modelo.Nombre;
+                modeloEnviado.Nombre = modelo?.Nombre ?? "Nombre no encontrado";
             }
             modeloRecibido = await sacarEmpleadoBorrar(modeloEnviado);
 

@@ -30,7 +30,7 @@
         </form>
 
         <div id="div-lista" class="mt-5">
-            @Html.Partial("_VistaParcialFiltro", Model)
+            @await Html.PartialAsync("_VistaParcialFiltro", Model)
         </div>
 
         <form action="@Url.Action("Agregar", "Empleado")">
