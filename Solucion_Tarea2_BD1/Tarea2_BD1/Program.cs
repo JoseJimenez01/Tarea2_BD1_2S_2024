@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Tarea2_BD1.Models;
-using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);

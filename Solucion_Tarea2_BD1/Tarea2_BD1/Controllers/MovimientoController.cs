@@ -4,12 +4,9 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Data;
-using System.Drawing;
 using System.Net;
 using System.Net.Sockets;
-using System.Text.RegularExpressions;
 using Tarea2_BD1.Models;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Tarea2_BD1.Controllers
 {
