@@ -1,16 +1,14 @@
-﻿
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
 @model Empleado
 
 @{
-    ViewData["Title"] = "Agregar empleados";
+    ViewData["Title"] = Localizer["Add employees"];
 }
 
-@if (TempData["Message"] != null)
-{
-    <div class="alert alert-danger">
-        @TempData["Message"]
-    </div>
-}
+@* It uses the TempData *@
+<partial name="_Notification" />
 
 @section Scripts {
     @{
@@ -24,48 +22,47 @@
 
 </head>
 <body>
-    <h1>Agregar empleado</h1>
+    <h1>@Localizer["Add employee"]</h1>
 
     <div class="form-floating">
         <form id="formAgregarEmp" method="post" asp-controller="Empleado" asp-action="ControlDeErroresAvisos">
             @* Sección para ingresar el valor de documento de identidad *@
             <div class="mt-3">
-                <label asp-for="ValorDocumentoIdentidad">Valor del documento de identidad:</label>
-                <input asp-for="ValorDocumentoIdentidad" type="text" id="entValorDocIdent" class="form-control"  placeholder="Escriba el nombre aquí">
+                <label asp-for="ValorDocumentoIdentidad">@Localizer["Value of the identity document"]:</label>
+                <input asp-for="ValorDocumentoIdentidad" type="text" id="entValorDocIdent" class="form-control" placeholder="@Localizer["Write the value of the identity document here"]">
                 <span asp-validation-for="ValorDocumentoIdentidad" id="spanValorDocIdent" class="text-danger"></span>
             </div>
 
             @* Sección para ingresar el nombre *@
             <div class="mt-3">
-                <label asp-for="Nombre">Nombre:</label>
-                <input asp-for="Nombre" type="text" id="entNombre" class="form-control" placeholder="Escriba el salario aquí">
+                <label asp-for="Nombre">@Localizer["Name"]:</label>
+                <input asp-for="Nombre" type="text" id="entNombre" class="form-control" placeholder="@Localizer["Write the name here"]">
                 <span asp-validation-for="Nombre" id="spanSalario" class="text-danger"></span>
             </div>
 
             @* Sección para ingresar el puesto *@
             <div id="div-PartialView" class="mt-3">
-                <label>Puesto:</label>
-                @* <input type="text" class="form-control" name="stringPuesto" placeholder="Probandoooooooooooo"> *@
+                <label>@Localizer["Position"]:</label>
                 <select id="selectListaPuestos" class="form-select" name="stringPuesto">
-                    <option value="nada" selected disabled>Seleccione un puesto:</option>
-                    <option value="Albañil">Albañil</option>
-                    <option value="Asistente">Asistente</option>
-                    <option value="Cajero">Cajero</option>
-                    <option value="Camarero">Camarero</option>
-                    <option value="Conductor">Conductor</option>
-                    <option value="Conserje">Conserje</option>
-                    <option value="Cuidador">Cuidador</option>
-                    <option value="Fontanero">Fontanero</option>
-                    <option value="Niñera">Niñera</option>
-                    <option value="Recepcionista">Recepcionista</option>
+                    <option value="nada" selected disabled>@Localizer["Select a position"]:</option>
+                    <option value="Albañil">@Localizer["Construction worker"]</option>
+                    <option value="Asistente">@Localizer["Assistant"]</option>
+                    <option value="Cajero">@Localizer["Cashier"]</option>
+                    <option value="Camarero">@Localizer["Waiter"]</option>
+                    <option value="Conductor">@Localizer["Driver"]</option>
+                    <option value="Conserje">@Localizer["Janitor"]</option>
+                    <option value="Cuidador">@Localizer["Caregiver"]</option>
+                    <option value="Fontanero">@Localizer["Plumber"]</option>
+                    <option value="Niñera">@Localizer["Babysitter"]</option>
+                    <option value="Recepcionista">@Localizer["Receptionist"]</option>
                 </select>
             </div>
              
         </form>
 
         <div class="mt-3" id="div-botones-agregarEmpleado">
-            <button type="submit" id="btnAgregarEmpleado" class="btn btn-primary" form="formAgregarEmp">Agregar empleado</button>
-            <button id="btnBackAgregar" class="btn btn-primary" onclick="location.href='@Url.Action("Listar", "Empleado")'">Regresar</button>
+            <button type="submit" id="btnAgregarEmpleado" class="btn btn-primary" form="formAgregarEmp">@Localizer["Add employee"]</button>
+            <button id="btnBackAgregar" class="btn btn-primary" onclick="location.href='@Url.Action("Listar", "Empleado")'">@Localizer["Go back"]</button>
         </div>
 
     </div>

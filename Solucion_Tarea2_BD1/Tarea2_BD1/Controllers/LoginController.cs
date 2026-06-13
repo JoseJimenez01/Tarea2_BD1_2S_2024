@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using System.Data;
 using System.Diagnostics;
 using System.Net;
@@ -296,7 +298,8 @@ namespace Tarea2_BD1.Controllers
         {
             if (nombreVista == "Listar")
             {
-                TempData["Message"] = "Inicio de sesión exitoso";
+                TempData["Message"] = "Successful login";
+                TempData["Type"] = "success";
                 return RedirectToAction(nombreVista, "Empleado");
             }
             //Error generado en el try and catch del metodo que hace el inicio de sesion en la BD
@@ -304,12 +307,14 @@ namespace Tarea2_BD1.Controllers
             else if (codigo != "0" && codigo != "50001" && codigo != "50002" && codigo != "50008")
             {
                 TempData["Message"] = codigo;
+                TempData["Type"] = "error";
                 return RedirectToAction(nombreVista, modeloUsuario);
             }
             else if (nombreVista == "SignIn")
             {
                 //Consulta el error y lo guarda comno aviso cuando redireccione a la pagina de inicio de sesion
-                TempData["Message"] = await ConsultaCodError(codigo);
+                TempData["Message"] = await ConsultaCodError(codigo); //In SignIn.resx, i added the key in spanish, because is the value that the DB returns
+                TempData["Type"] = "error";
                 return RedirectToAction(nombreVista, modeloUsuario);
             }
             return Ok();
@@ -329,7 +334,7 @@ namespace Tarea2_BD1.Controllers
             int cantidadFallos = await ConsultaInicioSesionFallidos(30, usuario.Username);
             if (cantidadFallos > 5)
             {
-                return await HacerAviso("SignIn", usuario, "Demasiados intentos de login, intente de nuevo dentro de 10 minutos");
+                return await HacerAviso("SignIn", usuario, "Too many login attempts, please try again in 10 minutes");
             }
             
             if (ModelState.IsValid)
@@ -386,6 +391,7 @@ namespace Tarea2_BD1.Controllers
         public async Task<ActionResult> Denied()
         {
             TempData["Message"] = "Inicio de sesión fallido";
+            TempData["Type"] = "error";
             return RedirectToAction("SignIn", "Login");
         }
 

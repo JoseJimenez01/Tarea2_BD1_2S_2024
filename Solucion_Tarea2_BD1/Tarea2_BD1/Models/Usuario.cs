@@ -8,11 +8,11 @@ public partial class Usuario
 {
     public int Id { get; set; }
 
-    [Required(ErrorMessage = "El espacio no puede quedar en blanco")]
+    [Required(ErrorMessage = "The space cannot be left blank")]
     public string Username { get; set; } = null!;
 
-    [Required(ErrorMessage = "El espacio no puede quedar en blanco")]
-    [MaxLength(64, ErrorMessage = "La contraseña debe tener un máximo de 64 caracteres")]
+    [Required(ErrorMessage = "The space cannot be left blank")]
+    [MaxLength(64, ErrorMessage = "The password must have a maximum of 64 characters")]
     public string Password { get; set; } = null!;
 
     public virtual ICollection<BitacoraEvento> BitacoraEventos { get; set; } = new List<BitacoraEvento>();

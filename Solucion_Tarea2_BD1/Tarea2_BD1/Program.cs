@@ -1,11 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using Tarea2_BD1.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddLocalization(options => { options.ResourcesPath = "Resources"; });
+
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddViewLocalization().AddDataAnnotationsLocalization();
 
 //Search .env
 DotNetEnv.Env.Load(Path.Combine(Directory.GetCurrentDirectory(), ".env"));
@@ -45,6 +49,20 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+//Change languages
+var supportedCultures = new[]
+{
+    new CultureInfo("es"),
+    new CultureInfo("en")
+};
+
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture("es"),
+    SupportedCultures = supportedCultures,
+    SupportedUICultures = supportedCultures
+});
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -67,15 +85,6 @@ app.MapGet("/", context =>
 {
     context.Response.Redirect("/Login");
     return Task.CompletedTask;
-});
-
-app.MapGet("/routes", (IEnumerable<EndpointDataSource> endpointSources) =>
-{
-    var endpoints = endpointSources
-        .SelectMany(es => es.Endpoints);
-
-    return string.Join("\n",
-        endpoints.Select(e => e.DisplayName));
 });
 
 app.Run();

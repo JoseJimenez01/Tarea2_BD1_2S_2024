@@ -113,7 +113,7 @@ namespace Tarea2_BD1.Controllers
             {
                 return BadRequest(ex.Message);
             }
-        }// end meethod
+        }
 
         /// <summary>
         /// Queries and retrieves basic data of an employee by name using SP_SacarEmpleado stored procedure to build a movement request.
@@ -183,7 +183,7 @@ namespace Tarea2_BD1.Controllers
                 modeloError.empleado.Nombre = ex.Message;
                 return modeloError;
             }
-        }// end meethod
+        }
         
         /// <summary>
         /// Displays the view to add a new movement for an employee. Retrieves employee information based on the Nombre parameter
@@ -324,7 +324,7 @@ namespace Tarea2_BD1.Controllers
             {
                 return System.String.Format("El error es: {0}", ex.ToString());
             }
-        }//end method
+        }
 
         /// <summary>
         /// Manages notifications and TempData messages based on the response code received when adding a movement.
@@ -337,19 +337,22 @@ namespace Tarea2_BD1.Controllers
         {
             if (nombreVista == "Listar")
             {
-                TempData["Message"] = "Inserción de movimiento exitosa";
+                TempData["Message"] = "Successful motion insertion";
+                TempData["Type"] = "success";
                 return RedirectToAction(nombreVista, "Empleado");
             }
             //Error generado en el try and catch del metodo que agrega el empleado a la BD
             else if (codigo != "0" && codigo != "50011")
             {
                 TempData["Message"] = codigo; //el mismo codigo seria el error generado en el metodo AgregarMovimiento
+                TempData["Type"] = "error";
                 return RedirectToAction(nombreVista, "Movimiento", modelo);
             }
             else if (nombreVista == "Agregar")
             {
                 //Consulta el error y lo guarda comno aviso cuando redireccione a la pagina de inicio de sesion
                 TempData["Message"] = await ValidacionesEstaticas.ConsultaCodError(codigo, this._dbContext);
+                TempData["Type"] = "error";
                 return RedirectToAction("Agregar", "Movimiento", new { modelo.empleado.Nombre });
             }
             return Ok();
@@ -387,15 +390,16 @@ namespace Tarea2_BD1.Controllers
                 }
             }
 
-            TempData["Message"] = "Seleccione un tipo de movimiento valido";
+            TempData["Message"] = "Select a valid movement type";
+            TempData["Type"] = "error";
 
             //Se serializa el modelo en un Json para enviarlo por TempData ya que por temas de HttpPost y HttpGet que se hacen
             //entre un metodo y el otro, no deja enviar el modelo por parametro
             TempData["Modelo"] = JsonConvert.SerializeObject(modelo);
             return RedirectToAction("Agregar", "Movimiento", new { modelo.empleado.Nombre });
 
-        }//end method
+        }
 
-    }//end class
+    }
 
-}//end namespace
+}

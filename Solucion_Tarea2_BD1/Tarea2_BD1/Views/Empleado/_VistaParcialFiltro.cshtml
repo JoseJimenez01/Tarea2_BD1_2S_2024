@@ -1,22 +1,23 @@
-﻿
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @model IEnumerable<Tarea2_BD1.Models.Empleado>
 
 @{
-    ViewData["Title"] = "Empleados";
+    ViewData["Title"] = Localizer["Employees"];
 }
 
 <body>
     <table id="tablaEmpleados" class="table table-hover">
         <tr>
             <th id="encNom">
-                @Html.DisplayNameFor(model => model.Nombre)
+                @Localizer["Name"]
             </th>
             <th id="encValorDocIdent">
-                Valor del documento de identidad
+                @Localizer["Employees"]
             </th>
             <th id="encAccion">
-                Acción
+                @Localizer["Action"]
             </th>
         </tr>
         @foreach (var item in Model)
@@ -29,11 +30,11 @@
                     @Html.DisplayFor(modelItem => item.ValorDocumentoIdentidad)
                 </td>
                 <td>
-                    @Html.ActionLink("Consultar", "Consulta", "Empleado", new { Nombre = item.Nombre }) |
-                    @Html.ActionLink("Modificar", "Update", "Empleado", new { Nombre = item.Nombre }) |
-                    @Html.ActionLink("Borrar", "Borrar", "Empleado", new { Nombre = item.Nombre }) |
-                    @Html.ActionLink("Movimientos", "Listar", "Movimiento", new { Nombre = item.Nombre }) |
-                    @Html.ActionLink("Insertar movimiento", "Agregar", "Movimiento", new { Nombre = item.Nombre })
+                    @Html.ActionLink(Localizer["Consult"].Value, "Consulta", "Empleado", new { Nombre = item.Nombre }) |
+                    @Html.ActionLink(Localizer["Modify"].Value, "Update", "Empleado", new { Nombre = item.Nombre }) |
+                    @Html.ActionLink(Localizer["Delete"].Value, "Borrar", "Empleado", new { Nombre = item.Nombre }) |
+                    @Html.ActionLink(Localizer["Movements"].Value, "Listar", "Movimiento", new { Nombre = item.Nombre }) |
+                    @Html.ActionLink(Localizer["Insert movement"].Value, "Agregar", "Movimiento", new { Nombre = item.Nombre })
                 </td>
             </tr>
         }

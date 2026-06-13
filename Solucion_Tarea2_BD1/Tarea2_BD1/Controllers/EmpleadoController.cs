@@ -335,19 +335,22 @@ namespace Tarea2_BD1.Controllers
         {
             if (nombreVista == "Listar")
             {
-                TempData["Message"] = "Inserción exitosa";
+                TempData["Message"] = "Successful insertion";
+                TempData["Type"] = "success";
                 return RedirectToAction(nombreVista, "Empleado");
             }
             //Error generado en el try and catch del metodo que agrega el empleado a la BD
             else if (codigo != "0" && codigo != "50009" && codigo != "50010" && codigo != "50004" && codigo != "50005")
             {
                 TempData["Message"] = codigo; //el mismo codigo seria el error generado en el metodo AgregarEmpleado
+                TempData["Type"] = "error";
                 return RedirectToAction(nombreVista, empleado);
             }
             else if (nombreVista == "Agregar")
             {
                 //Consulta el error y lo guarda comno aviso cuando redireccione a la pagina de inicio de sesion
                 TempData["Message"] = await ValidacionesEstaticas.ConsultaCodError(codigo, this._dbContext);
+                TempData["Type"] = "error";
                 return RedirectToAction(nombreVista, empleado);
             }
             return Ok();
@@ -382,7 +385,8 @@ namespace Tarea2_BD1.Controllers
                     return await HacerAviso("Agregar", resultadoSP, empleado);
                 }
             }
-            TempData["Message"] = "Seleccione un puesto valido";
+            TempData["Message"] = "Please select a valid position";
+            TempData["Type"] = "error";
             return RedirectToAction("Agregar", "Empleado", empleado);
         }//end method
 
@@ -643,19 +647,22 @@ namespace Tarea2_BD1.Controllers
         {
             if (nombreVista == "Listar")
             {
-                TempData["Message"] = "Actualización exitosa";
+                TempData["Message"] = "Successful update";
+                TempData["Type"] = "success";
                 return RedirectToAction(nombreVista, "Empleado");
             }
             //Error generado en el try and catch del metodo que agrega el empleado a la BD
             else if (codigo != "0" && codigo != "50009" && codigo != "50010" && codigo != "50007" && codigo != "50006")
             {
                 TempData["Message"] = codigo; //el mismo codigo seria el error generado en el metodo ActualizarEmpleado
+                TempData["Type"] = "error";
                 return RedirectToAction(nombreVista, modelo);
             }
             else if (nombreVista == "Update")
             {
                 //Consulta el error y lo guarda comno aviso cuando redireccione a la pagina de inicio de sesion
                 TempData["Message"] = await ValidacionesEstaticas.ConsultaCodError(codigo, this._dbContext);
+                TempData["Type"] = "error";
                 return RedirectToAction(nombreVista, "Empleado", new { modelo.empleadoOriginal.Nombre });
             }
             return Ok();
@@ -687,6 +694,7 @@ namespace Tarea2_BD1.Controllers
             }
 
             TempData["Message"] = "Seleccione un puesto valido";
+            TempData["Type"] = "error";
 
             //Se serializa el modelo en un Json para enviarlo por TempData ya que por temas de HttpPost y HttpGet que se hacen
             //entre un metodo y el otro, no deja enviar el modelo por parametro
@@ -919,19 +927,22 @@ namespace Tarea2_BD1.Controllers
         {
             if (nombreVista == "Listar")
             {
-                TempData["Message"] = "Borrado exitoso";
+                TempData["Message"] = "Deletion successful";
+                TempData["Type"] = "success";
                 return RedirectToAction(nombreVista, "Empleado");
             }
             //Error generado en el try and catch del metodo que agrega el empleado a la BD
             else if (codigo != "0")
             {
-                TempData["Message"] = codigo; //el mismo codigo seria el error generado en el metodo ActualizarEmpleado
+                TempData["Message"] = codigo; //el mismo codigo seria el error generado en el metodo BorrarEmpleado
+                TempData["Type"] = "error";
                 return RedirectToAction(nombreVista, modelo);
             }
             else if (nombreVista == "Borrar")
             {
                 //Consulta el error y lo guarda comno aviso cuando redireccione a la pagina de inicio de sesion
                 TempData["Message"] = await ValidacionesEstaticas.ConsultaCodError(codigo, this._dbContext);
+                TempData["Type"] = "error";
                 return RedirectToAction(nombreVista, "Empleado", new { modelo.Nombre });
             }
             return Ok();
@@ -962,7 +973,8 @@ namespace Tarea2_BD1.Controllers
             }
             else if (confirmacion == "No")
             {
-                TempData["Message"] = "No se ha borrado ningún empleado";
+                TempData["Message"] = "No employee has been deleted";
+                TempData["Type"] = "info";
                 await BorrarEmpleado(modelo.Nombre, modelo.ValorDocumentoIdentidad, modelo.IdPuestoNavigation.Nombre, modelo.SaldoVacaciones, 2);
                 return RedirectToAction("Listar", "Empleado");
             }

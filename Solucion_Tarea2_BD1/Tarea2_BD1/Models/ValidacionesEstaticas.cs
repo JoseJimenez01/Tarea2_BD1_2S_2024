@@ -7,7 +7,12 @@ namespace Tarea2_BD1.Models
 {
     public class ValidacionesEstaticas
     {
-
+        /// <summary>
+        /// Obtains the error description from the database according to the code, using the SP_ConsultaError stored procedure.
+        /// </summary>
+        /// <param name="codigo">Some code error</param>
+        /// <param name="dbContext">Database context</param>
+        /// <returns>Description of the error code or a message error in case of this method failure.</returns>
         [HttpPost]
         public static async Task<string> ConsultaCodError(string codigo, Dbtarea2Context dbContext)
         {
@@ -21,16 +26,6 @@ namespace Tarea2_BD1.Models
                 SqlCommand comando = connection.CreateCommand();
                 comando.CommandType = System.Data.CommandType.StoredProcedure;
                 comando.CommandText = "SP_ConsultaError";
-
-                //Código para crear parámetros al Store Procedure
-                //SqlParameter paramUsername = new SqlParameter
-                //{
-                //    ParameterName = "@inUsername",
-                //    SqlDbType = SqlDbType.VarChar,
-                //    Size = 64,
-                //    Value = usuario,
-                //    Direction = ParameterDirection.Input
-                //};
 
                 SqlParameter paramCodigo = new SqlParameter
                 {
@@ -49,7 +44,6 @@ namespace Tarea2_BD1.Models
                 };
 
                 //Se agrega cada parámetro al SP
-                //comando.Parameters.Add(paramUsername);
                 comando.Parameters.Add(paramCodigo);
                 comando.Parameters.Add(paramResultado);
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Humanizer.Localisation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -16,8 +17,8 @@ public partial class Movimiento
 
     public DateOnly Fecha { get; set; }
 
-    [Required(ErrorMessage = "Debe agregar el monto")]
-    [Range(1.00,10000000.00, ErrorMessage = "El monto debe estar entre {1} y {2}")]
+    [Required(ErrorMessage = "Amount is required")]
+    [Range(1.00,10000000.00, ErrorMessage = "The amount must be between {1} y {2}")]
     public decimal Monto { get; set; }
 
     public decimal NuevoSaldo { get; set; }
@@ -28,9 +29,7 @@ public partial class Movimiento
 
     public virtual Empleado IdEmpleadoNavigation { get; set; } = null!;
 
-    //public virtual Usuario IdPostByUserNavigation { get; set; } = null!;
     public virtual Usuario IdPostByUserNavigation { get; set; } = new Usuario();
 
-    //public virtual TipoMovimiento IdTipoMovimientoNavigation { get; set; } = null!;
     public virtual TipoMovimiento IdTipoMovimientoNavigation { get; set; } = new TipoMovimiento();
 }

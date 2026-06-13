@@ -1,0 +1,13 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@if (TempData["Message"] is string message)
+{
+    var notificationType = TempData["Type"]?.ToString()?.ToLower() ?? "success";
+    <div class="notification notification-@notificationType">
+        <div class="notification-content">
+            @Localizer[message]
+        </div>
+        <div class="notification-progress"></div>
+    </div>
+}

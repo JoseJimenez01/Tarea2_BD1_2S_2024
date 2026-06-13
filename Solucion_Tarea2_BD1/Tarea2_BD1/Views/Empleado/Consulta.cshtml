@@ -1,14 +1,10 @@
-﻿@model Empleado
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@model Empleado
 
 @{
-    ViewData["Title"] = "Consultar empleado";
-}
-
-@if (TempData["Message"] != null)
-{
-    <div class="alert alert-danger">
-        @TempData["Message"]
-    </div>
+    ViewData["Title"] = Localizer["Look up employee"];
 }
 
 @section Scripts {
@@ -23,7 +19,7 @@
 
 </head>
 <body>
-    <h1>Borrar empleado</h1>
+    <h1>@Localizer["Look up employee"]</h1>
 
     <div class="form-floating">
 
@@ -31,32 +27,32 @@
 
             @* Sección para el valor de documentode identidad *@
             <div class="mt-3">
-                <label>Valor del documento de identidad:</label>
+                <label>@Localizer["Value of the identity document"]:</label>
                 <input type="text" class="form-control" name="ValorDocumentoIdentidad" value="@Html.DisplayFor(modelItem => Model.ValorDocumentoIdentidad)" readonly>
             </div>
 
             @* Sección para el nombre *@
             <div class="mt-3">
-                <label>Nombre:</label>
+                <label>@Localizer["Name"]:</label>
                 <input type="text" class="form-control" name="Nombre" value="@Html.DisplayFor(modelItem => Model.Nombre)" readonly>
             </div>
 
             @* Sección para el puesto *@
             <div class="mt-3">
-                <label>Puesto:</label>
-                <input type="text" class="form-control" name="IdPuestoNavigation.Nombre" value="@Html.DisplayFor(modelItem => Model.IdPuestoNavigation.Nombre)" readonly>
+                <label>@Localizer["Position"]:</label>
+                <input type="text" class="form-control" name="IdPuestoNavigation.Nombre" value="@Localizer[Model.IdPuestoNavigation.Nombre]" readonly>
             </div>
 
             @* Sección para el saldo vacaciones *@
             <div class="mt-3">
-                <label>Saldo vacaciones:</label>
+                <label>@Localizer["Vacation balance"]:</label>
                 <input type="text" class="form-control" name="SaldoVacaciones" value="@Html.DisplayFor(modelItem => Model.SaldoVacaciones)" readonly>
             </div>
 
         </form>
 
         <div class="mt-3" id="div-botones-consultarEmpleado">
-            <button id="btnBackAgregar" class="btn btn-primary" onclick="location.href='@Url.Action("Listar", "Empleado")'">Regresar</button>
+            <button id="btnBackAgregar" class="btn btn-primary" onclick="location.href='@Url.Action("Listar", "Empleado")'">@Localizer["Go back"]</button>
         </div>
 
     </div>

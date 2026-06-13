@@ -10,11 +10,11 @@ public partial class Empleado
 
     public int IdPuesto { get; set; }
 
-    [Required(ErrorMessage = "Debe ingresar el valor del documento de identidad")]
+    [Required(ErrorMessage = "You must enter the identity document number")]
     public int ValorDocumentoIdentidad { get; set; }
 
-    [Required(ErrorMessage = "Debe ingresar el nombre")]
-    [MaxLength(128, ErrorMessage = "El nombre puede tener un máximo de 128 caracteres")]
+    [Required(ErrorMessage = "You must enter the name")]
+    [MaxLength(128, ErrorMessage = "The name can have a maximum of 128 characters")]
     public string Nombre { get; set; } = null!;
 
     public DateOnly FechaContratacion { get; set; }
@@ -23,8 +23,6 @@ public partial class Empleado
     public decimal SaldoVacaciones { get; set; }
 
     public bool EsActivo { get; set; }
-
-    //public virtual Puesto IdPuestoNavigation { get; set; } = null!;
 
     public virtual Puesto IdPuestoNavigation { get; set; } = new Puesto();
     public virtual ICollection<Movimiento> Movimientos { get; set; } = new List<Movimiento>();
